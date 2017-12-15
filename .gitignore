@@ -3,3 +3,4 @@ original
 temp
 .directory
 gitup.sh
+*.kate-swp

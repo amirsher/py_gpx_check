@@ -8,7 +8,7 @@ import csv
 import glob, os
 import datetime
 
-#python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 70
+# python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 70
 
 #restricted_start = (32.49222,34.90380) # lat,lon
 #restricted_finish = (32.49885,34.90372) # lat,lon
