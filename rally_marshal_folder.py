@@ -8,7 +8,7 @@ import csv
 import glob, os
 import datetime
     
-# python rally_marshall_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
+# python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
 # lat,lon
 
 # WGS 84
@@ -128,70 +128,70 @@ def ConvertAndSpeed (file):
     
 
 def FindClosestSingle(i):
-    marshall_point = i.split(',') # lat,lon
-    marshall_point[0] = float(marshall_point[0])
-    marshall_point[1] = float(marshall_point[1])
+    marshal_point = i.split(',') # lat,lon
+    marshal_point[0] = float(marshal_point[0])
+    marshal_point[1] = float(marshal_point[1])
     
-    closest_to_marshall_point = None
-    closest_to_marshall_point_meters = 100000000000000000000.
+    closest_to_marshal_point = None
+    closest_to_marshal_point_meters = 100000000000000000000.
 
     reader = csv.reader(open("{1}/zzz_{0}.csv".format(file,cwd)), delimiter=',')
     for row in reader:
 
-        # calculate the distance to the marshall
-#                    start_meters = distance_haversine(marshall_point, (float(row[1]),float(row[2])))
+        # calculate the distance to the marshal
+#                    start_meters = distance_haversine(marshal_point, (float(row[1]),float(row[2])))
 
-        start_meters = distance_vincenty(marshall_point, (float(row[1]),float(row[2])))
+        start_meters = distance_vincenty(marshal_point, (float(row[1]),float(row[2])))
 
-        # determine if point closest to marshall
-        if start_meters < closest_to_marshall_point_meters  :
-            closest_to_marshall_point = row[0]
-            closest_to_marshall_point_meters = round(start_meters,2)
+        # determine if point closest to marshal
+        if start_meters < closest_to_marshal_point_meters  :
+            closest_to_marshal_point = row[0]
+            closest_to_marshal_point_meters = round(start_meters,2)
 
-    return (closest_to_marshall_point,closest_to_marshall_point_meters)
+    return (closest_to_marshal_point,closest_to_marshal_point_meters)
 
  
-def OutputMarshall(x,closest_to_marshall_point,closest_to_marshall_point_meters,out_of_range):
+def OutputMarshal(x,closest_to_marshal_point,closest_to_marshal_point_meters,out_of_range):
     
     reader = csv.reader(open("{1}/zzz_{0}.csv".format(file,cwd)), delimiter=',')
     for row in reader:
-            if (int(row[0]) == int(closest_to_marshall_point)) :
-                if int(closest_to_marshall_point_meters) > int(out_of_range) :
-                    output = ("Passed Marshall {0} at {1} range of {2} meters and speed of {3} kph. OUT OF RANGE".format(x, row[4],int(closest_to_marshall_point_meters), row[3]))
+            if (int(row[0]) == int(closest_to_marshal_point)) :
+                if int(closest_to_marshal_point_meters) > int(out_of_range) :
+                    output = ("Passed Marshal {0} at {1} range of {2} meters and speed of {3} kph. OUT OF RANGE".format(x, row[4],int(closest_to_marshal_point_meters), row[3]))
                 else :
-                    output = ("Passed Marshall {0} at {1} range of {2} meters and speed of {3} kph.".format(x, row[4],int(closest_to_marshall_point_meters), row[3]))
+                    output = ("Passed Marshal {0} at {1} range of {2} meters and speed of {3} kph.".format(x, row[4],int(closest_to_marshal_point_meters), row[3]))
                 print(output)
-                marshallfile.write("{}\n".format(output))
+                marshalfile.write("{}\n".format(output))
 
 now = datetime.datetime.now() 
-range_to_marshall_allowed = 80
+range_to_marshal_allowed = 80
 cwd = os.getcwd()
 
-with open("{0}/zzz_marshall_results.txt".format(cwd), "w"): pass # clear the txt file
+with open("{0}/zzz_marshal_results.txt".format(cwd), "w"): pass # clear the txt file
 
-with open("{0}/zzz_marshall_results.txt".format(cwd), "a") as marshallfile:
+with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
 
-    MarshallPoints= int(len(sys.argv)-1)
+    MarshalPoints= int(len(sys.argv)-1)
 
-    output = ("File generated on {2}.\nThere are {0} Marshall Points.\nOut of range set to {1} meters.\n".format(MarshallPoints,range_to_marshall_allowed,now.strftime("%Y-%m-%d %H:%M:%S")))
+    output = ("File generated on {2}.\nThere are {0} Marshal Points.\nOut of range set to {1} meters.\n".format(MarshalPoints,range_to_marshal_allowed,now.strftime("%Y-%m-%d %H:%M:%S")))
     print("\n{}".format(output))
-    marshallfile.write("{}\n".format(output))
+    marshalfile.write("{}\n".format(output))
 
-    if isinstance(MarshallPoints, int) :
+    if isinstance(MarshalPoints, int) :
 
         #os.chdir("/mydir")
         for file in glob.glob("*.gpx"):
                             
             ConvertAndSpeed (file)
             print(file)
-            marshallfile.write("{}\n".format(file))
-            for x in range(1, MarshallPoints+1):
-                marshall = FindClosestSingle((sys.argv)[x])
-                OutputMarshall(x,marshall[0],marshall[1],range_to_marshall_allowed)
+            marshalfile.write("{}\n".format(file))
+            for x in range(1, MarshalPoints+1):
+                marshal = FindClosestSingle((sys.argv)[x])
+                OutputMarshal(x,marshal[0],marshal[1],range_to_marshal_allowed)
 
 
     else:
-        print('\nworong arguments, please use:\n\npython rally_marshall_folder.py marshall1_lat,marshall1_long marshall2_lat,marshall2_long \n\nEx: python rally_marshall_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n')
+        print('\nworong arguments, please use:\n\npython rally_marshal_folder.py marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n')
         sys.exit(0)
 
-marshallfile.close()
+marshalfile.close()

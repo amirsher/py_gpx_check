@@ -13,11 +13,11 @@ see [zzz_spedding_results.txt](https://github.com/amirsher/py_gpx_check/blob/mas
 
 ### Marshaling ###
 
-Check all the .gpx files in the folder and producing a report of electronic marshaling. can have as many marshalls as needed.
+Check all the .gpx files in the folder and producing a report of electronic marshaling. can have as many marshals as needed.
 
-accept lat/long for each marshall.
+accept lat/long for each marshal.
 
-run: python rally_marshall_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
+run: python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
 
-see [zzz_marshall_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/zzz_marshall_results.txt) for sample report.
+see [zzz_marshal_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/zzz_marshal_results.txt) for sample report.
 
