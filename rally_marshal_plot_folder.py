@@ -8,7 +8,8 @@ import csv
 import glob, os
 import datetime
 import matplotlib.pyplot as plt
-    
+import folium
+
 # python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
 # lat,lon
 
@@ -97,15 +98,31 @@ def distance_haversine(point1, point2):
     #feet=miles*5280               # output distance in feet
     return meters
 
+def foliumMap(file):
+    foliumpoints = [] # for folium
+    with open("{0}".format(file), "r") as gpx_file: 
+        gpx = gpxpy.parse(gpx_file)
+        for track in gpx.tracks:
+            for segment in track.segments:
+                for point_no, point in enumerate(segment.points):
+                       foliumpoints.append(tuple([point.latitude, point.longitude]))
+    ave_lat = sum(p[0] for p in foliumpoints)/len(foliumpoints)
+    ave_lon = sum(p[1] for p in foliumpoints)/len(foliumpoints)
+    # Load map centred on average coordinates
+    my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=14)
+    return my_map
 
-def ConvertAndSpeed (file):
+
+
+def ConvertAndSpeed (file,my_map,color):
     with open("{1}/zzz_{0}.csv".format(file,cwd), "w"): pass # clear the csv file
 
     with open("{0}".format(file), "r") as gpx_file: 
 
     #gpx_file = open('z20171214-111736.gpx', 'r')
-        latitude = []
-        longitude = []
+        latitude = [] # for matplotlib
+        longitude = [] # for matplotlib
+        foliumpoints = [] # for folium
 
         gpx = gpxpy.parse(gpx_file)
         for track in gpx.tracks:
@@ -134,10 +151,15 @@ def ConvertAndSpeed (file):
                 
                     latitude.append( point.latitude )
                     longitude.append( point.longitude )
+                    foliumpoints.append(tuple([point.latitude, point.longitude]))
 
-        plt.plot(latitude,longitude,label=file)
-        plt.legend()
-        plt.show(block=False)
+ #       plt.axis('equal')
+    plt.plot(longitude,latitude,label=file,) #
+    plt.legend()
+    plt.show(block=False)
+    folium.PolyLine(foliumpoints, color="{}".format(color), weight=4, opacity=1).add_to(my_map)
+    return my_map
+
 
 def FindClosestSingle(i):
     marshal_point = i.split(',') # lat,lon
@@ -179,6 +201,9 @@ now = datetime.datetime.now()
 distance_to_marshal_allowed = 80
 cwd = os.getcwd()
 
+color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white", "black" ]
+c = 0
+
 with open("{0}/zzz_marshal_results.txt".format(cwd), "w"): pass # clear the txt file
 
 with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
@@ -191,23 +216,33 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
 
     if isinstance(MarshalPoints, int) :
 
+        my_map=foliumMap(glob.glob("*.gpx")[0])
         #os.chdir("/mydir")
         for file in glob.glob("*.gpx"):
                             
-            ConvertAndSpeed (file)
+            my_map=ConvertAndSpeed(file,my_map,color[c])
             print(file)
             marshalfile.write("{}\n".format(file))
             for x in range(1, MarshalPoints+1):
                 marshal = FindClosestSingle((sys.argv)[x])
                 OutputMarshal(x,marshal[0],marshal[1],distance_to_marshal_allowed)
             os.remove("{1}/zzz_{0}.csv".format(file,cwd))
+            if c < 15 :
+                c = c + 1
+            else:
+                c = 0
+            
+        my_map.save("TrackingMap.html")
 
     else:
         print('\nworong arguments, please use:\n\npython rally_marshal_folder.py marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n')
         sys.exit(0)
 
 marshalfile.close()
+
 plt.xlabel('latitude')
 plt.ylabel('longitude')
 plt.savefig('tracking.png', bbox_inches='tight', dpi=288)
+plt.title(u'\u25B2 \nN ',loc='left', rotation = 0,family='sans-serif', fontsize=16) # north arrow
+plt.tight_layout()
 plt.show()

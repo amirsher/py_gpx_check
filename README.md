@@ -26,3 +26,6 @@ see [zzz_marshal_results.txt](https://github.com/amirsher/py_gpx_check/blob/mast
 Added ploting of the tracks using [matplotlib](https://matplotlib.org/)
 
 [zzz_marshal_plot_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/zzz_marshal_plot_results.txt)
+
+see [tracking.png](https://github.com/amirsher/py_gpx_check/blob/master/tracking.png) for sample report.
+
