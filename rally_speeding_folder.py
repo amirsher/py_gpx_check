@@ -113,16 +113,19 @@ def ConvertAndSpeed (file):
                 for point_no, point in enumerate(segment.points):
                     # calculate the speed
                     if point.speed != None:
-                        speed = round((point.speed)*3.6,2)
-                    elif point_no > 0 and point_no < len(segment.points)-1  :
-                        speed1 = point.speed_between(segment.points[point_no - 1])
-                        speed2 = point.speed_between(segment.points[point_no + 1])
-                        if (speed1 is None) or (speed2 is None) :
-                            pass
-                        else:
-                            speed = round(((speed1+speed2)/2)*3.6,2) #speed im kph rounded to 2 decimal
+                        speed = round((point.speed)*3.6,2) #convert to kph rounded to 2 decimal
+#                    elif point_no > 0 and point_no < len(segment.points)-1  :
+#                        speed1 = point.speed_between(segment.points[point_no - 1])
+#                        speed2 = point.speed_between(segment.points[point_no + 1])
+#                        if (speed1 is None) or (speed2 is None) :
+#                            pass
+#                        else:
+#                           speed = round(((speed1+speed2)/2)*3.6,2) #speed im kph rounded to 2 decimal
                     else :
-                        speed = 0.0
+#                        speed = 0.0
+                        speed = segment.get_speed(point_no)
+                        if speed != None:
+                            speed = round(speed*3.6,2) #convert to kph rounded to 2 decimal
                             
                     with open("{1}/zzz_{0}.csv".format(file,cwd), "a") as gpxfile:
 
@@ -191,7 +194,7 @@ with open("{0}/zzz_spedding_results.txt".format(cwd), "a") as speddingfile:
         
     restrictedZones= int((len(sys.argv)-1)/3)
         
-    output = ("File generated on {1}.\nThere are {0} restricted Zones.".format(restrictedZones,now.strftime("%Y-%m-%d %H:%M:%S")))
+    output = ("File generated on {1}.\nThere are {0} restricted Zone(s).".format(restrictedZones,now.strftime("%Y-%m-%d %H:%M:%S")))
     print("\n{}".format(output))
     speddingfile.write("{}\n".format(output))
 
@@ -206,6 +209,7 @@ with open("{0}/zzz_spedding_results.txt".format(cwd), "a") as speddingfile:
 
                 zone = FindClosest(x) # number of restricted zone
                 OutputSpedding(zone[0],zone[1],zone[2])
+            os.remove("{1}/zzz_{0}.csv".format(file,cwd))
 
     else:
         print('\nworong arguments, please use:\n\npython rally_speeding_folder.py start_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n')

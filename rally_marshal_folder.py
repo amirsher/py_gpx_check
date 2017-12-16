@@ -110,16 +110,19 @@ def ConvertAndSpeed (file):
                 for point_no, point in enumerate(segment.points):
                     # calculate the speed
                     if point.speed != None:
-                        speed = round((point.speed)*3.6,2)
-                    elif point_no > 0 and point_no < len(segment.points)-1  :
-                        speed1 = point.speed_between(segment.points[point_no - 1])
-                        speed2 = point.speed_between(segment.points[point_no + 1])
-                        if (speed1 is None) or (speed2 is None) :
-                            pass
-                        else:
-                            speed = round(((speed1+speed2)/2)*3.6,2) #speed im kph rounded to 2 decimal
+                        speed = round((point.speed)*3.6,2) #convert to kph rounded to 2 decimal
+#                    elif point_no > 0 and point_no < len(segment.points)-1  :
+#                        speed1 = point.speed_between(segment.points[point_no - 1])
+#                        speed2 = point.speed_between(segment.points[point_no + 1])
+#                        if (speed1 is None) or (speed2 is None) :
+#                            pass
+#                        else:
+#                           speed = round(((speed1+speed2)/2)*3.6,2) #speed im kph rounded to 2 decimal
                     else :
-                        speed = 0.0
+#                        speed = 0.0
+                        speed = segment.get_speed(point_no)
+                        if speed != None:
+                            speed = round(speed*3.6,2) #convert to kph rounded to 2 decimal
                             
                     with open("{1}/zzz_{0}.csv".format(file,cwd), "a") as gpxfile:
 
@@ -157,14 +160,14 @@ def OutputMarshal(x,closest_to_marshal_point,closest_to_marshal_point_meters,out
     for row in reader:
             if (int(row[0]) == int(closest_to_marshal_point)) :
                 if int(closest_to_marshal_point_meters) > int(out_of_range) :
-                    output = ("Passed Marshal {0} at {1} range of {2} meters and speed of {3} kph. OUT OF RANGE".format(x, row[4],int(closest_to_marshal_point_meters), row[3]))
+                    output = ("Passed Marshal {0} at {1} distance of {2} meters and speed of {3} kph. OUT OF RANGE".format(x, row[4],int(closest_to_marshal_point_meters), row[3]))
                 else :
-                    output = ("Passed Marshal {0} at {1} range of {2} meters and speed of {3} kph.".format(x, row[4],int(closest_to_marshal_point_meters), row[3]))
+                    output = ("Passed Marshal {0} at {1} distance of {2} meters and speed of {3} kph.".format(x, row[4],int(closest_to_marshal_point_meters), row[3]))
                 print(output)
                 marshalfile.write("{}\n".format(output))
 
 now = datetime.datetime.now() 
-range_to_marshal_allowed = 80
+distance_to_marshal_allowed = 80
 cwd = os.getcwd()
 
 with open("{0}/zzz_marshal_results.txt".format(cwd), "w"): pass # clear the txt file
@@ -173,7 +176,7 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
 
     MarshalPoints= int(len(sys.argv)-1)
 
-    output = ("File generated on {2}.\nThere are {0} Marshal Points.\nOut of range set to {1} meters.\n".format(MarshalPoints,range_to_marshal_allowed,now.strftime("%Y-%m-%d %H:%M:%S")))
+    output = ("File generated on {2}.\nThere are {0} Marshal Point(s).\nOut of distance set to {1} meters.\n".format(MarshalPoints,distance_to_marshal_allowed,now.strftime("%Y-%m-%d %H:%M:%S")))
     print("\n{}".format(output))
     marshalfile.write("{}\n".format(output))
 
@@ -187,8 +190,8 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
             marshalfile.write("{}\n".format(file))
             for x in range(1, MarshalPoints+1):
                 marshal = FindClosestSingle((sys.argv)[x])
-                OutputMarshal(x,marshal[0],marshal[1],range_to_marshal_allowed)
-
+                OutputMarshal(x,marshal[0],marshal[1],distance_to_marshal_allowed)
+            os.remove("{1}/zzz_{0}.csv".format(file,cwd))
 
     else:
         print('\nworong arguments, please use:\n\npython rally_marshal_folder.py marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n')
