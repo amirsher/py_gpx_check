@@ -21,3 +21,8 @@ run: python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,
 
 see [zzz_marshal_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/zzz_marshal_results.txt) for sample report.
 
+### Track Ploting ###
+
+Added ploting of the tracks using [matplotlib](https://matplotlib.org/)
+
+[zzz_marshal_plot_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/zzz_marshal_plot_results.txt)
