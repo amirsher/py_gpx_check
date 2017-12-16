@@ -9,6 +9,7 @@ import glob, os
 import datetime
 import matplotlib.pyplot as plt
 import folium
+from folium.plugins import MeasureControl
 
 # python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
 # lat,lon
@@ -109,7 +110,17 @@ def foliumMap(file):
     ave_lat = sum(p[0] for p in foliumpoints)/len(foliumpoints)
     ave_lon = sum(p[1] for p in foliumpoints)/len(foliumpoints)
     # Load map centred on average coordinates
-    my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=14)
+    #Map tileset to use. Can choose from this list of built-in tiles:
+    #            - "OpenStreetMap"
+    #            - "Stamen Terrain", "Stamen Toner", "Stamen Watercolor"
+    #            - "CartoDB positron", "CartoDB dark_matter"
+    #            - "Mapbox Bright", "Mapbox Control Room" (Limited zoom)
+    #            - "Cloudmade" (Must pass API key)
+    #            - "Mapbox" (Must pass API key)
+
+    my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=14, tiles='OpenStreetMap')
+    my_map.add_child(MeasureControl())
+
     return my_map
 
 
@@ -157,7 +168,7 @@ def ConvertAndSpeed (file,my_map,color):
     plt.plot(longitude,latitude,label=file,) #
     plt.legend()
     plt.show(block=False)
-    folium.PolyLine(foliumpoints, color="{}".format(color), weight=4, opacity=1).add_to(my_map)
+    folium.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(file), weight=3, opacity=1).add_to(my_map)
     return my_map
 
 
@@ -200,6 +211,8 @@ def OutputMarshal(x,closest_to_marshal_point,closest_to_marshal_point_meters,out
 now = datetime.datetime.now() 
 distance_to_marshal_allowed = 80
 cwd = os.getcwd()
+
+#['red', 'blue', 'green', 'purple', 'orange', 'darkred','lightred', 'beige', 'darkblue', 'darkgreen', 'cadetblue','darkpurple', 'white', 'pink', 'lightblue', 'lightgreen','gray', 'black', 'lightgray']
 
 color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white", "black" ]
 c = 0
