@@ -228,8 +228,12 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
     marshalfile.write("{}\n".format(output))
 
     if isinstance(MarshalPoints, int) :
-
-        my_map=foliumMap(glob.glob("*.gpx")[0])
+        
+        if (glob.glob("*.gpx")) :
+            my_map=foliumMap(glob.glob("*.gpx")[0])
+        else:
+            print("No gpx files\n")
+            sys.exit(0)
         #os.chdir("/mydir")
         for file in glob.glob("*.gpx"):
                             
@@ -238,6 +242,13 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
             marshalfile.write("{}\n".format(file))
             for x in range(1, MarshalPoints+1):
                 marshal = FindClosestSingle((sys.argv)[x])
+
+                # add marshal marker to web map
+                marshalpoint = ((sys.argv)[x]).split(',')
+                marshalpoint[0] = float(marshalpoint[0])
+                marshalpoint[1] = float(marshalpoint[1])
+                folium.Marker(location=(marshalpoint[0],marshalpoint[1]), popup="Marshal {}".format(x)).add_to(my_map)
+
                 OutputMarshal(x,marshal[0],marshal[1],distance_to_marshal_allowed)
             os.remove("{1}/zzz_{0}.csv".format(file,cwd))
             if c < 15 :
