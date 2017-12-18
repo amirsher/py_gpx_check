@@ -9,7 +9,7 @@ import glob, os
 import datetime
 import matplotlib.pyplot as plt
 import folium
-from folium.plugins import MeasureControl
+#from folium.plugins import MeasureControl
 
 # python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
 # lat,lon
@@ -118,14 +118,13 @@ def foliumMap(file):
     #            - "Cloudmade" (Must pass API key)
     #            - "Mapbox" (Must pass API key)
 
-    my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=14, tiles='OpenStreetMap')
-    my_map.add_child(MeasureControl())
+    my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=12,control_scale=True, tiles='OpenStreetMap')
+#    my_map.add_child(MeasureControl())
 
     return my_map
 
 
-
-def ConvertAndSpeed (file,my_map,color):
+def ConvertAndSpeed (file,my_map,color,line_points):
     with open("{1}/zzz_{0}.csv".format(file,cwd), "w"): pass # clear the csv file
 
     with open("{0}".format(file), "r") as gpx_file: 
@@ -137,7 +136,7 @@ def ConvertAndSpeed (file,my_map,color):
 
         gpx = gpxpy.parse(gpx_file)
         for track in gpx.tracks:
-            for segment in track.segments:
+            for segment_no, segment in enumerate(track.segments):
                 for point_no, point in enumerate(segment.points):
                     # calculate the speed
                     if point.speed != None:
@@ -154,7 +153,12 @@ def ConvertAndSpeed (file,my_map,color):
                         speed = segment.get_speed(point_no)
                         if speed != None:
                             speed = round(speed*3.6,2) #convert to kph rounded to 2 decimal
+
+                    if line_points == "points" :
+                        folium.features.Circle(location=(point.latitude,point.longitude),radius=4,fill="true",color="{}".format(color),fill_color="{0}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}".format(file,speed,point.latitude,point.longitude,point.time),fill_opacity=0.5).add_to(my_map)
                             
+
+
                     with open("{1}/zzz_{0}.csv".format(file,cwd), "a") as gpxfile:
 
                         gpxfile.write('{0},{1},{2},{3},{4}\n'.format(point_no, point.latitude, point.longitude, speed, point.time))
@@ -164,11 +168,18 @@ def ConvertAndSpeed (file,my_map,color):
                     longitude.append( point.longitude )
                     foliumpoints.append(tuple([point.latitude, point.longitude]))
 
+            if segment_no > 0 :
+                output1="WARNING!, the file contain {0} segments, should be no more then 1 so the results will be correct".format(segment_no+1)
+                print(output1)
+                marshalfile.write("{0}\n".format(output1))
+
+    if line_points == "line" :
+        folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(file), weight=3, opacity=1).add_to(my_map)
+
  #       plt.axis('equal')
     plt.plot(longitude,latitude,label=file,) #
     plt.legend()
     plt.show(block=False)
-    folium.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(file), weight=3, opacity=1).add_to(my_map)
     return my_map
 
 
@@ -216,6 +227,10 @@ cwd = os.getcwd()
 
 color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white", "black" ]
 c = 0
+line_points = "points" # display "line" or "points"
+
+if line_points != "line" and line_points != "points":
+    line_points = "line"
 
 with open("{0}/zzz_marshal_results.txt".format(cwd), "w"): pass # clear the txt file
 
@@ -223,7 +238,7 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
 
     MarshalPoints= int(len(sys.argv)-1)
 
-    output = ("File generated on {2}.\nThere are {0} Marshal Point(s).\nOut of distance set to {1} meters.\n".format(MarshalPoints,distance_to_marshal_allowed,now.strftime("%Y-%m-%d %H:%M:%S")))
+    output = ("File generated on {2}.\nThere are {0} Marshal Point(s).\nOut of range set to {1} meters.\n".format(MarshalPoints,distance_to_marshal_allowed,now.strftime("%Y-%m-%d %H:%M:%S")))
     print("\n{}".format(output))
     marshalfile.write("{}\n".format(output))
 
@@ -237,8 +252,8 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
         #os.chdir("/mydir")
         for file in glob.glob("*.gpx"):
                             
-            my_map=ConvertAndSpeed(file,my_map,color[c])
             print(file)
+            my_map=ConvertAndSpeed(file,my_map,color[c],line_points)
             marshalfile.write("{}\n".format(file))
             for x in range(1, MarshalPoints+1):
                 marshal = FindClosestSingle((sys.argv)[x])
@@ -247,7 +262,7 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
                 marshalpoint = ((sys.argv)[x]).split(',')
                 marshalpoint[0] = float(marshalpoint[0])
                 marshalpoint[1] = float(marshalpoint[1])
-                folium.Marker(location=(marshalpoint[0],marshalpoint[1]), popup="Marshal {}".format(x)).add_to(my_map)
+                folium.Marker(location=(marshalpoint[0],marshalpoint[1]), popup="Marshal {0}<br>{1} , {2}".format(x,marshalpoint[0],marshalpoint[1])).add_to(my_map)
 
                 OutputMarshal(x,marshal[0],marshal[1],distance_to_marshal_allowed)
             os.remove("{1}/zzz_{0}.csv".format(file,cwd))

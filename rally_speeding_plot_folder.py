@@ -8,7 +8,7 @@ import csv
 import glob, os
 import datetime
 import folium
-from folium.plugins import MeasureControl
+#from folium.plugins import MeasureControl
 
 # python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 70
 
@@ -121,14 +121,13 @@ def foliumMap(file):
     #            - "Cloudmade" (Must pass API key)
     #            - "Mapbox" (Must pass API key)
 
-    my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=14, tiles='OpenStreetMap')
-    my_map.add_child(MeasureControl())
+    my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=12,control_scale=True, tiles='OpenStreetMap')
+#    my_map.add_child(MeasureControl())
 
     return my_map
 
 
-
-def ConvertAndSpeed (file,my_map,color):
+def ConvertAndSpeed (file,my_map,color,line_points):
     with open("{1}/zzz_{0}.csv".format(file,cwd), "w"): pass # clear the csv file
 
     with open("{0}".format(file), "r") as gpx_file: 
@@ -140,7 +139,7 @@ def ConvertAndSpeed (file,my_map,color):
 
         gpx = gpxpy.parse(gpx_file)
         for track in gpx.tracks:
-            for segment in track.segments:
+            for segment_no, segment in enumerate(track.segments):
                 for point_no, point in enumerate(segment.points):
                     # calculate the speed
                     if point.speed != None:
@@ -157,17 +156,29 @@ def ConvertAndSpeed (file,my_map,color):
                         speed = segment.get_speed(point_no)
                         if speed != None:
                             speed = round(speed*3.6,2) #convert to kph rounded to 2 decimal
+
+                    if line_points == "points" :
+                        folium.features.Circle(location=(point.latitude,point.longitude),radius=4,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}".format(file,speed,point.latitude,point.longitude,point.time),fill_opacity=0.5).add_to(my_map)
                             
+
+
                     with open("{1}/zzz_{0}.csv".format(file,cwd), "a") as gpxfile:
 
                         gpxfile.write('{0},{1},{2},{3},{4}\n'.format(point_no, point.latitude, point.longitude, speed, point.time))
                         gpxfile.close()
                 
-                    latitude.append( point.latitude )
-                    longitude.append( point.longitude )
-                    foliumpoints.append(tuple([point.latitude, point.longitude]))
+                    if line_points == "line" :
+                        latitude.append( point.latitude )
+                        longitude.append( point.longitude )
+                        foliumpoints.append(tuple([point.latitude, point.longitude]))
 
-    folium.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(file), weight=3, opacity=1).add_to(my_map)
+            if segment_no > 0 :
+                output1="WARNING!, the file contain {0} segments, should be no more then 1 so the results will be correct".format(segment_no+1)
+                print(output1)
+                marshalfile.write("{0}\n".format(output1))
+
+    if line_points == "line" :
+        folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(file), weight=3, opacity=1).add_to(my_map)
     return my_map
 
 def FindClosest(i):
@@ -208,7 +219,9 @@ def FindClosest(i):
 
     output = ('\n{4}\nRestricted {6}Kph Zone {5}:\nClosest to start Point {0} at {1} meters, Closest to finish Point {2} at {3} meters.\n'.format(closest_to_start, closest_to_start_meters, closest_to_finish, closest_to_finish_meters, file,i,restricted_speed))
     print(output)
-    speddingfile.write("{}\n".format(output))
+    speddingfile.write("{0}\n".format(output))
+    folium.Marker(location=(restricted_start[0],restricted_start[1]),icon=folium.Icon(color='red', icon='info-sign'), popup="restricted zone {0} start<br>speed limit <b>{1} kph</b>".format(i,restricted_speed)).add_to(my_map)
+    folium.Marker(location=(restricted_finish[0],restricted_finish[1]),icon=folium.Icon(color='green', icon='ok-sign'), popup="restricted zone {0} end".format(i)).add_to(my_map)
 
     return (closest_to_start,closest_to_finish,restricted_speed)
     
@@ -217,11 +230,11 @@ def OutputSpedding(closest_to_start,closest_to_finish,restricted_speed):
     
     reader = csv.reader(open("{1}/zzz_{0}.csv".format(file,cwd)), delimiter=',')
     for row in reader:
-            if ((int(row[0]) >= int(closest_to_start)) and (int(row[0]) <= int(closest_to_finish))  and (float(row[3]) >= int(restricted_speed))):
-                output = ("SPEEDING!!! at point {0} latitude: {1} longitude: {2} speed: {3} kph.".format(row[0],row[1],row[2],row[3]))
-                print(output)
-                speddingfile.write("{}\n".format(output))
-                folium.Marker(location=(float(row[1]),float(row[2])),icon=folium.Icon(color='red', icon='camera'), popup="{0}<br>{1} kph".format(file,row[3])).add_to(my_map)
+        if ((int(row[0]) >= int(closest_to_start)) and (int(row[0]) <= int(closest_to_finish))  and (float(row[3]) >= int(restricted_speed))):
+            output = ("SPEEDING!!! at point {0} latitude: {1} longitude: {2} speed: {3} kph.".format(row[0],row[1],row[2],row[3]))
+            print(output)
+            speddingfile.write("{}\n".format(output))
+            folium.Marker(location=(float(row[1]),float(row[2])),icon=folium.Icon(color='black', icon='camera'), popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(file,row[3],row[1],row[2],row[4])).add_to(my_map)
 
 
 color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white", "black" ]
@@ -229,6 +242,11 @@ c = 0
 
 now = datetime.datetime.now() 
 cwd = os.getcwd()
+reverse = 0
+line_points = "points" # display "line" or "points"
+
+if line_points != "line" and line_points != "points":
+    line_points = "line"
 
 with open("{0}/zzz_spedding_results.txt".format(cwd), "w"): pass # clear the txt file
 
@@ -250,12 +268,15 @@ with open("{0}/zzz_spedding_results.txt".format(cwd), "a") as speddingfile:
         #os.chdir("/mydir")
         for file in glob.glob("*.gpx"):
                             
-            my_map=ConvertAndSpeed(file,my_map,color[c])
+            my_map=ConvertAndSpeed(file,my_map,color[c],line_points)
 
             for x in range(1, restrictedZones+1):
 
                 zone = FindClosest(x) # number of restricted zone
                 OutputSpedding(zone[0],zone[1],zone[2])
+                if reverse == 1 :
+                    OutputSpedding(zone[1],zone[0],zone[2])
+
             os.remove("{1}/zzz_{0}.csv".format(file,cwd))
             if c < 15 :
                 c = c + 1
