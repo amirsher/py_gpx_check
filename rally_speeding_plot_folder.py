@@ -217,7 +217,7 @@ def FindClosest(i):
             closest_to_finish = row[0]
             closest_to_finish_meters = round(finish_meters,2)
 
-    output = ('\n{4}\nRestricted {6}Kph Zone {5}:\nClosest to start Point {0} at {1} meters, Closest to finish Point {2} at {3} meters.\n'.format(closest_to_start, closest_to_start_meters, closest_to_finish, closest_to_finish_meters, file,i,restricted_speed))
+    output = ('\n{4}\nRestricted {6} kph Zone {5}:\nClosest to start Point {0} at {1} meters, Closest to finish Point {2} at {3} meters.\n'.format(closest_to_start, closest_to_start_meters, closest_to_finish, closest_to_finish_meters, file,i,restricted_speed))
     print(output)
     speddingfile.write("{0}\n".format(output))
     folium.Marker(location=(restricted_start[0],restricted_start[1]),icon=folium.Icon(color='red', icon='info-sign'), popup="restricted zone {0} start<br>speed limit <b>{1} kph</b>".format(i,restricted_speed)).add_to(my_map)
