@@ -173,9 +173,9 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                         foliumpoints.append(tuple([point.latitude, point.longitude]))
 
             if segment_no > 0 :
-                output1="WARNING!, the file contain {0} segments, should be no more then 1 so the results will be correct".format(segment_no+1)
+                output1="\nWARNING!, file {0} contain {1} segments, should be no more then 1 segment to get correct results\n".format(file,segment_no+1)
                 print(output1)
-                marshalfile.write("{0}\n".format(output1))
+                speddingfile.write("{0}\n".format(output1))
 
     if line_points == "line" :
         folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(file), weight=3, opacity=1).add_to(my_map)
@@ -243,7 +243,8 @@ c = 0
 now = datetime.datetime.now() 
 cwd = os.getcwd()
 reverse = 0
-line_points = "points" # display "line" or "points"
+
+line_points = "points" # display "line" or "points", points is very slow.
 
 if line_points != "line" and line_points != "points":
     line_points = "line"

@@ -169,7 +169,7 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                     foliumpoints.append(tuple([point.latitude, point.longitude]))
 
             if segment_no > 0 :
-                output1="WARNING!, the file contain {0} segments, should be no more then 1 so the results will be correct".format(segment_no+1)
+                output1="\nWARNING!, file {0} contain {1} segments, should be no more then 1 segment to get correct results\n".format(file,segment_no+1)
                 print(output1)
                 marshalfile.write("{0}\n".format(output1))
 
@@ -219,15 +219,16 @@ def OutputMarshal(x,closest_to_marshal_point,closest_to_marshal_point_meters,out
                 print(output)
                 marshalfile.write("{}\n".format(output))
 
-now = datetime.datetime.now() 
-distance_to_marshal_allowed = 80
-cwd = os.getcwd()
-
 #['red', 'blue', 'green', 'purple', 'orange', 'darkred','lightred', 'beige', 'darkblue', 'darkgreen', 'cadetblue','darkpurple', 'white', 'pink', 'lightblue', 'lightgreen','gray', 'black', 'lightgray']
 
 color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white", "black" ]
 c = 0
-line_points = "points" # display "line" or "points"
+
+now = datetime.datetime.now() 
+distance_to_marshal_allowed = 80
+cwd = os.getcwd()
+
+line_points = "line" # display "line" or "points", points is very slow.
 
 if line_points != "line" and line_points != "points":
     line_points = "line"
