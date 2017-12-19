@@ -9,6 +9,7 @@ import glob, os
 import datetime
 import matplotlib.pyplot as plt
 import folium
+from folium.plugins import FloatImage
 #from folium.plugins import MeasureControl
 
 # python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
@@ -119,6 +120,8 @@ def foliumMap(file):
     #            - "Mapbox" (Must pass API key)
 
     my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=12,control_scale=True, tiles='OpenStreetMap')
+    url = ('http://tnuatiming.com/android-chrome-36x36.png')
+    FloatImage(url, bottom=2, left=96).add_to(my_map)
 #    my_map.add_child(MeasureControl())
 
     return my_map
@@ -155,7 +158,7 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                             speed = round(speed*3.6,2) #convert to kph rounded to 2 decimal
 
                     if line_points == "points" :
-                        folium.features.Circle(location=(point.latitude,point.longitude),radius=4,fill="true",color="{}".format(color),fill_color="{0}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}".format(file,speed,point.latitude,point.longitude,point.time),fill_opacity=0.5).add_to(my_map)
+                        folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}".format(file,speed,point.latitude,point.longitude,point.time),fill_opacity=0.8).add_to(my_map)
                             
 
 
@@ -218,6 +221,8 @@ def OutputMarshal(x,closest_to_marshal_point,closest_to_marshal_point_meters,out
                     output = ("Passed Marshal {0} at {1} distance of {2} meters and speed of {3} kph.".format(x, row[4],int(closest_to_marshal_point_meters), row[3]))
                 print(output)
                 marshalfile.write("{}\n".format(output))
+                folium.features.Circle(location=(float(row[1]),float(row[2])),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0}<br>passed {1} meters from marshal {2}".format(file,closest_to_marshal_point_meters,x),fill_opacity=1).add_to(my_map)
+
 
 #['red', 'blue', 'green', 'purple', 'orange', 'darkred','lightred', 'beige', 'darkblue', 'darkgreen', 'cadetblue','darkpurple', 'white', 'pink', 'lightblue', 'lightgreen','gray', 'black', 'lightgray']
 
@@ -263,9 +268,15 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
                 marshalpoint = ((sys.argv)[x]).split(',')
                 marshalpoint[0] = float(marshalpoint[0])
                 marshalpoint[1] = float(marshalpoint[1])
-                folium.Marker(location=(marshalpoint[0],marshalpoint[1]), popup="Marshal {0}<br>{1} , {2}".format(x,marshalpoint[0],marshalpoint[1])).add_to(my_map)
+                
+                folium.Marker(location=(marshalpoint[0],marshalpoint[1]),icon=folium.Icon(color='blue', icon='male', prefix="fa"), popup="Marshal {0}<br>{1} , {2}".format(x,marshalpoint[0],marshalpoint[1])).add_to(my_map)
+                
+                folium.features.Circle(location=(marshalpoint[0],marshalpoint[1]),radius=distance_to_marshal_allowed, weight=1,color="gray", popup="allowed {0} meters from marshal {1}".format(distance_to_marshal_allowed,x),opacity=0.2).add_to(my_map)
 
                 OutputMarshal(x,marshal[0],marshal[1],distance_to_marshal_allowed)
+
+
+
             os.remove("{1}/zzz_{0}.csv".format(file,cwd))
             if c < 15 :
                 c = c + 1
