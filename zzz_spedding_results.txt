@@ -1,23 +1,23 @@
-File generated on 2017-12-19 10:22:52.
+File generated on 2017-12-19 20:50:46.
 There are 2 restricted Zone(s).
 
-Track201712141045R.gpx
+Track201712141045R
 Restricted 50.0 kph Zone 1:
 Closest to start Point 2 at 3.55 meters, Closest to finish Point 6 at 91.82 meters.
 
 
-Track201712141045R.gpx
+Track201712141045R
 Restricted 90.0 kph Zone 2:
 Closest to start Point 11 at 41.43 meters, Closest to finish Point 19 at 24.43 meters.
 
 
-z20171214-111736.gpx
+z20171214-111736
 Restricted 50.0 kph Zone 1:
 Closest to start Point 9 at 5.5 meters, Closest to finish Point 47 at 0.52 meters.
 
 SPEEDING!!! at point 26 latitude: 45.48614 longitude: 5.90886 speed: 50.92 kph.
 
-z20171214-111736.gpx
+z20171214-111736
 Restricted 90.0 kph Zone 2:
 Closest to start Point 111 at 0.49 meters, Closest to finish Point 218 at 0.2 meters.
 
@@ -33,7 +33,7 @@ SPEEDING!!! at point 191 latitude: 45.50716 longitude: 5.90368 speed: 90.39 kph.
 SPEEDING!!! at point 211 latitude: 45.50996 longitude: 5.90471 speed: 90.26 kph.
 SPEEDING!!! at point 212 latitude: 45.51012 longitude: 5.9048 speed: 101.64 kph.
 
-z20171214-104524R.gpx
+z20171214-104524R
 Restricted 50.0 kph Zone 1:
 Closest to start Point 108 at 1.69 meters, Closest to finish Point 162 at 4.4 meters.
 
@@ -47,37 +47,37 @@ SPEEDING!!! at point 160 latitude: 45.48614 longitude: 5.90624 speed: 56.45 kph.
 SPEEDING!!! at point 161 latitude: 45.48614 longitude: 5.90607 speed: 52.45 kph.
 SPEEDING!!! at point 162 latitude: 45.48615 longitude: 5.90591 speed: 51.3 kph.
 
-z20171214-104524R.gpx
+z20171214-104524R
 Restricted 90.0 kph Zone 2:
 Closest to start Point 247 at 11.87 meters, Closest to finish Point 362 at 2.42 meters.
 
 
-z20171214-104524.gpx
+z20171214-104524
 Restricted 50.0 kph Zone 1:
 Closest to start Point 409 at 1.69 meters, Closest to finish Point 355 at 4.4 meters.
 
 
-z20171214-104524.gpx
+z20171214-104524
 Restricted 90.0 kph Zone 2:
 Closest to start Point 270 at 11.87 meters, Closest to finish Point 155 at 2.42 meters.
 
 
-Track201712141117.gpx
+Track201712141117
 Restricted 50.0 kph Zone 1:
 Closest to start Point 3 at 0.0 meters, Closest to finish Point 7 at 0.0 meters.
 
 
-Track201712141117.gpx
+Track201712141117
 Restricted 90.0 kph Zone 2:
 Closest to start Point 13 at 0.0 meters, Closest to finish Point 21 at 0.0 meters.
 
 
-Track201712141045.gpx
+Track201712141045
 Restricted 50.0 kph Zone 1:
 Closest to start Point 24 at 3.55 meters, Closest to finish Point 20 at 91.82 meters.
 
 
-Track201712141045.gpx
+Track201712141045
 Restricted 90.0 kph Zone 2:
 Closest to start Point 15 at 41.43 meters, Closest to finish Point 7 at 24.43 meters.
 
