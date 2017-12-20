@@ -1,5 +1,17 @@
-File generated on 2017-12-20 15:16:17.
+File generated on 2017-12-20 18:38:39.
 There are 2 restricted Zone(s).
+
+segment_9_20171215
+Restricted 40.0 kph Zone 1:
+Closest to start Point 2609 at 29.86 meters, Closest to finish Point 2565 at 116.46 meters.
+
+
+segment_9_20171215
+Restricted 70.0 kph Zone 2:
+Closest to start Point 1680 at 56.38 meters, Closest to finish Point 1556 at 81.58 meters.
+
+
+segment_9_20171215.gpxTop Speed: 144.24 kph on point 1411
 
 segment_7_20171214
 Restricted 40.0 kph Zone 1:
@@ -30,3 +42,5 @@ SPEEDING!!! at point 1346 latitude: 30.0293126609 longitude: 34.9409510102 speed
 SPEEDING!!! at point 1347 latitude: 30.0289240759 longitude: 34.941386031 speed: 71.37 kph.
 SPEEDING!!! at point 1350 latitude: 30.0260044076 longitude: 34.944560593 speed: 70.54 kph.
 SPEEDING!!! at point 1351 latitude: 30.0254459213 longitude: 34.9450648483 speed: 70.15 kph.
+
+segment_7_20171214.gpxTop Speed: 144.34 kph on point 1971

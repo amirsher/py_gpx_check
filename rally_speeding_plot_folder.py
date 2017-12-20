@@ -162,7 +162,7 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                     if point_no == 0 and point.speed == None :
                         speed = 0.0
                     if line_points == "points" :
-                        folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}".format(os.path.splitext(file)[0],speed,point.latitude,point.longitude,point.time),fill_opacity=0.8).add_to(my_map)
+                        folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}<br>point no. {5}".format(os.path.splitext(file)[0],speed,point.latitude,point.longitude,point.time,point_no+1),fill_opacity=0.8).add_to(my_map)
                             
 
 
@@ -201,9 +201,14 @@ def FindClosest(i):
     closest_to_finish = None
     closest_to_finish_meters = 100000000000000000000.
 
+    topspeed = 0
+        
     reader = csv.reader(open("{1}/zzz_{0}.csv".format(file,cwd)), delimiter=',')
     for row in reader:
 
+        if float(row[3]) > float(topspeed) :
+            topspeed = row[3]
+            topspeed_point = row[0]
         # calculate the distance to the restricted zone start
 #                    start_meters = distance_haversine(restricted_start, (float(row[1]),float(row[2])))
 
@@ -227,13 +232,17 @@ def FindClosest(i):
     folium.Marker(location=(restricted_start[0],restricted_start[1]),icon=folium.Icon(color='red', icon='exclamation', prefix='fa'), popup="restricted zone {0} start<br>speed limit <b>{1} kph</b>".format(i,restricted_speed)).add_to(my_map)
     folium.Marker(location=(restricted_finish[0],restricted_finish[1]),icon=folium.Icon(color='green', icon='check', prefix='fa'), popup="restricted zone {0} end<br>speed limit <b>{1} kph</b>".format(i,restricted_speed)).add_to(my_map)
 
-    return (closest_to_start,closest_to_finish,restricted_speed)
+    folium.features.Circle(location=(restricted_start[0],restricted_start[1]),radius=distance_from_point_allowed, weight=1,color="gray", popup="{0} meters from point".format(distance_from_point_allowed),opacity=0.2).add_to(my_map)
+    folium.features.Circle(location=(restricted_finish[0],restricted_finish[1]),radius=distance_from_point_allowed, weight=1,color="gray", popup="{0} meters from point".format(distance_from_point_allowed),opacity=0.2).add_to(my_map)
+
+    return (closest_to_start,closest_to_finish,restricted_speed,topspeed,topspeed_point)
     
     
 def OutputSpedding(closest_to_start,closest_to_finish,restricted_speed):
-    
+
     reader = csv.reader(open("{1}/zzz_{0}.csv".format(file,cwd)), delimiter=',')
-    for row in reader:
+    for row in reader:        
+        
         if ((int(row[0]) >= int(closest_to_start)) and (int(row[0]) <= int(closest_to_finish))  and (float(row[3]) >= int(restricted_speed))):
             output = ("SPEEDING!!! at point {0} latitude: {1} longitude: {2} speed: {3} kph.".format(row[0],row[1],row[2],row[3]))
             print(output)
@@ -243,12 +252,12 @@ def OutputSpedding(closest_to_start,closest_to_finish,restricted_speed):
 
 color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white", "black" ]
 c = 0
-
+distance_from_point_allowed = 80
 now = datetime.datetime.now() 
 cwd = os.getcwd()
 reverse = 0
 
-line_points = "points" # display "line" or "points", points is very slow.
+line_points = "line" # display "line" or "points", points is very slow.
 
 if line_points != "line" and line_points != "points":
     line_points = "line"
@@ -281,6 +290,11 @@ with open("{0}/zzz_spedding_results.txt".format(cwd), "a") as speddingfile:
                 OutputSpedding(int(zone[0])+1,int(zone[1])-1,zone[2]) # to be safe: +1,-1 is to start checking 1 point inside the zone from start and end
                 if reverse == 1 :
                     OutputSpedding(zone[1],zone[0],zone[2])
+
+                if x == restrictedZones :
+                    output = "\n{0}Top Speed: {1} kph on point {2}".format(file,zone[3],zone[4])
+                    print(output)
+                    speddingfile.write("{0}\n".format(output))
 
             os.remove("{1}/zzz_{0}.csv".format(file,cwd))
             if c < 15 :
