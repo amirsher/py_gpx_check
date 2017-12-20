@@ -1,4 +1,4 @@
-File generated on 2017-12-19 20:50:46.
+File generated on 2017-12-20 11:40:56.
 There are 2 restricted Zone(s).
 
 Track201712141045R
@@ -21,7 +21,6 @@ z20171214-111736
 Restricted 90.0 kph Zone 2:
 Closest to start Point 111 at 0.49 meters, Closest to finish Point 218 at 0.2 meters.
 
-SPEEDING!!! at point 111 latitude: 45.49552 longitude: 5.90389 speed: 106.33 kph.
 SPEEDING!!! at point 112 latitude: 45.49572 longitude: 5.90387 speed: 127.37 kph.
 SPEEDING!!! at point 113 latitude: 45.49593 longitude: 5.90384 speed: 114.84 kph.
 SPEEDING!!! at point 131 latitude: 45.49883 longitude: 5.90378 speed: 112.53 kph.
@@ -45,7 +44,6 @@ SPEEDING!!! at point 158 latitude: 45.48615 longitude: 5.90658 speed: 58.28 kph.
 SPEEDING!!! at point 159 latitude: 45.48614 longitude: 5.90641 speed: 57.6 kph.
 SPEEDING!!! at point 160 latitude: 45.48614 longitude: 5.90624 speed: 56.45 kph.
 SPEEDING!!! at point 161 latitude: 45.48614 longitude: 5.90607 speed: 52.45 kph.
-SPEEDING!!! at point 162 latitude: 45.48615 longitude: 5.90591 speed: 51.3 kph.
 
 z20171214-104524R
 Restricted 90.0 kph Zone 2:

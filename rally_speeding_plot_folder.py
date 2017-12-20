@@ -224,7 +224,7 @@ def FindClosest(i):
     print(output)
     speddingfile.write("{0}\n".format(output))
     folium.Marker(location=(restricted_start[0],restricted_start[1]),icon=folium.Icon(color='red', icon='exclamation', prefix='fa'), popup="restricted zone {0} start<br>speed limit <b>{1} kph</b>".format(i,restricted_speed)).add_to(my_map)
-    folium.Marker(location=(restricted_finish[0],restricted_finish[1]),icon=folium.Icon(color='green', icon='check', prefix='fa'), popup="restricted zone {0} end".format(i)).add_to(my_map)
+    folium.Marker(location=(restricted_finish[0],restricted_finish[1]),icon=folium.Icon(color='green', icon='check', prefix='fa'), popup="restricted zone {0} end<br>speed limit <b>{1} kph</b>".format(i,restricted_speed)).add_to(my_map)
 
     return (closest_to_start,closest_to_finish,restricted_speed)
     
@@ -277,7 +277,7 @@ with open("{0}/zzz_spedding_results.txt".format(cwd), "a") as speddingfile:
             for x in range(1, restrictedZones+1):
 
                 zone = FindClosest(x) # number of restricted zone
-                OutputSpedding(zone[0],zone[1],zone[2])
+                OutputSpedding(int(zone[0])+1,int(zone[1])-1,zone[2]) # to be safe: +1,-1 is to start checking 1 point inside the zone from start and end
                 if reverse == 1 :
                     OutputSpedding(zone[1],zone[0],zone[2])
 
