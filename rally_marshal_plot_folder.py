@@ -186,8 +186,8 @@ def ConvertAndSpeed (file,my_map,color,line_points):
     return my_map
 
 
-def FindClosestSingle(i):
-    marshal_point = i.split(',') # lat,lon
+def FindClosestSingle(marshal_point):
+    #marshal_point = i.split(',') # lat,lon
     marshal_point[0] = float(marshal_point[0])
     marshal_point[1] = float(marshal_point[1])
     
@@ -228,6 +228,13 @@ def OutputMarshal(x,closest_to_marshal_point,closest_to_marshal_point_meters,out
                     folium.Marker(location=(float(row[1]),float(row[2])),icon=folium.Icon(color='red', icon='info', prefix="fa"), popup="{0}<br>passed {1} meters from marshal {2}<br>OUT OF RANGE!".format(os.path.splitext(file)[0],closest_to_marshal_point_meters,x)).add_to(my_map)
 
 
+def convertDecimal(tude):
+# converter only work for N,E and not shown in string
+    a = tude.split('.',3)
+    dd = float(a[0]) + (float(a[1]))/60 + (float(a[2]))/3600
+    return round(dd,6)
+
+
 #['red', 'blue', 'green', 'purple', 'orange', 'darkred','lightred', 'beige', 'darkblue', 'darkgreen', 'cadetblue','darkpurple', 'white', 'pink', 'lightblue', 'lightgreen','gray', 'black', 'lightgray']
 
 color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white", "black" ]
@@ -266,20 +273,23 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
             my_map=ConvertAndSpeed(file,my_map,color[c],line_points)
             marshalfile.write("{}\n".format(os.path.splitext(file)[0]))
             for x in range(1, MarshalPoints+1):
-                marshal = FindClosestSingle((sys.argv)[x])
+                marshalpoint = ((sys.argv)[x]).split(',')
+
+                if ((sys.argv)[x]).count('.') >= 4 : # lat/long is in minutes/seconds
+                    marshal_lat = convertDecimal(marshalpoint[0])
+                    marshal_long = convertDecimal(marshalpoint[1])
+                else :
+                    marshal_lat = float(marshalpoint[0])
+                    marshal_long = float(marshalpoint[1])
+                    
+                marshal = FindClosestSingle([marshal_lat,marshal_long])
 
                 # add marshal marker to web map
-                marshalpoint = ((sys.argv)[x]).split(',')
-                marshalpoint[0] = float(marshalpoint[0])
-                marshalpoint[1] = float(marshalpoint[1])
+                folium.Marker(location=(marshal_lat,marshal_long),icon=folium.Icon(color='blue', icon='male', prefix="fa"), popup="Marshal {0}<br>{1} , {2}".format(x,marshal_lat,marshal_long)).add_to(my_map)
                 
-                folium.Marker(location=(marshalpoint[0],marshalpoint[1]),icon=folium.Icon(color='blue', icon='male', prefix="fa"), popup="Marshal {0}<br>{1} , {2}".format(x,marshalpoint[0],marshalpoint[1])).add_to(my_map)
-                
-                folium.features.Circle(location=(marshalpoint[0],marshalpoint[1]),radius=distance_to_marshal_allowed, weight=1,color="gray", popup="allowed {0} meters from marshal {1}".format(distance_to_marshal_allowed,x),opacity=0.2).add_to(my_map)
+                folium.features.Circle(location=(marshal_lat,marshal_long),radius=distance_to_marshal_allowed, weight=1,color="gray", popup="allowed {0} meters from marshal {1}".format(distance_to_marshal_allowed,x),opacity=0.2).add_to(my_map)
 
                 OutputMarshal(x,marshal[0],marshal[1],distance_to_marshal_allowed)
-
-
 
             os.remove("{1}/zzz_{0}.csv".format(file,cwd))
             if c < 15 :

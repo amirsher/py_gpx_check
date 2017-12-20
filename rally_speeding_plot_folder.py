@@ -185,14 +185,31 @@ def ConvertAndSpeed (file,my_map,color,line_points):
         folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(os.path.splitext(file)[0]), weight=3, opacity=1).add_to(my_map)
     return my_map
 
+
+def convertDecimal(tude):
+# converter only work for N,E and not shown in string
+    a = tude.split('.',3)
+    dd = float(a[0]) + (float(a[1]))/60 + (float(a[2]))/3600
+    return round(dd,6)
+
+
 def FindClosest(i):
+    
     restricted_start = sys.argv[(i*3)-2].split(',') # lat,lon
-    restricted_start[0] = float(restricted_start[0])
-    restricted_start[1] = float(restricted_start[1])
+    if (sys.argv[(i*3)-2]).count('.') >= 4 : # lat/long is in minutes/seconds
+        restricted_start[0] = convertDecimal(restricted_start[0])
+        restricted_start[1] = convertDecimal(restricted_start[1])
+    else :
+        restricted_start[0] = float(restricted_start[0])
+        restricted_start[1] = float(restricted_start[1])
     
     restricted_finish = sys.argv[(i*3)-1].split(',') # lat,lon
-    restricted_finish[0] = float(restricted_finish[0])
-    restricted_finish[1] = float(restricted_finish[1])
+    if (sys.argv[(i*3)-1]).count('.') >= 4 : # lat/long is in minutes/seconds
+        restricted_finish[0] = convertDecimal(restricted_finish[0])
+        restricted_finish[1] = convertDecimal(restricted_finish[1])
+    else:
+        restricted_finish[0] = float(restricted_finish[0])
+        restricted_finish[1] = float(restricted_finish[1])
 
     restricted_speed = float(sys.argv[i*3]) # kph
 
