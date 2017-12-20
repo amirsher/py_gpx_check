@@ -159,7 +159,8 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                         speed = segment.get_speed(point_no)
                         if speed != None:
                             speed = round(speed*3.6,2) #convert to kph rounded to 2 decimal
-
+                    if point_no == 0 and point.speed == None :
+                        speed = 0.0
                     if line_points == "points" :
                         folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}".format(os.path.splitext(file)[0],speed,point.latitude,point.longitude,point.time),fill_opacity=0.8).add_to(my_map)
                             

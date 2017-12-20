@@ -3,7 +3,7 @@ import gpxpy.gpx
 from random import randint
 import glob, os
 
-# Parsing an existing file:
+# takes the firs .gpx file and multiply it with a little devation
 # -------------------------
 file_name = (glob.glob("*.gpx")[0])
 gpx_file = open(file_name, 'r')
@@ -33,15 +33,6 @@ for x in range(1, 10):
                 gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(point.latitude+(randint(0, 9)/10000), point.longitude+(randint(0, 9)/10000), elevation=point.elevation,time=point.time)) #100m deviation
  #               gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(point.latitude+(randint(0, 9)/100000), point.longitude+(randint(0, 9)/100000), elevation=point.elevation,time=point.time)) #10m deviation
 
-
-    # There are many more utility methods and functions:
-    # You can manipulate/add/remove tracks, segments, points, waypoints and routes and
-    # get the GPX XML file from the resulting object:
-
-
-    # Creating a new file:
-    # --------------------
-    # You can add routes and waypoints, too...
     gpx_new.writelines(gpx.to_xml())
     gpx_new.close()
 

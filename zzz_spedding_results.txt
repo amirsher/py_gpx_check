@@ -1,81 +1,32 @@
-File generated on 2017-12-20 11:40:56.
+File generated on 2017-12-20 15:16:17.
 There are 2 restricted Zone(s).
 
-Track201712141045R
-Restricted 50.0 kph Zone 1:
-Closest to start Point 2 at 3.55 meters, Closest to finish Point 6 at 91.82 meters.
+segment_7_20171214
+Restricted 40.0 kph Zone 1:
+Closest to start Point 359 at 34.88 meters, Closest to finish Point 393 at 113.7 meters.
 
+SPEEDING!!! at point 360 latitude: 30.1949146762 longitude: 35.0491519924 speed: 51.0 kph.
+SPEEDING!!! at point 361 latitude: 30.1948006824 longitude: 35.0491450354 speed: 42.05 kph.
+SPEEDING!!! at point 365 latitude: 30.1937252004 longitude: 35.0497455988 speed: 40.18 kph.
+SPEEDING!!! at point 371 latitude: 30.1900649071 longitude: 35.0519745983 speed: 40.7 kph.
+SPEEDING!!! at point 372 latitude: 30.189187238 longitude: 35.0526358467 speed: 40.93 kph.
+SPEEDING!!! at point 373 latitude: 30.1882539131 longitude: 35.0533063989 speed: 40.53 kph.
+SPEEDING!!! at point 374 latitude: 30.187216904 longitude: 35.0540781207 speed: 40.17 kph.
+SPEEDING!!! at point 390 latitude: 30.1733214688 longitude: 35.0638430379 speed: 57.84 kph.
+SPEEDING!!! at point 391 latitude: 30.1738292444 longitude: 35.0644550007 speed: 79.72 kph.
+SPEEDING!!! at point 392 latitude: 30.1739749219 longitude: 35.0646343734 speed: 84.29 kph.
 
-Track201712141045R
-Restricted 90.0 kph Zone 2:
-Closest to start Point 11 at 41.43 meters, Closest to finish Point 19 at 24.43 meters.
+segment_7_20171214
+Restricted 70.0 kph Zone 2:
+Closest to start Point 1328 at 74.51 meters, Closest to finish Point 1405 at 106.96 meters.
 
-
-z20171214-111736
-Restricted 50.0 kph Zone 1:
-Closest to start Point 9 at 5.5 meters, Closest to finish Point 47 at 0.52 meters.
-
-SPEEDING!!! at point 26 latitude: 45.48614 longitude: 5.90886 speed: 50.92 kph.
-
-z20171214-111736
-Restricted 90.0 kph Zone 2:
-Closest to start Point 111 at 0.49 meters, Closest to finish Point 218 at 0.2 meters.
-
-SPEEDING!!! at point 112 latitude: 45.49572 longitude: 5.90387 speed: 127.37 kph.
-SPEEDING!!! at point 113 latitude: 45.49593 longitude: 5.90384 speed: 114.84 kph.
-SPEEDING!!! at point 131 latitude: 45.49883 longitude: 5.90378 speed: 112.53 kph.
-SPEEDING!!! at point 142 latitude: 45.50041 longitude: 5.90401 speed: 101.02 kph.
-SPEEDING!!! at point 143 latitude: 45.5006 longitude: 5.90407 speed: 97.72 kph.
-SPEEDING!!! at point 146 latitude: 45.50106 longitude: 5.9043 speed: 92.34 kph.
-SPEEDING!!! at point 165 latitude: 45.50351 longitude: 5.90493 speed: 104.39 kph.
-SPEEDING!!! at point 191 latitude: 45.50716 longitude: 5.90368 speed: 90.39 kph.
-SPEEDING!!! at point 211 latitude: 45.50996 longitude: 5.90471 speed: 90.26 kph.
-SPEEDING!!! at point 212 latitude: 45.51012 longitude: 5.9048 speed: 101.64 kph.
-
-z20171214-104524R
-Restricted 50.0 kph Zone 1:
-Closest to start Point 108 at 1.69 meters, Closest to finish Point 162 at 4.4 meters.
-
-SPEEDING!!! at point 143 latitude: 45.48615 longitude: 5.90856 speed: 51.98 kph.
-SPEEDING!!! at point 144 latitude: 45.48615 longitude: 5.90841 speed: 50.44 kph.
-SPEEDING!!! at point 156 latitude: 45.48615 longitude: 5.90692 speed: 55.51 kph.
-SPEEDING!!! at point 157 latitude: 45.48614 longitude: 5.90675 speed: 56.81 kph.
-SPEEDING!!! at point 158 latitude: 45.48615 longitude: 5.90658 speed: 58.28 kph.
-SPEEDING!!! at point 159 latitude: 45.48614 longitude: 5.90641 speed: 57.6 kph.
-SPEEDING!!! at point 160 latitude: 45.48614 longitude: 5.90624 speed: 56.45 kph.
-SPEEDING!!! at point 161 latitude: 45.48614 longitude: 5.90607 speed: 52.45 kph.
-
-z20171214-104524R
-Restricted 90.0 kph Zone 2:
-Closest to start Point 247 at 11.87 meters, Closest to finish Point 362 at 2.42 meters.
-
-
-z20171214-104524
-Restricted 50.0 kph Zone 1:
-Closest to start Point 409 at 1.69 meters, Closest to finish Point 355 at 4.4 meters.
-
-
-z20171214-104524
-Restricted 90.0 kph Zone 2:
-Closest to start Point 270 at 11.87 meters, Closest to finish Point 155 at 2.42 meters.
-
-
-Track201712141117
-Restricted 50.0 kph Zone 1:
-Closest to start Point 3 at 0.0 meters, Closest to finish Point 7 at 0.0 meters.
-
-
-Track201712141117
-Restricted 90.0 kph Zone 2:
-Closest to start Point 13 at 0.0 meters, Closest to finish Point 21 at 0.0 meters.
-
-
-Track201712141045
-Restricted 50.0 kph Zone 1:
-Closest to start Point 24 at 3.55 meters, Closest to finish Point 20 at 91.82 meters.
-
-
-Track201712141045
-Restricted 90.0 kph Zone 2:
-Closest to start Point 15 at 41.43 meters, Closest to finish Point 7 at 24.43 meters.
-
+SPEEDING!!! at point 1335 latitude: 30.0304064993 longitude: 34.9337091297 speed: 70.17 kph.
+SPEEDING!!! at point 1336 latitude: 30.0305191521 longitude: 34.933886826 speed: 74.84 kph.
+SPEEDING!!! at point 1342 latitude: 30.0304647535 longitude: 34.9396893661 speed: 70.3 kph.
+SPEEDING!!! at point 1343 latitude: 30.0300836284 longitude: 34.9401094671 speed: 70.35 kph.
+SPEEDING!!! at point 1344 latitude: 30.0298279803 longitude: 34.9403874949 speed: 70.5 kph.
+SPEEDING!!! at point 1345 latitude: 30.0294421613 longitude: 34.9408071768 speed: 71.31 kph.
+SPEEDING!!! at point 1346 latitude: 30.0293126609 longitude: 34.9409510102 speed: 72.09 kph.
+SPEEDING!!! at point 1347 latitude: 30.0289240759 longitude: 34.941386031 speed: 71.37 kph.
+SPEEDING!!! at point 1350 latitude: 30.0260044076 longitude: 34.944560593 speed: 70.54 kph.
+SPEEDING!!! at point 1351 latitude: 30.0254459213 longitude: 34.9450648483 speed: 70.15 kph.
