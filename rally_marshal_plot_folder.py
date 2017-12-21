@@ -119,10 +119,11 @@ def foliumMap(file):
     #            - "Cloudmade" (Must pass API key)
     #            - "Mapbox" (Must pass API key)
 
-    my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=12,control_scale=True, tiles='OpenStreetMap')
+    my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=12,control_scale=True, tiles='OpenStreetMap',prefer_canvas=True)
     url = ('http://tnuatiming.com/android-chrome-36x36.png')
     FloatImage(url, bottom=2, left=96).add_to(my_map)
-#    my_map.add_child(MeasureControl())
+    #    my_map.add_child(MeasureControl())
+    folium.LatLngPopup().add_to(my_map)
 
     return my_map
 
@@ -229,7 +230,7 @@ def OutputMarshal(x,closest_to_marshal_point,closest_to_marshal_point_meters,out
 
 
 def convertDecimal(tude):
-# converter only work for N,E and not shown in string
+# converter only work for N,E and not in string
     a = tude.split('.',3)
     dd = float(a[0]) + (float(a[1]))/60 + (float(a[2]))/3600
     return round(dd,6)

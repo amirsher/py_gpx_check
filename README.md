@@ -1,6 +1,10 @@
 checking .gpx files for speeding on restricted segments and electronic marshaling.
 Built in python with [gpxpy](https://github.com/tkrajina/gpxpy).
 
+Accept lat/long in decimal (30.1749997,35.0642141) or min/sec (29.58.42.516,34.56.03.523) without N S E W
+
+If .gpx file contain more the 1 segment, use [split_gpx_to_segments.py](https://github.com/amirsher/py_gpx_check/blob/master/split_gpx_to_segments.py) to split to individual files, otherwise the result will be currupt. 
+
 ### Speeding ###
 
 Check all the .gpx files in the folder and producing a report of speeding in the restricted segments. can have as many segments as needed.

@@ -122,10 +122,11 @@ def foliumMap(file):
     #            - "Cloudmade" (Must pass API key)
     #            - "Mapbox" (Must pass API key)
 
-    my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=12,control_scale=True, tiles='OpenStreetMap')
+    my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=12,control_scale=True, tiles='OpenStreetMap',prefer_canvas=True)
     url = ('http://tnuatiming.com/android-chrome-36x36.png')
     FloatImage(url, bottom=2, left=96).add_to(my_map)
     #    my_map.add_child(MeasureControl())
+    folium.LatLngPopup().add_to(my_map)
 
     return my_map
 
