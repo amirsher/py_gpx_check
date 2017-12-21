@@ -159,7 +159,7 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                             speed = round(speed*3.6,2) #convert to kph rounded to 2 decimal
 
                     if line_points == "points" :
-                        folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}<br>point no. {5}".format(os.path.splitext(file)[0],speed,point.latitude,point.longitude,point.time,point_no+1),fill_opacity=0.8).add_to(my_map)
+                        folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}<br>point no. {5}".format(cleanFile,speed,point.latitude,point.longitude,point.time,point_no+1),fill_opacity=0.8).add_to(my_map)
                             
 
 
@@ -178,10 +178,10 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                 marshalfile.write("{0}\n".format(output1))
 
     if line_points == "line" :
-        folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(os.path.splitext(file)[0]), weight=3, opacity=1).add_to(my_map)
+        folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(cleanFile), weight=3, opacity=1).add_to(my_map)
 
  #       plt.axis('equal')
-    plt.plot(longitude,latitude,label=os.path.splitext(file)[0],) #
+    plt.plot(longitude,latitude,label=cleanFile,) #
     plt.legend()
     plt.show(block=False)
     return my_map
@@ -224,16 +224,16 @@ def OutputMarshal(x,closest_to_marshal_point,closest_to_marshal_point_meters,out
                 marshalfile.write("{}\n".format(output))
 
                 if closest_to_marshal_point_meters < out_of_range :
-                    folium.features.Circle(location=(float(row[1]),float(row[2])),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0}<br>passed {1} meters from marshal {2}".format(os.path.splitext(file)[0],closest_to_marshal_point_meters,x),fill_opacity=1).add_to(my_map)
+                    folium.features.Circle(location=(float(row[1]),float(row[2])),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0}<br>passed {1} meters from marshal {2}".format(cleanFile,closest_to_marshal_point_meters,x),fill_opacity=1).add_to(my_map)
                 else :                
-                    folium.Marker(location=(float(row[1]),float(row[2])),icon=folium.Icon(color='red', icon='info', prefix="fa"), popup="{0}<br>passed {1} meters from marshal {2}<br>OUT OF RANGE!".format(os.path.splitext(file)[0],closest_to_marshal_point_meters,x)).add_to(my_map)
+                    folium.Marker(location=(float(row[1]),float(row[2])),icon=folium.Icon(color='red', icon='info', prefix="fa"), popup="{0}<br>passed {1} meters from marshal {2}<br>OUT OF RANGE!".format(cleanFile,closest_to_marshal_point_meters,x)).add_to(my_map)
 
 
 def convertDecimal(tude):
 # converter only work for N,E and not in string
     a = tude.split('.',3)
     dd = float(a[0]) + (float(a[1]))/60 + (float(a[2]))/3600
-    return round(dd,6)
+    return dd
 
 
 #['red', 'blue', 'green', 'purple', 'orange', 'darkred','lightred', 'beige', 'darkblue', 'darkgreen', 'cadetblue','darkpurple', 'white', 'pink', 'lightblue', 'lightgreen','gray', 'black', 'lightgray']
@@ -269,10 +269,12 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
             sys.exit(0)
         #os.chdir("/mydir")
         for file in glob.glob("*.gpx"):
-                            
-            print(os.path.splitext(file)[0])
+                    
+            cleanFile = os.path.splitext(file)[0]                
+                    
+            print(cleanFile)
             my_map=ConvertAndSpeed(file,my_map,color[c],line_points)
-            marshalfile.write("{}\n".format(os.path.splitext(file)[0]))
+            marshalfile.write("{}\n".format(cleanFile))
             for x in range(1, MarshalPoints+1):
                 marshalpoint = ((sys.argv)[x]).split(',')
 
@@ -286,7 +288,7 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
                 marshal = FindClosestSingle([marshal_lat,marshal_long])
 
                 # add marshal marker to web map
-                folium.Marker(location=(marshal_lat,marshal_long),icon=folium.Icon(color='blue', icon='male', prefix="fa"), popup="Marshal {0}<br>{1} , {2}".format(x,marshal_lat,marshal_long)).add_to(my_map)
+                folium.Marker(location=(marshal_lat,marshal_long),icon=folium.Icon(color='blue', icon='male', prefix="fa"), popup="Marshal {0}<br>{1} , {2}".format(x,round(marshal_lat,6),round(marshal_long,6))).add_to(my_map)
                 
                 folium.features.Circle(location=(marshal_lat,marshal_long),radius=distance_to_marshal_allowed, weight=1,color="gray", popup="allowed {0} meters from marshal {1}".format(distance_to_marshal_allowed,x),opacity=0.2).add_to(my_map)
 
