@@ -148,6 +148,8 @@ def ConvertAndSpeed (file,my_map,color,line_points):
     #gpx_file = open('z20171214-111736.gpx', 'r')
         latitude = [] # for matplotlib
         longitude = [] # for matplotlib
+        wptlatitude = [] # for matplotlib
+        wptlongitude = [] # for matplotlib
         foliumpoints = [] # for folium
 
         gpx = gpxpy.parse(gpx_file)
@@ -189,11 +191,21 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                 print(output1)
                 marshalfile.write("{0}\n".format(output1))
 
+        for waypoint in gpx.waypoints:
+            wptlatitude.append( waypoint.latitude )
+            wptlongitude.append( waypoint.longitude )
+
+
+
     if line_points == "line" :
         folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(cleanFile), weight=3, opacity=1).add_to(my_map)
 
- #       plt.axis('equal')
-    plt.plot(longitude,latitude,label=cleanFile,) #
+    if len(longitude) > 0:
+    #       plt.axis('equal')
+        plt.plot(longitude,latitude,label=cleanFile,) #
+    if len(wptlongitude) > 0:
+    #       plt.axis('equal')
+        plt.plot(wptlongitude,wptlatitude,label="waypoints",) #
     plt.legend()
     plt.show(block=False)
 
