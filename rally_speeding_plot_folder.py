@@ -184,6 +184,10 @@ def ConvertAndSpeed (file,my_map,color,line_points):
 
     if line_points == "line" :
         folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(cleanFile), weight=3, opacity=1).add_to(my_map)
+
+    for waypoint in gpx.waypoints:
+        folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='blue', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,waypoint.latitude,waypoint.longitude)).add_to(my_map)
+
     return my_map
 
 

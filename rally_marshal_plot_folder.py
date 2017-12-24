@@ -102,23 +102,35 @@ def distance_haversine(point1, point2):
 
 def foliumMap(file):
     foliumpoints = [] # for folium
+    foliumWptpoints = [] # for folium
     with open("{0}".format(file), "r") as gpx_file: 
         gpx = gpxpy.parse(gpx_file)
         for track in gpx.tracks:
             for segment in track.segments:
                 for point_no, point in enumerate(segment.points):
                        foliumpoints.append(tuple([point.latitude, point.longitude]))
-    ave_lat = sum(p[0] for p in foliumpoints)/len(foliumpoints)
-    ave_lon = sum(p[1] for p in foliumpoints)/len(foliumpoints)
-    # Load map centred on average coordinates
-    #Map tileset to use. Can choose from this list of built-in tiles:
-    #            - "OpenStreetMap"
-    #            - "Stamen Terrain", "Stamen Toner", "Stamen Watercolor"
-    #            - "CartoDB positron", "CartoDB dark_matter"
-    #            - "Mapbox Bright", "Mapbox Control Room" (Limited zoom)
-    #            - "Cloudmade" (Must pass API key)
-    #            - "Mapbox" (Must pass API key)
 
+        for waypoint in gpx.waypoints:
+            foliumWptpoints.append(tuple([waypoint.latitude, waypoint.longitude]))
+
+    if len(foliumpoints) > 0 :
+        ave_lat = sum(p[0] for p in foliumpoints)/len(foliumpoints)
+        ave_lon = sum(p[1] for p in foliumpoints)/len(foliumpoints)
+        # Load map centred on average coordinates
+        #Map tileset to use. Can choose from this list of built-in tiles:
+        #            - "OpenStreetMap"
+        #            - "Stamen Terrain", "Stamen Toner", "Stamen Watercolor"
+        #            - "CartoDB positron", "CartoDB dark_matter"
+        #            - "Mapbox Bright", "Mapbox Control Room" (Limited zoom)
+        #            - "Cloudmade" (Must pass API key)
+        #            - "Mapbox" (Must pass API key)
+    elif len(foliumWptpoints) > 0 :
+        ave_lat = sum(p[0] for p in foliumWptpoints)/len(foliumWptpoints)
+        ave_lon = sum(p[1] for p in foliumWptpoints)/len(foliumWptpoints)
+    else:
+        ave_lat = 35.0
+        ave_lon = 30.0
+        
     my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=12,control_scale=True, tiles='OpenStreetMap',prefer_canvas=True)
     url = ('http://tnuatiming.com/android-chrome-36x36.png')
     FloatImage(url, bottom=2, left=96).add_to(my_map)
@@ -184,6 +196,12 @@ def ConvertAndSpeed (file,my_map,color,line_points):
     plt.plot(longitude,latitude,label=cleanFile,) #
     plt.legend()
     plt.show(block=False)
+
+    for waypoint_no, waypoint in enumerate(gpx.waypoints):
+        if waypoint.name == None :
+            waypoint.name = waypoint_no + 1
+        folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='blue', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,waypoint.latitude,waypoint.longitude)).add_to(my_map)
+
     return my_map
 
 

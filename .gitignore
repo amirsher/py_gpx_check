@@ -1,9 +1,7 @@
 gpxpy-master
 original
 temp
-.directory
 gitup.sh
-*.kate-swp
 tracking.png
 TrackingMap.html
 SpeedingMap.html
@@ -11,3 +9,5 @@ zzz_marshal_results.txt
 zzz_spedding_results.txt
 old
 *.gpx
+*.kate-swp
+.directory

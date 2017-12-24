@@ -1,7 +1,8 @@
-File generated on 2017-12-21 18:37:42.
+File generated on 2017-12-24 11:34:31.
 There are 2 Marshal Point(s).
 Out of range set to 80 meters.
 
+wpt
 segment_9_20171215
 Passed Marshal 1 at 2017-12-15 10:18:24 distance of 97 meters and speed of 94.02 kph. OUT OF RANGE
 Passed Marshal 2 at 2017-12-15 10:23:21 distance of 41 meters and speed of 45.27 kph.
