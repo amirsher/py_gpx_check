@@ -140,9 +140,9 @@ def foliumMap(file):
 
     my_map = folium.Map(location=[ave_lat, ave_lon], tiles='',attr='OpenStreetMap',  zoom_start=12, control_scale=True, prefer_canvas=True)
     folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='Hebrew Base Map').add_to(my_map)
-    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayTiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='Hiking Trails Overlay').add_to(my_map)
+#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayTiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='Hiking Trails Overlay').add_to(my_map)
     folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/mtbTiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='MTB Hebrew Base Map').add_to(my_map)
-    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayMTB/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='MTB Trails Overlay').add_to(my_map)
+#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayMTB/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='MTB Trails Overlay').add_to(my_map)
     folium.TileLayer(tiles='OpenStreetMap',attr='OpenStreetMap attribution', name='OpenStreetMap').add_to(my_map)
 
     url = ('http://tnuatiming.com/android-chrome-36x36.png')
@@ -155,7 +155,6 @@ def foliumMap(file):
 
 def ConvertAndSpeed (file,my_map,color,line_points):
 
-    feature_group = folium.FeatureGroup(name=cleanFile)
 
     with open("{1}/zzz_{0}.csv".format(file,cwd), "w"): pass # clear the csv file
 
@@ -208,7 +207,6 @@ def ConvertAndSpeed (file,my_map,color,line_points):
     for waypoint in gpx.waypoints:
         folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='blue', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,waypoint.latitude,waypoint.longitude)).add_to(feature_group)
 
-    feature_group.add_to(my_map)
 
     return my_map
 
@@ -275,7 +273,7 @@ def OutputSpedding(closest_to_start,closest_to_finish,restricted_speed):
             output = ("SPEEDING!!! at point {0}, location: ({1},{2}), speed: {3} kph.".format(row[0],row[1],row[2],row[3]))
             print(output)
             speddingfile.write("{}\n".format(output))
-            folium.Marker(location=(row[1],row[2]),icon=folium.Icon(color='black', icon='camera', prefix='fa'), popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4])).add_to(speeding_feature_group)
+            folium.Marker(location=(row[1],row[2]),icon=folium.Icon(color='black', icon='camera', prefix='fa'), popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4])).add_to(feature_group)
 
 
 if line_points != "line" and line_points != "points":
@@ -294,7 +292,7 @@ with open("{0}/zzz_spedding_results.txt".format(cwd), "a") as speddingfile:
     if isinstance(restrictedZones, int) :
         if (glob.glob("*.gpx")) :
             my_map=foliumMap(glob.glob("*.gpx")[0])
-            speeding_feature_group = folium.FeatureGroup(name="speeding info")
+            speeding_feature_group = folium.FeatureGroup(name="speeding zone")
 
         else:
             print("No gpx files\n")
@@ -305,6 +303,7 @@ with open("{0}/zzz_spedding_results.txt".format(cwd), "a") as speddingfile:
             
 
             cleanFile = os.path.splitext(file)[0]                
+            feature_group = folium.FeatureGroup(name=cleanFile)
             my_map=ConvertAndSpeed(file,my_map,color[c],line_points)
 
             for i in range(1, restrictedZones+1):
@@ -331,6 +330,7 @@ with open("{0}/zzz_spedding_results.txt".format(cwd), "a") as speddingfile:
                 OutputSpedding(int(zone[0])+2,int(zone[1])-2,zone[2]) # to be safe: +2,-2 is to start checking 1 point inside the zone from start and end
                 if reverse == 1 :
                     OutputSpedding(zone[1],zone[0],zone[2])
+                feature_group.add_to(my_map)
 
                 if i == restrictedZones :
                     output = "\n{0}Top Speed: {1} kph on point {2}".format(file,zone[3],zone[4])

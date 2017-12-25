@@ -146,9 +146,9 @@ def foliumMap(file):
         
     my_map = folium.Map(location=[ave_lat, ave_lon], tiles='',attr='OpenStreetMap',  zoom_start=12, control_scale=True, prefer_canvas=True)
     folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='Hebrew Base Map').add_to(my_map)
-    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayTiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='Hiking Trails Overlay').add_to(my_map)
+#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayTiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='Hiking Trails Overlay').add_to(my_map)
     folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/mtbTiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='MTB Hebrew Base Map').add_to(my_map)
-    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayMTB/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='MTB Trails Overlay').add_to(my_map)
+#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayMTB/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='MTB Trails Overlay').add_to(my_map)
     folium.TileLayer(tiles='OpenStreetMap',attr='OpenStreetMap attribution', name='OpenStreetMap').add_to(my_map)
 
     url = ('http://tnuatiming.com/android-chrome-36x36.png')
@@ -160,7 +160,6 @@ def foliumMap(file):
 
 def ConvertAndSpeed (file,my_map,color,line_points):
     
-    feature_group = folium.FeatureGroup(name=cleanFile)
 
     with open("{1}/zzz_{0}.csv".format(file,cwd), "w"): pass # clear the csv file
 
@@ -233,7 +232,6 @@ def ConvertAndSpeed (file,my_map,color,line_points):
             folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='lightgray', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,round(waypoint.latitude,6),round(waypoint.longitude,6))).add_to(feature_group)
             folium.features.Circle(location=(waypoint.latitude,waypoint.longitude),radius=distance_to_waypoint_allowed, weight=1,color="gray", popup="allowed {0} meters from waypoint".format(distance_to_waypoint_allowed),opacity=0.2).add_to(feature_group)
                     
-    feature_group.add_to(my_map)
 
     return my_map
 
@@ -276,9 +274,9 @@ def OutputMarshal(x,closest_to_marshal_point,closest_to_marshal_point_meters,out
                 marshalfile.write("{}\n".format(output))
 
                 if closest_to_marshal_point_meters < out_of_range :
-                    folium.features.Circle(location=(float(row[1]),float(row[2])),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0}<br>passed {1} meters from marshal {2}".format(cleanFile,closest_to_marshal_point_meters,x),fill_opacity=1).add_to(marshals_feature_group)
+                    folium.features.Circle(location=(float(row[1]),float(row[2])),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0}<br>passed {1} meters from marshal {2}".format(cleanFile,closest_to_marshal_point_meters,x),fill_opacity=1).add_to(feature_group)
                 else :                
-                    folium.Marker(location=(float(row[1]),float(row[2])),icon=folium.Icon(color='red', icon='info', prefix="fa"), popup="{0}<br>passed {1} meters from marshal {2}<br>OUT OF RANGE!".format(cleanFile,closest_to_marshal_point_meters,x)).add_to(marshals_feature_group)
+                    folium.Marker(location=(float(row[1]),float(row[2])),icon=folium.Icon(color='red', icon='info', prefix="fa"), popup="{0}<br>passed {1} meters from marshal {2}<br>OUT OF RANGE!".format(cleanFile,closest_to_marshal_point_meters,x)).add_to(feature_group)
 
 
 def convertDecimal(tude):
@@ -316,6 +314,7 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
             cleanFile = os.path.splitext(file)[0]                
                     
             print(cleanFile)
+            feature_group = folium.FeatureGroup(name=cleanFile)
             my_map=ConvertAndSpeed(file,my_map,color[c],line_points)
             marshalfile.write("{}\n".format(cleanFile))
             for x in range(1, MarshalPoints+1):
@@ -336,6 +335,7 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
                 folium.features.Circle(location=(marshal_lat,marshal_long),radius=distance_to_marshal_allowed, weight=1,color="gray", popup="allowed {0} meters from marshal {1}".format(distance_to_marshal_allowed,x),opacity=0.2).add_to(marshals_feature_group)
 
                 OutputMarshal(x,marshal[0],marshal[1],distance_to_marshal_allowed)
+                feature_group.add_to(my_map)
 
             os.remove("{1}/zzz_{0}.csv".format(file,cwd))
             if c < 15 :
