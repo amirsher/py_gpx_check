@@ -40,10 +40,10 @@ for sample reports see:
 
 "line"
 ![speeding line](https://github.com/amirsher/py_gpx_check/blob/master/line.png)
+[SpeedingMap.html](https://github.com/amirsher/py_gpx_check/blob/master/SpeedingMap.html)
 
 "points"
 ![speeding points](https://github.com/amirsher/py_gpx_check/blob/master/points.png)
-[SpeedingMap.html](https://github.com/amirsher/py_gpx_check/blob/master/SpeedingMap.html)
 
 "tracking"
 ![marshal point](https://github.com/amirsher/py_gpx_check/blob/master/marshal.png)

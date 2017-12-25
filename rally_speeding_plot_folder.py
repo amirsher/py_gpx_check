@@ -122,19 +122,29 @@ def foliumMap(file):
         for track in gpx.tracks:
             for segment in track.segments:
                 for point_no, point in enumerate(segment.points):
-                       foliumpoints.append(tuple([point.latitude, point.longitude]))
-    ave_lat = sum(p[0] for p in foliumpoints)/len(foliumpoints)
-    ave_lon = sum(p[1] for p in foliumpoints)/len(foliumpoints)
-    # Load map centred on average coordinates
-    #Map tileset to use. Can choose from this list of built-in tiles:
-    #            - "OpenStreetMap"
-    #            - "Stamen Terrain", "Stamen Toner", "Stamen Watercolor"
-    #            - "CartoDB positron", "CartoDB dark_matter"
-    #            - "Mapbox Bright", "Mapbox Control Room" (Limited zoom)
-    #            - "Cloudmade" (Must pass API key)
-    #            - "Mapbox" (Must pass API key)
+                    foliumpoints.append(tuple([point.latitude, point.longitude]))
+    if len(foliumpoints) > 0 :
+        ave_lat = sum(p[0] for p in foliumpoints)/len(foliumpoints)
+        ave_lon = sum(p[1] for p in foliumpoints)/len(foliumpoints)
+        # Load map centred on average coordinates
+        #Map tileset to use. Can choose from this list of built-in tiles:
+        #            - "OpenStreetMap"
+        #            - "Stamen Terrain", "Stamen Toner", "Stamen Watercolor"
+        #            - "CartoDB positron", "CartoDB dark_matter"
+        #            - "Mapbox Bright", "Mapbox Control Room" (Limited zoom)
+        #            - "Cloudmade" (Must pass API key)
+        #            - "Mapbox" (Must pass API key)
+    else:
+        ave_lat = 35.0
+        ave_lon = 30.0
 
-    my_map = folium.Map(location=[ave_lat, ave_lon], zoom_start=12,control_scale=True, tiles='OpenStreetMap',prefer_canvas=True)
+    my_map = folium.Map(location=[ave_lat, ave_lon], tiles='',attr='OpenStreetMap',  zoom_start=12, control_scale=True, prefer_canvas=True)
+    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='Hebrew Base Map').add_to(my_map)
+    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayTiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='Hiking Trails Overlay').add_to(my_map)
+    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/mtbTiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='MTB Hebrew Base Map').add_to(my_map)
+    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayMTB/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='MTB Trails Overlay').add_to(my_map)
+    folium.TileLayer(tiles='OpenStreetMap',attr='OpenStreetMap attribution', name='OpenStreetMap').add_to(my_map)
+
     url = ('http://tnuatiming.com/android-chrome-36x36.png')
     FloatImage(url, bottom=2, left=96).add_to(my_map)
     #    my_map.add_child(MeasureControl())
@@ -144,6 +154,9 @@ def foliumMap(file):
 
 
 def ConvertAndSpeed (file,my_map,color,line_points):
+
+    feature_group = folium.FeatureGroup(name=cleanFile)
+
     with open("{1}/zzz_{0}.csv".format(file,cwd), "w"): pass # clear the csv file
 
     with open("{0}".format(file), "r") as gpx_file, open("{1}/zzz_{0}.csv".format(file,cwd), "a") as gpxfile: 
@@ -175,7 +188,7 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                     if point_no == 0 and point.speed == None :
                         speed = 0.0
                     if line_points == "points" :
-                        folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}<br>point no. {5}".format(cleanFile,speed,point.latitude,point.longitude,point.time,point_no+1),fill_opacity=0.8).add_to(my_map)
+                        folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}<br>point no. {5}".format(cleanFile,speed,point.latitude,point.longitude,point.time,point_no+1),fill_opacity=0.8).add_to(feature_group)
                             
                     gpxfile.write('{0},{1},{2},{3},{4}\n'.format(point_no, point.latitude, point.longitude, speed, point.time))
                 
@@ -190,10 +203,12 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                 speddingfile.write("{0}\n".format(output1))
 
     if line_points == "line" :
-        folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(cleanFile), weight=3, opacity=1).add_to(my_map)
+        folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(cleanFile), weight=3, opacity=1).add_to(feature_group)
 
     for waypoint in gpx.waypoints:
-        folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='blue', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,waypoint.latitude,waypoint.longitude)).add_to(my_map)
+        folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='blue', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,waypoint.latitude,waypoint.longitude)).add_to(feature_group)
+
+    feature_group.add_to(my_map)
 
     return my_map
 
@@ -240,11 +255,11 @@ def FindClosest(i):
     output = ('\n{4}\nRestricted {6} kph Zone {5}:\nClosest to start: Point {0} at {1} meters, Closest to finish: Point {2} at {3} meters.\n'.format(closest_to_start, closest_to_start_meters, closest_to_finish, closest_to_finish_meters, cleanFile,i,restricted_speed))
     print(output)
     speddingfile.write("{0}\n".format(output))
-    folium.Marker(location=(restricted_start[0],restricted_start[1]),icon=folium.Icon(color='red', icon='exclamation', prefix='fa'), popup="restricted zone {0} start<br>speed limit <b>{1} kph</b>".format(i,restricted_speed)).add_to(my_map)
-    folium.Marker(location=(restricted_finish[0],restricted_finish[1]),icon=folium.Icon(color='green', icon='check', prefix='fa'), popup="restricted zone {0} end<br>speed limit <b>{1} kph</b>".format(i,restricted_speed)).add_to(my_map)
+    folium.Marker(location=(restricted_start[0],restricted_start[1]),icon=folium.Icon(color='red', icon='exclamation', prefix='fa'), popup="restricted zone {0} start<br>speed limit <b>{1} kph</b>".format(i,restricted_speed)).add_to(speeding_feature_group)
+    folium.Marker(location=(restricted_finish[0],restricted_finish[1]),icon=folium.Icon(color='green', icon='check', prefix='fa'), popup="restricted zone {0} end<br>speed limit <b>{1} kph</b>".format(i,restricted_speed)).add_to(speeding_feature_group)
 
-    folium.features.Circle(location=(restricted_start[0],restricted_start[1]),radius=distance_from_point_allowed, weight=1,color="gray", popup="{0} meters from point".format(distance_from_point_allowed),opacity=0.2).add_to(my_map)
-    folium.features.Circle(location=(restricted_finish[0],restricted_finish[1]),radius=distance_from_point_allowed, weight=1,color="gray", popup="{0} meters from point".format(distance_from_point_allowed),opacity=0.2).add_to(my_map)
+    folium.features.Circle(location=(restricted_start[0],restricted_start[1]),radius=distance_from_point_allowed, weight=1,color="gray", popup="{0} meters from point".format(distance_from_point_allowed),opacity=0.2).add_to(speeding_feature_group)
+    folium.features.Circle(location=(restricted_finish[0],restricted_finish[1]),radius=distance_from_point_allowed, weight=1,color="gray", popup="{0} meters from point".format(distance_from_point_allowed),opacity=0.2).add_to(speeding_feature_group)
 
     return (closest_to_start,closest_to_finish,restricted_speed,topspeed,topspeed_point)
     
@@ -260,7 +275,7 @@ def OutputSpedding(closest_to_start,closest_to_finish,restricted_speed):
             output = ("SPEEDING!!! at point {0}, location: ({1},{2}), speed: {3} kph.".format(row[0],row[1],row[2],row[3]))
             print(output)
             speddingfile.write("{}\n".format(output))
-            folium.Marker(location=(row[1],row[2]),icon=folium.Icon(color='black', icon='camera', prefix='fa'), popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4])).add_to(my_map)
+            folium.Marker(location=(row[1],row[2]),icon=folium.Icon(color='black', icon='camera', prefix='fa'), popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4])).add_to(speeding_feature_group)
 
 
 if line_points != "line" and line_points != "points":
@@ -279,12 +294,15 @@ with open("{0}/zzz_spedding_results.txt".format(cwd), "a") as speddingfile:
     if isinstance(restrictedZones, int) :
         if (glob.glob("*.gpx")) :
             my_map=foliumMap(glob.glob("*.gpx")[0])
+            speeding_feature_group = folium.FeatureGroup(name="speeding info")
+
         else:
             print("No gpx files\n")
             sys.exit(0)
 
         #os.chdir("/mydir")
         for file in glob.glob("*.gpx"):
+            
 
             cleanFile = os.path.splitext(file)[0]                
             my_map=ConvertAndSpeed(file,my_map,color[c],line_points)
@@ -324,7 +342,9 @@ with open("{0}/zzz_spedding_results.txt".format(cwd), "a") as speddingfile:
                 c = c + 1
             else:
                 c = 0
-            
+
+        speeding_feature_group.add_to(my_map)
+        my_map.add_children(folium.LayerControl())
         my_map.save("SpeedingMap.html")
 
     else:
