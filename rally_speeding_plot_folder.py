@@ -14,9 +14,20 @@ import ee
 
 # python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 70
 
-#restricted_start = (32.49222,34.90380) # lat,lon
-#restricted_finish = (32.49885,34.90372) # lat,lon
+#restricted_start = (32.49222,34.90380) # decimal lat,lon can also be in min/sec (30.11.42.635,35.02.59.208) 
+#restricted_finish = (32.49885,34.90372) # decimal lat,lon can also be in min/sec (30.11.42.635,35.02.59.208)
 #restricted_speed = 70 # kph
+
+graceZone = 90 # grace zone in the start/end of the restricted zone, in meters
+distance_from_point_allowed = 80 # ring for display only, in meters
+now = datetime.datetime.now() 
+cwd = os.getcwd()
+reverse = 0 # check for speeding on the reverse track
+
+line_points = "line" # display "line" or "points", points is very slow.
+
+color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white", "black" ]
+c = 0
 
 # WGS 84
 a = 6378137  # meters
@@ -135,7 +146,7 @@ def foliumMap(file):
 def ConvertAndSpeed (file,my_map,color,line_points):
     with open("{1}/zzz_{0}.csv".format(file,cwd), "w"): pass # clear the csv file
 
-    with open("{0}".format(file), "r") as gpx_file: 
+    with open("{0}".format(file), "r") as gpx_file, open("{1}/zzz_{0}.csv".format(file,cwd), "a") as gpxfile: 
 
     #gpx_file = open('z20171214-111736.gpx', 'r')
         latitude = [] # for matplotlib
@@ -166,11 +177,7 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                     if line_points == "points" :
                         folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}<br>point no. {5}".format(cleanFile,speed,point.latitude,point.longitude,point.time,point_no+1),fill_opacity=0.8).add_to(my_map)
                             
-
-                    with open("{1}/zzz_{0}.csv".format(file,cwd), "a") as gpxfile:
-
-                        gpxfile.write('{0},{1},{2},{3},{4}\n'.format(point_no, point.latitude, point.longitude, speed, point.time))
-                        gpxfile.close()
+                    gpxfile.write('{0},{1},{2},{3},{4}\n'.format(point_no, point.latitude, point.longitude, speed, point.time))
                 
                     if line_points == "line" :
                         latitude.append( point.latitude )
@@ -200,24 +207,6 @@ def convertDecimal(tude):
 
 def FindClosest(i):
     
-    restricted_start = sys.argv[(i*3)-2].split(',') # lat,lon
-    if (sys.argv[(i*3)-2]).count('.') >= 4 : # lat/long is in minutes/seconds
-        restricted_start[0] = convertDecimal(restricted_start[0])
-        restricted_start[1] = convertDecimal(restricted_start[1])
-    else :
-        restricted_start[0] = float(restricted_start[0])
-        restricted_start[1] = float(restricted_start[1])
-    
-    restricted_finish = sys.argv[(i*3)-1].split(',') # lat,lon
-    if (sys.argv[(i*3)-1]).count('.') >= 4 : # lat/long is in minutes/seconds
-        restricted_finish[0] = convertDecimal(restricted_finish[0])
-        restricted_finish[1] = convertDecimal(restricted_finish[1])
-    else:
-        restricted_finish[0] = float(restricted_finish[0])
-        restricted_finish[1] = float(restricted_finish[1])
-
-    restricted_speed = float(sys.argv[i*3]) # kph
-
     closest_to_start = None
     closest_to_start_meters = 100000000000000000000.
     closest_to_finish = None
@@ -263,24 +252,16 @@ def FindClosest(i):
 def OutputSpedding(closest_to_start,closest_to_finish,restricted_speed):
 
     reader = csv.reader(open("{1}/zzz_{0}.csv".format(file,cwd)), delimiter=',')
-    for row in reader:        
-        
-        if ((int(row[0]) >= int(closest_to_start)) and (int(row[0]) <= int(closest_to_finish))  and (float(row[3]) >= int(restricted_speed))):
-            output = ("SPEEDING!!! at point {0} latitude: {1} longitude: {2} speed: {3} kph.".format(row[0],row[1],row[2],row[3]))
+    for row in reader:
+            
+        row[1] = round(float(row[1]),6)
+        row[2] = round(float(row[2]),6)
+        if ((int(row[0]) >= int(closest_to_start)) and (int(row[0]) <= int(closest_to_finish))  and (float(row[3]) >= int(restricted_speed))and (distance_vincenty(restricted_start, (row[1],row[2])) > graceZone) and (distance_vincenty(restricted_finish, (row[1],row[2])) > graceZone)):
+            output = ("SPEEDING!!! at point {0}, location: ({1},{2}), speed: {3} kph.".format(row[0],row[1],row[2],row[3]))
             print(output)
             speddingfile.write("{}\n".format(output))
-            folium.Marker(location=(float(row[1]),float(row[2])),icon=folium.Icon(color='black', icon='camera', prefix='fa'), popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],round(float(row[1]),6),round(float(row[2]),6),row[4])).add_to(my_map)
+            folium.Marker(location=(row[1],row[2]),icon=folium.Icon(color='black', icon='camera', prefix='fa'), popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4])).add_to(my_map)
 
-
-color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white", "black" ]
-c = 0
-
-distance_from_point_allowed = 80
-now = datetime.datetime.now() 
-cwd = os.getcwd()
-reverse = 0
-
-line_points = "points" # display "line" or "points", points is very slow.
 
 if line_points != "line" and line_points != "points":
     line_points = "line"
@@ -308,14 +289,32 @@ with open("{0}/zzz_spedding_results.txt".format(cwd), "a") as speddingfile:
             cleanFile = os.path.splitext(file)[0]                
             my_map=ConvertAndSpeed(file,my_map,color[c],line_points)
 
-            for x in range(1, restrictedZones+1):
+            for i in range(1, restrictedZones+1):
 
-                zone = FindClosest(x) # number of restricted zone
-                OutputSpedding(int(zone[0])+1,int(zone[1])-1,zone[2]) # to be safe: +1,-1 is to start checking 1 point inside the zone from start and end
+                restricted_start = sys.argv[(i*3)-2].split(',') # lat,lon
+                if (sys.argv[(i*3)-2]).count('.') >= 4 : # lat/long is in minutes/seconds
+                    restricted_start[0] = convertDecimal(restricted_start[0])
+                    restricted_start[1] = convertDecimal(restricted_start[1])
+                else :
+                    restricted_start[0] = float(restricted_start[0])
+                    restricted_start[1] = float(restricted_start[1])
+                
+                restricted_finish = sys.argv[(i*3)-1].split(',') # lat,lon
+                if (sys.argv[(i*3)-1]).count('.') >= 4 : # lat/long is in minutes/seconds
+                    restricted_finish[0] = convertDecimal(restricted_finish[0])
+                    restricted_finish[1] = convertDecimal(restricted_finish[1])
+                else:
+                    restricted_finish[0] = float(restricted_finish[0])
+                    restricted_finish[1] = float(restricted_finish[1])
+
+                restricted_speed = float(sys.argv[i*3]) # kph
+
+                zone = FindClosest(i) # number of restricted zone
+                OutputSpedding(int(zone[0])+2,int(zone[1])-2,zone[2]) # to be safe: +2,-2 is to start checking 1 point inside the zone from start and end
                 if reverse == 1 :
                     OutputSpedding(zone[1],zone[0],zone[2])
 
-                if x == restrictedZones :
+                if i == restrictedZones :
                     output = "\n{0}Top Speed: {1} kph on point {2}".format(file,zone[3],zone[4])
                     print(output)
                     speddingfile.write("{0}\n".format(output))

@@ -25,14 +25,13 @@ for x in range(1, 10):
     # Create first segment in our GPX track:
     gpx_segment = gpxpy.gpx.GPXTrackSegment()
     gpx_track.segments.append(gpx_segment)
-
     for track in gpxo.tracks:
         for segment in track.segments:
-            for point in segment.points:
+            for point_no, point in enumerate(segment.points):
                 # Create points:
-                gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(point.latitude+(randint(0, 9)/10000), point.longitude+(randint(0, 9)/10000), elevation=point.elevation,time=point.time)) #100m deviation
- #               gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(point.latitude+(randint(0, 9)/100000), point.longitude+(randint(0, 9)/100000), elevation=point.elevation,time=point.time)) #10m deviation
-
+                if point_no % 3 == 0 : # cut the number of points to third
+                    gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(point.latitude+(randint(-5, 5)/10000), point.longitude+(randint(-5, 5)/10000), elevation=point.elevation,time=point.time)) #100m deviation
+    #               gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(point.latitude+(randint(-5, 5)/100000), point.longitude+(randint(-5, 5)/100000), elevation=point.elevation,time=point.time)) #10m deviation
     gpx_new.writelines(gpx.to_xml())
     gpx_new.close()
 

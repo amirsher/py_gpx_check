@@ -13,7 +13,20 @@ from folium.plugins import FloatImage
 #from folium.plugins import MeasureControl
 
 # python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
-# lat,lon
+# # decimal lat,lon can also be in min/sec (30.11.42.635,35.02.59.208)
+
+showWaypoints = 1
+now = datetime.datetime.now() 
+distance_to_marshal_allowed = 80
+distance_to_waypoint_allowed = 100 # ring for display only
+cwd = os.getcwd()
+
+line_points = "line" # display "line" or "points", points is very slow.
+
+#['red', 'blue', 'green', 'purple', 'orange', 'darkred','lightred', 'beige', 'darkblue', 'darkgreen', 'cadetblue','darkpurple', 'white', 'pink', 'lightblue', 'lightgreen','gray', 'black', 'lightgray']
+
+color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white", "black" ]
+c = 0
 
 # WGS 84
 a = 6378137  # meters
@@ -143,7 +156,7 @@ def foliumMap(file):
 def ConvertAndSpeed (file,my_map,color,line_points):
     with open("{1}/zzz_{0}.csv".format(file,cwd), "w"): pass # clear the csv file
 
-    with open("{0}".format(file), "r") as gpx_file: 
+    with open("{0}".format(file), "r") as gpx_file, open("{1}/zzz_{0}.csv".format(file,cwd), "a") as gpxfile: 
 
     #gpx_file = open('z20171214-111736.gpx', 'r')
         latitude = [] # for matplotlib
@@ -175,12 +188,7 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                     if line_points == "points" :
                         folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}<br>point no. {5}".format(cleanFile,speed,point.latitude,point.longitude,point.time,point_no+1),fill_opacity=0.8).add_to(my_map)
                             
-
-
-                    with open("{1}/zzz_{0}.csv".format(file,cwd), "a") as gpxfile:
-
-                        gpxfile.write('{0},{1},{2},{3},{4}\n'.format(point_no, point.latitude, point.longitude, speed, point.time))
-                        gpxfile.close()
+                    gpxfile.write('{0},{1},{2},{3},{4}\n'.format(point_no, point.latitude, point.longitude, speed, point.time))
                 
                     latitude.append( point.latitude )
                     longitude.append( point.longitude )
@@ -191,9 +199,10 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                 print(output1)
                 marshalfile.write("{0}\n".format(output1))
 
-        for waypoint in gpx.waypoints:
-            wptlatitude.append( waypoint.latitude )
-            wptlongitude.append( waypoint.longitude )
+        if showWaypoints == 1 :
+            for waypoint in gpx.waypoints:
+                wptlatitude.append( waypoint.latitude )
+                wptlongitude.append( waypoint.longitude )
 
 
 
@@ -209,10 +218,12 @@ def ConvertAndSpeed (file,my_map,color,line_points):
     plt.legend()
     plt.show(block=False)
 
-    for waypoint_no, waypoint in enumerate(gpx.waypoints):
-        if waypoint.name == None :
-            waypoint.name = waypoint_no + 1
-        folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='blue', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,waypoint.latitude,waypoint.longitude)).add_to(my_map)
+    if showWaypoints == 1 :
+        for waypoint_no, waypoint in enumerate(gpx.waypoints):
+            if waypoint.name == None :
+                waypoint.name = waypoint_no + 1
+            folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='lightgray', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,round(waypoint.latitude,6),round(waypoint.longitude,6))).add_to(my_map)
+            folium.features.Circle(location=(waypoint.latitude,waypoint.longitude),radius=distance_to_waypoint_allowed, weight=1,color="gray", popup="allowed {0} meters from waypoint".format(distance_to_waypoint_allowed),opacity=0.2).add_to(my_map)
 
     return my_map
 
@@ -265,17 +276,6 @@ def convertDecimal(tude):
     dd = float(a[0]) + (float(a[1]))/60 + (float(a[2]))/3600
     return dd
 
-
-#['red', 'blue', 'green', 'purple', 'orange', 'darkred','lightred', 'beige', 'darkblue', 'darkgreen', 'cadetblue','darkpurple', 'white', 'pink', 'lightblue', 'lightgreen','gray', 'black', 'lightgray']
-
-color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white", "black" ]
-c = 0
-
-now = datetime.datetime.now() 
-distance_to_marshal_allowed = 80
-cwd = os.getcwd()
-
-line_points = "line" # display "line" or "points", points is very slow.
 
 if line_points != "line" and line_points != "points":
     line_points = "line"
