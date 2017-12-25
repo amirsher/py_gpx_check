@@ -36,12 +36,20 @@ Added ploting of the tracks using [matplotlib](https://matplotlib.org/), and dis
 [zzz_spedding_plot_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/zzz_spedding_plot_results.txt)
 [zzz_marshal_plot_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/zzz_marshal_plot_results.txt)
 
-see
+for sample reports see:
+
+"line"
 ![speeding line](https://github.com/amirsher/py_gpx_check/blob/master/line.png)
 
+"points"
 ![speeding points](https://github.com/amirsher/py_gpx_check/blob/master/points.png)
+[SpeedingMap.html](https://github.com/amirsher/py_gpx_check/blob/master/SpeedingMap.html)
 
+"tracking"
 ![marshal point](https://github.com/amirsher/py_gpx_check/blob/master/marshal.png)
+[TrackingMap.html](https://github.com/amirsher/py_gpx_check/blob/master/TrackingMap.html)
 
-[tracking.png](https://github.com/amirsher/py_gpx_check/blob/master/tracking.png), [TrackingMap.html](https://github.com/amirsher/py_gpx_check/blob/master/TrackingMap.html), [SpeedingMap.html](https://github.com/amirsher/py_gpx_check/blob/master/SpeedingMap.html) for sample reports.
+plot
+![marshal point](https://github.com/amirsher/py_gpx_check/blob/master/tracking.png)
+
 
