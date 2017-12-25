@@ -345,7 +345,7 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
                 c = 0
                     
         marshals_feature_group.add_to(my_map)
-        my_map.add_children(folium.LayerControl())
+        my_map.add_child(folium.LayerControl())
         my_map.save("TrackingMap.html")
 
     else:
