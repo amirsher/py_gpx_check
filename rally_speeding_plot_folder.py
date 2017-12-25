@@ -139,6 +139,7 @@ def foliumMap(file):
         ave_lon = 30.0
 
     my_map = folium.Map(location=[ave_lat, ave_lon], tiles='',attr='OpenStreetMap',  zoom_start=12, control_scale=True, prefer_canvas=True)
+    folium.TileLayer(tiles='http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',attr='OpenStreetMap attribution', name='World_Imagery').add_to(my_map)
     folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='Hebrew Base Map').add_to(my_map)
 #    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayTiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='Hiking Trails Overlay').add_to(my_map)
     folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/mtbTiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='MTB Hebrew Base Map').add_to(my_map)
