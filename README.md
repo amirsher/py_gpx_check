@@ -13,7 +13,7 @@ accept lat/long of strating point, lat/long of finish point and restricted speed
 
 NOT accepting waypoints gpx file.
 
-run: python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65
+run: python speeding.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65
 
 see [zzz_spedding_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/zzz_spedding_results.txt) for sample report.
 
@@ -25,7 +25,7 @@ accepts lat/long for each marshal.
 
 accepts waypoints gpx file.
 
-run: python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
+run: python marshaling.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
 
 see [zzz_marshal_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/zzz_marshal_results.txt) for sample report.
 
@@ -45,7 +45,7 @@ for sample reports see:
 "points"
 ![speeding points](https://github.com/amirsher/py_gpx_check/blob/master/points.png)
 
-"tracking"
+"marshaling"
 ![marshal point](https://github.com/amirsher/py_gpx_check/blob/master/marshal.png)
 [TrackingMap.html](https://github.com/amirsher/py_gpx_check/blob/master/TrackingMap.html)
 

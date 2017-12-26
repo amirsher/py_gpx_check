@@ -145,11 +145,6 @@ def foliumMap(file):
 #    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayMTB/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='MTB Trails Overlay').add_to(my_map)
     folium.TileLayer(tiles='OpenStreetMap',attr='OpenStreetMap', name='OpenStreetMap').add_to(my_map)
 
-    url = ('http://tnuatiming.com/android-chrome-36x36.png')
-    FloatImage(url, bottom=2, left=96).add_to(my_map)
-    #    my_map.add_child(MeasureControl())
-    folium.LatLngPopup().add_to(my_map)
-
     return my_map
 
 
@@ -344,6 +339,10 @@ with open("{0}/zzz_spedding_results.txt".format(cwd), "a") as speddingfile:
                 c = 0
 
         speeding_feature_group.add_to(my_map)
+        url = ('http://tnuatiming.com/android-chrome-36x36.png')
+        FloatImage(url, bottom=2, left=96).add_to(my_map)
+        #    my_map.add_child(MeasureControl())
+        folium.LatLngPopup().add_to(my_map)
         my_map.add_child(folium.LayerControl())
         my_map.fit_bounds(my_map.get_bounds())
         my_map.save("SpeedingMap.html")
