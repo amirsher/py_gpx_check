@@ -9,7 +9,6 @@ import glob, os
 import datetime
 import folium
 from folium.plugins import FloatImage
-import ee
 #from folium.plugins import MeasureControl
 
 # python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 70
@@ -26,7 +25,7 @@ reverse = 0 # check for speeding on the reverse track
 
 line_points = "line" # display "line" or "points", points is very slow.
 
-color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white", "black" ]
+color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white" ]
 c = 0
 
 # WGS 84
@@ -138,13 +137,13 @@ def foliumMap(file):
         ave_lat = 35.0
         ave_lon = 30.0
 
-    my_map = folium.Map(location=[ave_lat, ave_lon], tiles='',attr='OpenStreetMap',  zoom_start=12, control_scale=True, prefer_canvas=True)
-    folium.TileLayer(tiles='http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',attr='OpenStreetMap attribution', name='World_Imagery').add_to(my_map)
-    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='Hebrew Base Map').add_to(my_map)
-#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayTiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='Hiking Trails Overlay').add_to(my_map)
-    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/mtbTiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='MTB Hebrew Base Map').add_to(my_map)
-#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayMTB/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='MTB Trails Overlay').add_to(my_map)
-    folium.TileLayer(tiles='OpenStreetMap',attr='OpenStreetMap attribution', name='OpenStreetMap').add_to(my_map)
+    my_map = folium.Map(location=[ave_lat, ave_lon], tiles='',attr='',  zoom_start=12, control_scale=True, prefer_canvas=True)
+    folium.TileLayer(tiles='http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',attr='DigitalGlobe', name='World Imagery', max_zoom=17).add_to(my_map)
+    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='Hebrew Base Map', max_zoom=16).add_to(my_map)
+#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayTiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='Hiking Trails Overlay').add_to(my_map)
+    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/mtbTiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='MTB Hebrew Base Map', max_zoom=16).add_to(my_map)
+#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayMTB/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='MTB Trails Overlay').add_to(my_map)
+    folium.TileLayer(tiles='OpenStreetMap',attr='OpenStreetMap', name='OpenStreetMap').add_to(my_map)
 
     url = ('http://tnuatiming.com/android-chrome-36x36.png')
     FloatImage(url, bottom=2, left=96).add_to(my_map)
@@ -346,6 +345,7 @@ with open("{0}/zzz_spedding_results.txt".format(cwd), "a") as speddingfile:
 
         speeding_feature_group.add_to(my_map)
         my_map.add_child(folium.LayerControl())
+        my_map.fit_bounds(my_map.get_bounds())
         my_map.save("SpeedingMap.html")
 
     else:

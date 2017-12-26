@@ -1,4 +1,4 @@
-File generated on 2017-12-25 16:43:25.
+File generated on 2017-12-26 09:12:27.
 There are 2 restricted Zone(s).
 
 new1_segment_7_20171214
@@ -90,6 +90,18 @@ SPEEDING!!! at point 459, location: (30.009266,34.962191), speed: 112.76 kph.
 SPEEDING!!! at point 460, location: (30.007809,34.961337), speed: 73.13 kph.
 
 new7_segment_7_20171214.gpxTop Speed: 168.91 kph on point 656
+
+segment_9_20171215
+Restricted 40.0 kph Zone 1:
+Closest to start: Point 2608 at 41.62 meters, Closest to finish: Point 2565 at 97.11 meters.
+
+
+segment_9_20171215
+Restricted 70.0 kph Zone 2:
+Closest to start: Point 1663 at 45.3 meters, Closest to finish: Point 1556 at 84.67 meters.
+
+
+segment_9_20171215.gpxTop Speed: 144.24 kph on point 1411
 
 new6_segment_7_20171214
 Restricted 40.0 kph Zone 1:

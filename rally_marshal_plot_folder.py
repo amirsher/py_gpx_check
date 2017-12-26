@@ -25,7 +25,7 @@ line_points = "line" # display "line" or "points", points is very slow.
 
 #['red', 'blue', 'green', 'purple', 'orange', 'darkred','lightred', 'beige', 'darkblue', 'darkgreen', 'cadetblue','darkpurple', 'white', 'pink', 'lightblue', 'lightgreen','gray', 'black', 'lightgray']
 
-color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white", "black" ]
+color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white" ]
 c = 0
 
 # WGS 84
@@ -144,18 +144,19 @@ def foliumMap(file):
         ave_lat = 35.0
         ave_lon = 30.0
         
-    my_map = folium.Map(location=[ave_lat, ave_lon], tiles='',attr='OpenStreetMap',  zoom_start=12, control_scale=True, prefer_canvas=True)
-    folium.TileLayer(tiles='http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',attr='OpenStreetMap attribution', name='World_Imagery').add_to(my_map)
-    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='Hebrew Base Map').add_to(my_map)
-#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayTiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='Hiking Trails Overlay').add_to(my_map)
-    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/mtbTiles/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='MTB Hebrew Base Map').add_to(my_map)
-#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayMTB/{z}/{x}/{y}.png',attr='OpenStreetMap attribution', name='MTB Trails Overlay').add_to(my_map)
-    folium.TileLayer(tiles='OpenStreetMap',attr='OpenStreetMap attribution', name='OpenStreetMap').add_to(my_map)
+    my_map = folium.Map(location=[ave_lat, ave_lon], tiles='',attr='',  zoom_start=12, control_scale=True, prefer_canvas=True)
+    folium.TileLayer(tiles='http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',attr='DigitalGlobe', name='World Imagery', max_zoom=17).add_to(my_map)
+    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='Hebrew Base Map', max_zoom=16).add_to(my_map)
+#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayTiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='Hiking Trails Overlay').add_to(my_map)
+    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/mtbTiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='MTB Hebrew Base Map', max_zoom=16).add_to(my_map)
+#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayMTB/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='MTB Trails Overlay').add_to(my_map)
+    folium.TileLayer(tiles='OpenStreetMap',attr='OpenStreetMap', name='OpenStreetMap').add_to(my_map)
 
     url = ('http://tnuatiming.com/android-chrome-36x36.png')
     FloatImage(url, bottom=2, left=96).add_to(my_map)
     #    my_map.add_child(MeasureControl())
     folium.LatLngPopup().add_to(my_map)
+
     return my_map
 
 
@@ -268,9 +269,9 @@ def OutputMarshal(x,closest_to_marshal_point,closest_to_marshal_point_meters,out
     for row in reader:
             if (int(row[0]) == int(closest_to_marshal_point)) :
                 if int(closest_to_marshal_point_meters) > int(out_of_range) :
-                    output = ("Passed Marshal {0} at {1} distance of {2} meters and speed of {3} kph. OUT OF RANGE".format(x, row[4],int(closest_to_marshal_point_meters), row[3]))
+                    output = ("Passed Marshal {0} on {1} at distance of {2} meters and speed of {3} kph. OUT OF RANGE".format(x, row[4],int(closest_to_marshal_point_meters), row[3]))
                 else :
-                    output = ("Passed Marshal {0} at {1} distance of {2} meters and speed of {3} kph.".format(x, row[4],int(closest_to_marshal_point_meters), row[3]))
+                    output = ("Passed Marshal {0} on {1} at distance of {2} meters and speed of {3} kph.".format(x, row[4],int(closest_to_marshal_point_meters), row[3]))
                 print(output)
                 marshalfile.write("{}\n".format(output))
 
@@ -346,6 +347,7 @@ with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
                     
         marshals_feature_group.add_to(my_map)
         my_map.add_child(folium.LayerControl())
+        my_map.fit_bounds(my_map.get_bounds())
         my_map.save("TrackingMap.html")
 
     else:
