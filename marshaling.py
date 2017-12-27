@@ -286,9 +286,9 @@ def convertDecimal(tude):
 if line_points != "line" and line_points != "points":
     line_points = "line"
 
-with open("{0}/zzz_marshal_results.txt".format(cwd), "w"): pass # clear the txt file
+with open("{0}/marshaling_results.txt".format(cwd), "w"): pass # clear the txt file
 
-with open("{0}/zzz_marshal_results.txt".format(cwd), "a") as marshalfile:
+with open("{0}/marshaling_results.txt".format(cwd), "a") as marshalfile:
 
     MarshalPoints= int(len(sys.argv)-1)
 

@@ -274,9 +274,9 @@ def OutputSpedding(closest_to_start,closest_to_finish,restricted_speed):
 if line_points != "line" and line_points != "points":
     line_points = "line"
 
-with open("{0}/zzz_spedding_results.txt".format(cwd), "w"): pass # clear the txt file
+with open("{0}/spedding_results.txt".format(cwd), "w"): pass # clear the txt file
 
-with open("{0}/zzz_spedding_results.txt".format(cwd), "a") as speddingfile:
+with open("{0}/spedding_results.txt".format(cwd), "a") as speddingfile:
         
     restrictedZones= int((len(sys.argv)-1)/3)
         

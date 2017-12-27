@@ -15,7 +15,7 @@ NOT accepting waypoints gpx file.
 
 run: python speeding.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65
 
-see [zzz_spedding_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/zzz_spedding_results.txt) for sample report.
+see [spedding_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/spedding_results.txt) for sample report.
 
 ### Marshaling ###
 
@@ -27,14 +27,12 @@ accepts waypoints gpx file.
 
 run: python marshaling.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
 
-see [zzz_marshal_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/zzz_marshal_results.txt) for sample report.
+see [marshaling_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/marshaling_results.txt) for sample report.
 
 ### Track Ploting and Web Map ###
 
 Added ploting of the tracks using [matplotlib](https://matplotlib.org/), and displaying on a web page
 
-[zzz_spedding_plot_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/zzz_spedding_plot_results.txt)
-[zzz_marshal_plot_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/zzz_marshal_plot_results.txt)
 
 for sample reports see:
 
