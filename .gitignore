@@ -5,6 +5,8 @@ gitup.sh
 tracking.png
 TrackingMap.html
 SpeedingMap.html
+marshal_results.txt
+spedding_results.txt
 old
 *.gpx
 *.kate-swp
