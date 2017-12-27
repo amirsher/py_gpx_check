@@ -1,7 +1,7 @@
-File generated on 2017-12-27 15:45:53.
+File generated on 2017-12-27 23:41:30.
 There are 2 Marshal Point(s).
 Out of range set to 80 meters.
 
 7
-Passed Marshal 1 on 2017-12-14 09:21:28 at distance of 91 meters and speed of 78.73 kph. OUT OF RANGE
-Passed Marshal 2 on 2017-12-14 09:16:45 at distance of 39 meters and speed of 70.54 kph.
+Passed Marshal 1 on 2017-12-14 09:16:45 at distance of 34 meters and speed of 70.54 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 113 meters and speed of 78.73 kph. OUT OF RANGE
