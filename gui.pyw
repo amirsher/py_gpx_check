@@ -4,6 +4,7 @@ from tkinter import *
 from subprocess import check_output, Popen, PIPE
 from tkinter import messagebox
 import webbrowser, os
+from tkinter import filedialog
 
 top = Tk()
 top.title("Check gpx files")
@@ -11,7 +12,7 @@ top.geometry('800x600')
 
 def speeding():
     B2.flash()
-    p = Popen("python speeding.py " + E2.get(), stdout=PIPE, shell=True, universal_newlines=True)
+    p = Popen("speeding.py " + E2.get(), stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
     while True:
         retcode = p.poll()
         output = p.stdout.readline()
@@ -30,7 +31,7 @@ def speeding():
     
 def marshaling():
     B1.flash()
-    p = Popen("python marshaling.py " + E1.get(), stdout=PIPE, shell=True, universal_newlines=True)
+    p = Popen("marshaling.py " + E1.get(), stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
     while True:
         retcode = p.poll()
         output = p.stdout.readline()
@@ -46,6 +47,23 @@ def marshaling():
         webbrowser.open('file://' + os.path.realpath(filename))
     else:
         messagebox.showinfo("Information","saved results to " + filename)
+
+def browse_button():
+    # Allow user to select a directory and store it in global var
+    # called folder_path
+    global folder_path
+    filename = filedialog.askdirectory()
+    folder_path.set(filename)
+    print(filename)
+    text.insert(END, filename)
+    os.chdir(filename)
+
+
+folder_path = StringVar()
+lbl1 = Label(top,textvariable=folder_path, font=("Ariel", "20"))
+lbl1.pack()
+B3 = Button(top,text="Browse to Directory", command=browse_button, font=("Ariel", "20"), bg="gray", fg="white", bd="4")
+B3.pack()
 
 S2 = LabelFrame(top, text="")
 S2.pack(padx="20",pady="20")

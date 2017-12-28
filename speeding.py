@@ -265,11 +265,14 @@ def OutputSpedding(closest_to_start,closest_to_finish,restricted_speed):
             
         row[1] = round(float(row[1]),6)
         row[2] = round(float(row[2]),6)
-        if ((int(row[0]) >= int(closest_to_start)) and (int(row[0]) <= int(closest_to_finish))  and (float(row[3]) >= int(restricted_speed))and (distance_vincenty(restricted_start, (row[1],row[2])) > graceZone) and (distance_vincenty(restricted_finish, (row[1],row[2])) > graceZone)):
+        if ((int(row[0]) >= int(closest_to_start)) and (int(row[0]) <= int(closest_to_finish))  and (float(row[3]) >= int(restricted_speed)) and (distance_vincenty(restricted_start, (row[1],row[2])) > graceZone) and (distance_vincenty(restricted_finish, (row[1],row[2])) > graceZone)):
             output = ("SPEEDING!!! at point {0}, location: ({1},{2}), speed: {3} kph.".format(row[0],row[1],row[2],row[3]))
             print(output)
             speddingfile.write("{}\n".format(output))
             folium.Marker(location=(row[1],row[2]),icon=folium.Icon(color='black', icon='camera', prefix='fa'), popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4])).add_to(feature_group)
+
+        if ((int(row[0]) == int(closest_to_start)) or (int(row[0]) == int(closest_to_finish))) :
+            folium.features.Circle(location=(row[1],row[2]),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0} entering restitricted zone<br>speed: {1}".format(cleanFile,row[3]),fill_opacity=1).add_to(feature_group)
 
 
 if line_points != "line" and line_points != "points":
@@ -323,7 +326,7 @@ with open("{0}/spedding_results.txt".format(cwd), "a") as speddingfile:
                 restricted_speed = float(sys.argv[i*3]) # kph
 
                 zone = FindClosest(i) # number of restricted zone
-                OutputSpedding(int(zone[0])+2,int(zone[1])-2,zone[2]) # to be safe: +2,-2 is to start checking 1 point inside the zone from start and end
+                OutputSpedding(int(zone[0])+1,int(zone[1])-1,zone[2]) # to be safe: +1,-1 is to start checking 1 point inside the zone from start and end
                 if reverse == 1 :
                     OutputSpedding(zone[1],zone[0],zone[2])
                 feature_group.add_to(my_map)
