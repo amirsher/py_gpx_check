@@ -7,7 +7,7 @@ import sys
 import csv
 import glob, os
 import datetime
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import folium
 from folium.plugins import FloatImage
 #from folium.plugins import MeasureControl
@@ -145,10 +145,10 @@ def foliumMap(file):
         ave_lon = 30.0
         
     my_map = folium.Map(location=[ave_lat, ave_lon], tiles='',attr='',  zoom_start=12, control_scale=True, prefer_canvas=True)
-    folium.TileLayer(tiles='http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',attr='DigitalGlobe', name='World Imagery', max_zoom=17).add_to(my_map)
-    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='Hebrew Base Map', max_zoom=16).add_to(my_map)
+#    folium.TileLayer(tiles='http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',attr='DigitalGlobe', name='World Imagery', max_zoom=17).add_to(my_map)
+#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='Hebrew Base Map', max_zoom=16).add_to(my_map)
 #    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayTiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='Hiking Trails Overlay').add_to(my_map)
-    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/mtbTiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='MTB Hebrew Base Map', max_zoom=16).add_to(my_map)
+#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/mtbTiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='MTB Hebrew Base Map', max_zoom=16).add_to(my_map)
 #    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayMTB/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='MTB Trails Overlay').add_to(my_map)
 #    folium.TileLayer(tiles='https://tile.opentopomap.org/{z}/{x}/{y}.png',attr='OpenTopoMap', name='OpenTopoMap', max_zoom=18).add_to(my_map)
     folium.TileLayer(tiles='OpenStreetMap',attr='OpenStreetMap', name='OpenStreetMap').add_to(my_map)
@@ -213,7 +213,7 @@ def ConvertAndSpeed (file,my_map,color,line_points):
     if line_points == "line" :
 
         folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(cleanFile), weight=3, opacity=1).add_to(feature_group)
-
+    '''
     if len(longitude) > 0:
     #       plt.axis('equal')
         plt.plot(longitude,latitude,label=cleanFile,) #
@@ -222,7 +222,7 @@ def ConvertAndSpeed (file,my_map,color,line_points):
         plt.plot(wptlongitude,wptlatitude,label="waypoints",) #
     plt.legend()
     plt.show(block=False)
-
+    '''
     if showWaypoints == 1 :
         for waypoint_no, waypoint in enumerate(gpx.waypoints):
             if waypoint.name == None :
@@ -355,10 +355,11 @@ with open("{0}/marshaling_results.txt".format(cwd), "a") as marshalfile:
         sys.exit(0)
 
 marshalfile.close()
-
+'''
 plt.xlabel('latitude')
 plt.ylabel('longitude')
 plt.savefig('tracking.png', bbox_inches='tight', dpi=288)
 plt.title(u'\u25B2 \nN ',loc='left', rotation = 0,family='sans-serif', fontsize=16) # north arrow
 plt.tight_layout()
 plt.show()
+'''

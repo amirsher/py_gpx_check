@@ -138,10 +138,10 @@ def foliumMap(file):
         ave_lon = 30.0
 
     my_map = folium.Map(location=[ave_lat, ave_lon], tiles='',attr='',  zoom_start=12, control_scale=True, prefer_canvas=True)
-    folium.TileLayer(tiles='http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',attr='DigitalGlobe', name='World Imagery', max_zoom=17).add_to(my_map)
-    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='Hebrew Base Map', max_zoom=16).add_to(my_map)
+#    folium.TileLayer(tiles='http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',attr='DigitalGlobe', name='World Imagery', max_zoom=17).add_to(my_map)
+#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='Hebrew Base Map', max_zoom=16).add_to(my_map)
 #    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayTiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='Hiking Trails Overlay').add_to(my_map)
-    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/mtbTiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='MTB Hebrew Base Map', max_zoom=16).add_to(my_map)
+#    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/mtbTiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='MTB Hebrew Base Map', max_zoom=16).add_to(my_map)
 #    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayMTB/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='MTB Trails Overlay').add_to(my_map)
 #    folium.TileLayer(tiles='https://tile.opentopomap.org/{z}/{x}/{y}.png',attr='OpenTopoMap', name='OpenTopoMap', max_zoom=18).add_to(my_map)
     folium.TileLayer(tiles='OpenStreetMap',attr='OpenStreetMap', name='OpenStreetMap').add_to(my_map)
@@ -249,30 +249,45 @@ def FindClosest(i):
     output = ('\n{4}\nRestricted {6} kph Zone {5}:\nClosest to start: Point {0} at {1} meters, Closest to finish: Point {2} at {3} meters.\n'.format(closest_to_start, closest_to_start_meters, closest_to_finish, closest_to_finish_meters, cleanFile,i,restricted_speed))
     print(output)
     speddingfile.write("{0}\n".format(output))
-    folium.Marker(location=(restricted_start[0],restricted_start[1]),icon=folium.Icon(color='red', icon='exclamation', prefix='fa'), popup="restricted zone {0} start<br>speed limit <b>{1} kph</b>".format(i,restricted_speed)).add_to(speeding_feature_group)
-    folium.Marker(location=(restricted_finish[0],restricted_finish[1]),icon=folium.Icon(color='green', icon='check', prefix='fa'), popup="restricted zone {0} end<br>speed limit <b>{1} kph</b>".format(i,restricted_speed)).add_to(speeding_feature_group)
+    folium.Marker(location=(restricted_start[0],restricted_start[1]),icon=folium.Icon(color='red', icon='exclamation', prefix='fa'), popup="restricted zone {0} start<br>speed limit <b>{1} kph</b><br>{2} , {3}".format(i,restricted_speed,round(restricted_start[0],6),round(restricted_start[1],6))).add_to(speeding_feature_group)
+    folium.Marker(location=(restricted_finish[0],restricted_finish[1]),icon=folium.Icon(color='green', icon='check', prefix='fa'), popup="restricted zone {0} end<br>speed limit <b>{1} kph</b><br>{2} , {3}".format(i,restricted_speed,round(restricted_finish[0],6),round(restricted_finish[1],6))).add_to(speeding_feature_group)
 
-    folium.features.Circle(location=(restricted_start[0],restricted_start[1]),radius=distance_from_point_allowed, weight=1,color="gray", popup="{0} meters from point".format(distance_from_point_allowed),opacity=0.2).add_to(speeding_feature_group)
-    folium.features.Circle(location=(restricted_finish[0],restricted_finish[1]),radius=distance_from_point_allowed, weight=1,color="gray", popup="{0} meters from point".format(distance_from_point_allowed),opacity=0.2).add_to(speeding_feature_group)
+    folium.features.Circle(location=(restricted_start[0],restricted_start[1]),radius=distance_from_point_allowed, weight=1,color="gray", popup="allowed {0} meters from point".format(distance_from_point_allowed),opacity=0.2).add_to(speeding_feature_group)
+    folium.features.Circle(location=(restricted_finish[0],restricted_finish[1]),radius=distance_from_point_allowed, weight=1,color="gray", popup="allowed {0} meters from point".format(distance_from_point_allowed),opacity=0.2).add_to(speeding_feature_group)
+    # grace zone marking
+    folium.features.Circle(location=(restricted_start[0],restricted_start[1]),radius=graceZone, weight=1,color="lightgray", popup="grace zone: {0}  meters".format(graceZone),opacity=0.2).add_to(speeding_feature_group)
+    folium.features.Circle(location=(restricted_finish[0],restricted_finish[1]),radius=graceZone, weight=1,color="lightgray", popup="grace zone: {0}  meters".format(graceZone),opacity=0.2).add_to(speeding_feature_group)
 
     return (closest_to_start,closest_to_finish,restricted_speed,topspeed,topspeed_point)
     
     
 def OutputSpedding(closest_to_start,closest_to_finish,restricted_speed):
-
+    sz = 0
     reader = csv.reader(open("{1}/zzz_{0}.csv".format(file,cwd)), delimiter=',')
     for row in reader:
-            
+        
         row[1] = round(float(row[1]),6)
         row[2] = round(float(row[2]),6)
-        if ((int(row[0]) >= int(closest_to_start)) and (int(row[0]) <= int(closest_to_finish))  and (float(row[3]) >= int(restricted_speed)) and (distance_vincenty(restricted_start, (row[1],row[2])) > graceZone) and (distance_vincenty(restricted_finish, (row[1],row[2])) > graceZone)):
+        distToStart = round(distance_vincenty(restricted_start, (row[1],row[2])),2)
+        distToFinish = round(distance_vincenty(restricted_finish, (row[1],row[2])),2)
+        
+        if ((int(row[0]) >= int(closest_to_start)) and (int(row[0]) <= int(closest_to_finish))  and (float(row[3]) >= int(restricted_speed)) and (distToStart > graceZone) and (distToFinish > graceZone)):
             output = ("SPEEDING!!! at point {0}, location: ({1},{2}), speed: {3} kph.".format(row[0],row[1],row[2],row[3]))
             print(output)
             speddingfile.write("{}\n".format(output))
             folium.Marker(location=(row[1],row[2]),icon=folium.Icon(color='black', icon='camera', prefix='fa'), popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4])).add_to(feature_group)
 
-        if ((int(row[0]) == int(closest_to_start)) or (int(row[0]) == int(closest_to_finish))) :
-            folium.features.Circle(location=(row[1],row[2]),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0} entering restitricted zone<br>speed: {1}".format(cleanFile,row[3]),fill_opacity=1).add_to(feature_group)
+        # marking the track restricted zone start/finish points for speeding calculation
+        if ((sz == 0) and (int(row[0]) >= int(closest_to_start)) and (distToStart > graceZone)) :
+            folium.features.Circle(location=(row[1],row[2]),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0} entering restitricted zone<br>speed: {1} kph<br>distance: {2} meters".format(cleanFile,row[3],distToStart),fill_opacity=1).add_to(feature_group)
+            sz = 1
+
+        if ((int(row[0]) <= int(closest_to_finish)) and (distToFinish > graceZone)) :
+            fzlat = row[1]
+            fzlon = row[2]
+            fzspeed = row[3]
+            fzdist = distToFinish
+    folium.features.Circle(location=(fzlat,fzlon),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0} exiting restitricted zone<br>speed: {1} kph<br>distance: {2} meters".format(cleanFile,fzspeed,fzdist),fill_opacity=1).add_to(feature_group)
 
 
 if line_points != "line" and line_points != "points":
