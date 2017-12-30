@@ -94,24 +94,6 @@ def distance_vincenty(point1, point2):
 #    s /= 1000  # meters to kilometers
     return round(s, 6)
 
-def distance_haversine(point1, point2):    
-    R=6371009                               # radius of Earth in meters
-    phi_1=math.radians(point2[0])
-    phi_2=math.radians(point1[0])
-
-    delta_phi=math.radians(point1[0]-point2[0])
-    delta_lambda=math.radians(point1[1]-point2[1])
-
-    a=math.sin(delta_phi/2.0)**2+\
-    math.cos(phi_1)*math.cos(phi_2)*\
-    math.sin(delta_lambda/2.0)**2
-    c=2*math.atan2(math.sqrt(a),math.sqrt(1-a))
-    
-    meters=R*c                         # output distance in meters
-    #kms=meters/1000.0              # output distance in kilometers
-    #miles=meters*0.000621371      # output distance in miles
-    #feet=miles*5280               # output distance in feet
-    return meters
 
 def foliumMap(file):
     foliumpoints = [] # for folium
@@ -122,10 +104,11 @@ def foliumMap(file):
             for segment in track.segments:
                 for point_no, point in enumerate(segment.points):
                        foliumpoints.append(tuple([point.latitude, point.longitude]))
-
+        '''
         for waypoint in gpx.waypoints:
             foliumWptpoints.append(tuple([waypoint.latitude, waypoint.longitude]))
-
+        '''
+    '''
     if len(foliumpoints) > 0 :
         ave_lat = sum(p[0] for p in foliumpoints)/len(foliumpoints)
         ave_lon = sum(p[1] for p in foliumpoints)/len(foliumpoints)
@@ -143,8 +126,8 @@ def foliumMap(file):
     else:
         ave_lat = 35.0
         ave_lon = 30.0
-        
-    my_map = folium.Map(location=[ave_lat, ave_lon], tiles='',attr='',  zoom_start=12, control_scale=True, prefer_canvas=True)
+    '''
+    my_map = folium.Map(location=[35.0, 30.0], tiles='',attr='',  zoom_start=12, control_scale=True, prefer_canvas=True)
 #    folium.TileLayer(tiles='http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',attr='DigitalGlobe', name='World Imagery', max_zoom=17).add_to(my_map)
 #    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='Hebrew Base Map', max_zoom=16).add_to(my_map)
 #    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayTiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='Hiking Trails Overlay').add_to(my_map)
@@ -164,10 +147,10 @@ def ConvertAndSpeed (file,my_map,color,line_points):
     with open("{0}".format(file), "r") as gpx_file, open("{1}/zzz_{0}.csv".format(file,cwd), "a") as gpxfile: 
 
     #gpx_file = open('z20171214-111736.gpx', 'r')
-        latitude = [] # for matplotlib
-        longitude = [] # for matplotlib
-        wptlatitude = [] # for matplotlib
-        wptlongitude = [] # for matplotlib
+#        latitude = [] # for matplotlib
+#        longitude = [] # for matplotlib
+#        wptlatitude = [] # for matplotlib
+#        wptlongitude = [] # for matplotlib
         foliumpoints = [] # for folium
 
         gpx = gpxpy.parse(gpx_file)
@@ -194,21 +177,22 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                         folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}<br>point no. {5}".format(cleanFile,speed,point.latitude,point.longitude,point.time,point_no+1),fill_opacity=0.8).add_to(feature_group)
                             
                     gpxfile.write('{0},{1},{2},{3},{4}\n'.format(point_no, point.latitude, point.longitude, speed, point.time))
-                
+                    '''
                     latitude.append( point.latitude )
                     longitude.append( point.longitude )
+                    '''
                     foliumpoints.append(tuple([point.latitude, point.longitude]))
 
             if segment_no > 0 :
                 output1="\nWARNING!, file {0} contain {1} segments, should be no more then 1 segment to get correct results\n".format(file,segment_no+1)
                 print(output1)
                 marshalfile.write("{0}\n".format(output1))
-
+        '''
         if showWaypoints == 1 :
             for waypoint in gpx.waypoints:
                 wptlatitude.append( waypoint.latitude )
                 wptlongitude.append( waypoint.longitude )
-
+        '''
 
     if line_points == "line" :
 
@@ -244,9 +228,6 @@ def FindClosestSingle(marshal_point):
 
     reader = csv.reader(open("{1}/zzz_{0}.csv".format(file,cwd)), delimiter=',')
     for row in reader:
-
-        # calculate the distance to the marshal
-#                    start_meters = distance_haversine(marshal_point, (float(row[1]),float(row[2])))
 
         start_meters = distance_vincenty(marshal_point, (float(row[1]),float(row[2])))
 
@@ -344,10 +325,11 @@ with open("{0}/marshaling_results.txt".format(cwd), "a") as marshalfile:
         marshals_feature_group.add_to(my_map)
         url = ('http://tnuatiming.com/android-chrome-36x36.png')
         FloatImage(url, bottom=2, left=96).add_to(my_map)
-        #    my_map.add_child(MeasureControl())
-        folium.LatLngPopup().add_to(my_map)
+        # my_map.add_child(MeasureControl())
+        # folium.LatLngPopup().add_to(my_map)
         my_map.add_child(folium.LayerControl())
         my_map.fit_bounds(my_map.get_bounds())
+        with open("TrackingMap.html", "w"): pass # clear the txt file
         my_map.save("TrackingMap.html")
 
     else:

@@ -16,7 +16,7 @@ from folium.plugins import FloatImage
 #restricted_start = (32.49222,34.90380) # decimal lat,lon can also be in min/sec (30.11.42.635,35.02.59.208) 
 #restricted_finish = (32.49885,34.90372) # decimal lat,lon can also be in min/sec (30.11.42.635,35.02.59.208)
 #restricted_speed = 70 # kph
-
+showAllRestrictedPoints = 1 # show all point of competitor in the restricted zone
 graceZone = 90 # grace zone in the start/end of the restricted zone, in meters
 distance_from_point_allowed = 80 # ring for display only, in meters
 now = datetime.datetime.now() 
@@ -94,27 +94,9 @@ def distance_vincenty(point1, point2):
 #    s /= 1000  # meters to kilometers
     return round(s, 6)
 
-def distance_haversine(point1, point2):    
-    R=6371009                               # radius of Earth in meters
-    phi_1=math.radians(point2[0])
-    phi_2=math.radians(point1[0])
-
-    delta_phi=math.radians(point1[0]-point2[0])
-    delta_lambda=math.radians(point1[1]-point2[1])
-
-    a=math.sin(delta_phi/2.0)**2+\
-    math.cos(phi_1)*math.cos(phi_2)*\
-    math.sin(delta_lambda/2.0)**2
-    c=2*math.atan2(math.sqrt(a),math.sqrt(1-a))
-    
-    meters=R*c                         # output distance in meters
-    #kms=meters/1000.0              # output distance in kilometers
-    #miles=meters*0.000621371      # output distance in miles
-    #feet=miles*5280               # output distance in feet
-    return meters
-
 
 def foliumMap(file):
+    '''
     foliumpoints = [] # for folium
     with open("{0}".format(file), "r") as gpx_file: 
         gpx = gpxpy.parse(gpx_file)
@@ -136,8 +118,8 @@ def foliumMap(file):
     else:
         ave_lat = 35.0
         ave_lon = 30.0
-
-    my_map = folium.Map(location=[ave_lat, ave_lon], tiles='',attr='',  zoom_start=12, control_scale=True, prefer_canvas=True)
+    '''
+    my_map = folium.Map(location=[35.0, 30.0], tiles='',attr='',  zoom_start=12, control_scale=True, prefer_canvas=True)
 #    folium.TileLayer(tiles='http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',attr='DigitalGlobe', name='World Imagery', max_zoom=17).add_to(my_map)
 #    folium.TileLayer(tiles='https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='Hebrew Base Map', max_zoom=16).add_to(my_map)
 #    folium.TileLayer(tiles='https://israelhiking.osm.org.il/OverlayTiles/{z}/{x}/{y}.png',attr='israelhiking.osm.org.il', name='Hiking Trails Overlay').add_to(my_map)
@@ -199,10 +181,10 @@ def ConvertAndSpeed (file,my_map,color,line_points):
 
     if line_points == "line" :
         folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(cleanFile), weight=3, opacity=1).add_to(feature_group)
-
+    '''
     for waypoint in gpx.waypoints:
         folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='blue', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,waypoint.latitude,waypoint.longitude)).add_to(feature_group)
-
+    '''
 
     return my_map
 
@@ -229,11 +211,6 @@ def FindClosest(i):
         if float(row[3]) > float(topspeed) :
             topspeed = row[3]
             topspeed_point = row[0]
-        # calculate the distance to the restricted zone start
-#                    start_meters = distance_haversine(restricted_start, (float(row[1]),float(row[2])))
-
-        # calculate the distance to the restricted zone finish
-#                    finish_meters = distance_haversine(restricted_finish, (float(row[1]),float(row[2])))
 
         start_meters = distance_vincenty(restricted_start, (float(row[1]),float(row[2])))
         finish_meters = distance_vincenty(restricted_finish, (float(row[1]),float(row[2])))
@@ -271,15 +248,19 @@ def OutputSpedding(closest_to_start,closest_to_finish,restricted_speed):
         distToStart = round(distance_vincenty(restricted_start, (row[1],row[2])),2)
         distToFinish = round(distance_vincenty(restricted_finish, (row[1],row[2])),2)
         
-        if ((int(row[0]) >= int(closest_to_start)) and (int(row[0]) <= int(closest_to_finish))  and (float(row[3]) >= int(restricted_speed)) and (distToStart > graceZone) and (distToFinish > graceZone)):
-            output = ("SPEEDING!!! at point {0}, location: ({1},{2}), speed: {3} kph.".format(row[0],row[1],row[2],row[3]))
-            print(output)
-            speddingfile.write("{}\n".format(output))
-            folium.Marker(location=(row[1],row[2]),icon=folium.Icon(color='black', icon='camera', prefix='fa'), popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4])).add_to(feature_group)
+        if ((int(row[0]) >= int(closest_to_start)) and (int(row[0]) <= int(closest_to_finish)) and (distToStart > graceZone) and (distToFinish > graceZone)):
+            if (float(row[3]) >= int(restricted_speed)) :
+                output = ("SPEEDING!!! at point {0}, location: ({1},{2}), speed: {3} kph.".format(row[0],row[1],row[2],row[3]))
+                print(output)
+                speddingfile.write("{}\n".format(output))
+                folium.Marker(location=(row[1],row[2]),icon=folium.Icon(color='black', icon='camera', prefix='fa'), popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4])).add_to(feature_group)
+            elif showAllRestrictedPoints == 1 and line_points == "line":
+                folium.features.Circle(location=(row[1],row[2]),radius=3,stroke=False,fill="true",color="#000000", popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4]),fill_opacity=1).add_to(feature_group)
 
+                
         # marking the track restricted zone start/finish points for speeding calculation
         if ((sz == 0) and (int(row[0]) >= int(closest_to_start)) and (distToStart > graceZone)) :
-            folium.features.Circle(location=(row[1],row[2]),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0} entering restitricted zone<br>speed: {1} kph<br>distance: {2} meters".format(cleanFile,row[3],distToStart),fill_opacity=1).add_to(feature_group)
+            folium.features.Circle(location=(row[1],row[2]),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0} entering restitricted zone<br>speed: <b>{1} kph</b><br>distance: {2} meters".format(cleanFile,row[3],distToStart),fill_opacity=1).add_to(feature_group)
             sz = 1
 
         if ((int(row[0]) <= int(closest_to_finish)) and (distToFinish > graceZone)) :
@@ -287,7 +268,7 @@ def OutputSpedding(closest_to_start,closest_to_finish,restricted_speed):
             fzlon = row[2]
             fzspeed = row[3]
             fzdist = distToFinish
-    folium.features.Circle(location=(fzlat,fzlon),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0} exiting restitricted zone<br>speed: {1} kph<br>distance: {2} meters".format(cleanFile,fzspeed,fzdist),fill_opacity=1).add_to(feature_group)
+    folium.features.Circle(location=(fzlat,fzlon),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0} exiting restitricted zone<br>speed: <b>{1} kph</b><br>distance: {2} meters".format(cleanFile,fzspeed,fzdist),fill_opacity=1).add_to(feature_group)
 
 
 if line_points != "line" and line_points != "points":
@@ -343,7 +324,7 @@ with open("{0}/spedding_results.txt".format(cwd), "a") as speddingfile:
                 zone = FindClosest(i) # number of restricted zone
                 OutputSpedding(int(zone[0])+1,int(zone[1])-1,zone[2]) # to be safe: +1,-1 is to start checking 1 point inside the zone from start and end
                 if reverse == 1 :
-                    OutputSpedding(zone[1],zone[0],zone[2])
+                    OutputSpedding(zone[1]+1,zone[0]-1,zone[2])
                 feature_group.add_to(my_map)
 
                 if i == restrictedZones :
@@ -360,10 +341,11 @@ with open("{0}/spedding_results.txt".format(cwd), "a") as speddingfile:
         speeding_feature_group.add_to(my_map)
         url = ('http://tnuatiming.com/android-chrome-36x36.png')
         FloatImage(url, bottom=2, left=96).add_to(my_map)
-        #    my_map.add_child(MeasureControl())
-        folium.LatLngPopup().add_to(my_map)
+        # my_map.add_child(MeasureControl())
+        # folium.LatLngPopup().add_to(my_map)
         my_map.add_child(folium.LayerControl())
         my_map.fit_bounds(my_map.get_bounds())
+        with open("SpeedingMap.html", "w"): pass # clear the txt file
         my_map.save("SpeedingMap.html")
 
     else:

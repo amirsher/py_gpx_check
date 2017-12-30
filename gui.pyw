@@ -12,6 +12,7 @@ top.geometry('800x600')
 
 def speeding():
     B2.flash()
+    text.delete(1.0,END)
     p = Popen("speeding.py " + E2.get(), stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
     while True:
         retcode = p.poll()
@@ -31,6 +32,7 @@ def speeding():
     
 def marshaling():
     B1.flash()
+    text.delete(1.0,END)
     p = Popen("marshaling.py " + E1.get(), stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
     while True:
         retcode = p.poll()
@@ -82,7 +84,9 @@ T1 = Label(top, text="30.195176,35.04978 30.1749997,35.0642141")
 T1.pack()
 B1 = Button(top, text ="marshaling", command = marshaling, font=("Ariel", "24"), bg="gray", fg="white", bd="5")
 B1.pack(padx="20",pady="20")
+
+T3 = Label(top, text="console")
+T3.pack()
 text = Text(top)
 text.pack(padx="20",pady="10")
-text.insert(END, "console\n")
 top.mainloop()
