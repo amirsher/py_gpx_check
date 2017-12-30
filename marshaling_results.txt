@@ -1,4 +1,4 @@
-File generated on 2017-12-30 11:07:08.
+File generated on 2017-12-30 16:00:16.
 There are 4 Marshal Point(s).
 Out of range set to 80 meters.
 
@@ -7,11 +7,6 @@ Passed Marshal 1 on 2017-12-14 09:16:40 at distance of 50 meters and speed of 66
 Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 145 meters and speed of 94.05 kph. OUT OF RANGE
 Passed Marshal 3 on 2017-12-14 10:04:41 at distance of 120 meters and speed of 46.06 kph. OUT OF RANGE
 Passed Marshal 4 on 2017-12-14 10:12:33 at distance of 94 meters and speed of 85.08 kph. OUT OF RANGE
-7_with_wpt
-Passed Marshal 1 on 2017-12-14 09:16:45 at distance of 34 meters and speed of 70.54 kph.
-Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 113 meters and speed of 78.73 kph. OUT OF RANGE
-Passed Marshal 3 on 2017-12-14 10:04:39 at distance of 74 meters and speed of 80.74 kph.
-Passed Marshal 4 on 2017-12-14 10:12:15 at distance of 106 meters and speed of 68.7 kph. OUT OF RANGE
 46
 Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 22 meters and speed of 56.34 kph.
 Passed Marshal 2 on 2017-12-14 09:21:05 at distance of 133 meters and speed of 30.7 kph. OUT OF RANGE
@@ -42,6 +37,7 @@ Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 65 meters and speed of 65
 Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 99 meters and speed of 84.67 kph. OUT OF RANGE
 Passed Marshal 3 on 2017-12-14 10:04:52 at distance of 24 meters and speed of 46.67 kph.
 Passed Marshal 4 on 2017-12-14 10:12:26 at distance of 105 meters and speed of 42.21 kph. OUT OF RANGE
+baja_menuha_2016
 33
 Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 19 meters and speed of 70.05 kph.
 Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 101 meters and speed of 72.22 kph. OUT OF RANGE

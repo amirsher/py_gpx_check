@@ -15,18 +15,28 @@ from folium.plugins import FloatImage
 # python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
 # # decimal lat,lon can also be in min/sec (30.11.42.635,35.02.59.208)
 
-showWaypoints = 1
-now = datetime.datetime.now() 
+options = ((sys.argv)[1]).split(',')
+distance_to_marshal_allowed = int(options[0])
+distance_to_waypoint_allowed = int(options[1])
+line_points = options[2]
+showWaypoints = options[3] # "yes" to show waypoints
+showWaypointsLine = options[4] # "yes" to show waypoints line
+if showWaypointsLine == "yes" :
+    showWaypoints = "yes"
+'''
+showWaypoints = 1 # "1" to show waypoints
+showWaypointsLine = 0 # "1" to show waypoints line
 distance_to_marshal_allowed = 80
 distance_to_waypoint_allowed = 100 # ring for display only
-cwd = os.getcwd()
 
 line_points = "line" # display "line" or "points", points is very slow.
-
+'''
 #['red', 'blue', 'green', 'purple', 'orange', 'darkred','lightred', 'beige', 'darkblue', 'darkgreen', 'cadetblue','darkpurple', 'white', 'pink', 'lightblue', 'lightgreen','gray', 'black', 'lightgray']
 
 color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white" ]
 c = 0
+cwd = os.getcwd()
+now = datetime.datetime.now() 
 
 # WGS 84
 a = 6378137  # meters
@@ -152,6 +162,7 @@ def ConvertAndSpeed (file,my_map,color,line_points):
 #        wptlatitude = [] # for matplotlib
 #        wptlongitude = [] # for matplotlib
         foliumpoints = [] # for folium
+        foliumWPTpoints = [] # for folium
 
         gpx = gpxpy.parse(gpx_file)
         for track in gpx.tracks:
@@ -207,13 +218,19 @@ def ConvertAndSpeed (file,my_map,color,line_points):
     plt.legend()
     plt.show(block=False)
     '''
-    if showWaypoints == 1 :
+    if showWaypoints == "yes" :
         for waypoint_no, waypoint in enumerate(gpx.waypoints):
             if waypoint.name == None :
                 waypoint.name = waypoint_no + 1
             folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='lightgray', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,round(waypoint.latitude,6),round(waypoint.longitude,6))).add_to(feature_group)
             folium.features.Circle(location=(waypoint.latitude,waypoint.longitude),radius=distance_to_waypoint_allowed, weight=1,color="gray", popup="allowed {0} meters from waypoint".format(distance_to_waypoint_allowed),opacity=0.2).add_to(feature_group)
-                    
+
+            if showWaypointsLine == "yes" :
+                foliumWPTpoints.append(tuple([waypoint.latitude, waypoint.longitude]))
+    
+    if showWaypointsLine == "yes" :
+        folium.features.PolyLine(foliumWPTpoints, color="lightgray",popup="waypoint track", weight=3, opacity=1).add_to(feature_group)
+               
 
     return my_map
 
@@ -272,7 +289,7 @@ with open("{0}/marshaling_results.txt".format(cwd), "w"): pass # clear the txt f
 
 with open("{0}/marshaling_results.txt".format(cwd), "a") as marshalfile:
 
-    MarshalPoints= int(len(sys.argv)-1)
+    MarshalPoints= int(len(sys.argv)-2)
 
     output = ("File generated on {2}.\nThere are {0} Marshal Point(s).\nOut of range set to {1} meters.\n".format(MarshalPoints,distance_to_marshal_allowed,now.strftime("%Y-%m-%d %H:%M:%S")))
     print("\n{}".format(output))
@@ -296,7 +313,7 @@ with open("{0}/marshaling_results.txt".format(cwd), "a") as marshalfile:
             feature_group = folium.FeatureGroup(name=cleanFile)
             my_map=ConvertAndSpeed(file,my_map,color[c],line_points)
             marshalfile.write("{}\n".format(cleanFile))
-            for x in range(1, MarshalPoints+1):
+            for x in range(2, MarshalPoints+2):
                 marshalpoint = ((sys.argv)[x]).split(',')
 
                 if ((sys.argv)[x]).count('.') >= 4 : # lat/long is in minutes/seconds
@@ -309,11 +326,11 @@ with open("{0}/marshaling_results.txt".format(cwd), "a") as marshalfile:
                 marshal = FindClosestSingle([marshal_lat,marshal_long])
 
                 # add marshal marker to web map
-                folium.Marker(location=(marshal_lat,marshal_long),icon=folium.Icon(color='blue', icon='male', prefix="fa"), popup="Marshal {0}<br>{1} , {2}".format(x,round(marshal_lat,6),round(marshal_long,6))).add_to(marshals_feature_group)
+                folium.Marker(location=(marshal_lat,marshal_long),icon=folium.Icon(color='blue', icon='male', prefix="fa"), popup="Marshal {0}<br>{1} , {2}".format(x-1,round(marshal_lat,6),round(marshal_long,6))).add_to(marshals_feature_group)
                 
-                folium.features.Circle(location=(marshal_lat,marshal_long),radius=distance_to_marshal_allowed, weight=1,color="gray", popup="allowed {0} meters from marshal {1}".format(distance_to_marshal_allowed,x),opacity=0.2).add_to(marshals_feature_group)
+                folium.features.Circle(location=(marshal_lat,marshal_long),radius=distance_to_marshal_allowed, weight=1,color="gray", popup="allowed {0} meters from marshal {1}".format(distance_to_marshal_allowed,x-1),opacity=0.2).add_to(marshals_feature_group)
 
-                OutputMarshal(x,marshal[0],marshal[1],distance_to_marshal_allowed)
+                OutputMarshal(x-1,marshal[0],marshal[1],distance_to_marshal_allowed)
                 feature_group.add_to(my_map)
 
             os.remove("{1}/zzz_{0}.csv".format(file,cwd))
