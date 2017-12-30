@@ -16,17 +16,27 @@ from folium.plugins import FloatImage
 #restricted_start = (32.49222,34.90380) # decimal lat,lon can also be in min/sec (30.11.42.635,35.02.59.208) 
 #restricted_finish = (32.49885,34.90372) # decimal lat,lon can also be in min/sec (30.11.42.635,35.02.59.208)
 #restricted_speed = 70 # kph
-showAllRestrictedPoints = 1 # show all point of competitor in the restricted zone
-graceZone = 90 # grace zone in the start/end of the restricted zone, in meters
-distance_from_point_allowed = 80 # ring for display only, in meters
-now = datetime.datetime.now() 
-cwd = os.getcwd()
+
+# options is the first argv and contains 5 options
+options = ((sys.argv)[1]).split(',')
+graceZone = int(options[0]) # grace zone in the start/end of the restricted zone, in meters
+distance_from_point_allowed = int(options[1]) # ring for display only, in meters
+showAllRestrictedPoints = options[2] # show all point of competitor in the restricted zone
+line_points = options[3] # display "line" or "points", points is very slow.
 reverse = 0 # check for speeding on the reverse track
 
-line_points = "line" # display "line" or "points", points is very slow.
 
+'''
+graceZone = 90 # grace zone in the start/end of the restricted zone, in meters
+distance_from_point_allowed = 80 # ring for display only, in meters
+showAllRestrictedPoints = 1 # show all point of competitor in the restricted zone
+line_points = "line" # display "line" or "points", points is very slow.
+reverse = 0 # check for speeding on the reverse track
+'''
 color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white" ]
 c = 0
+now = datetime.datetime.now() 
+cwd = os.getcwd()
 
 # WGS 84
 a = 6378137  # meters
@@ -254,7 +264,7 @@ def OutputSpedding(closest_to_start,closest_to_finish,restricted_speed):
                 print(output)
                 speddingfile.write("{}\n".format(output))
                 folium.Marker(location=(row[1],row[2]),icon=folium.Icon(color='black', icon='camera', prefix='fa'), popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4])).add_to(feature_group)
-            elif showAllRestrictedPoints == 1 and line_points == "line":
+            elif showAllRestrictedPoints == "yes" and line_points == "line":
                 folium.features.Circle(location=(row[1],row[2]),radius=3,stroke=False,fill="true",color="#000000", popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4]),fill_opacity=1).add_to(feature_group)
 
                 
@@ -278,7 +288,7 @@ with open("{0}/spedding_results.txt".format(cwd), "w"): pass # clear the txt fil
 
 with open("{0}/spedding_results.txt".format(cwd), "a") as speddingfile:
         
-    restrictedZones= int((len(sys.argv)-1)/3)
+    restrictedZones= int((len(sys.argv)-2)/3)
         
     output = ("File generated on {1}.\nThere are {0} restricted Zone(s).".format(restrictedZones,now.strftime("%Y-%m-%d %H:%M:%S")))
     print("\n{}".format(output))
@@ -303,23 +313,23 @@ with open("{0}/spedding_results.txt".format(cwd), "a") as speddingfile:
 
             for i in range(1, restrictedZones+1):
 
-                restricted_start = sys.argv[(i*3)-2].split(',') # lat,lon
-                if (sys.argv[(i*3)-2]).count('.') >= 4 : # lat/long is in minutes/seconds
+                restricted_start = sys.argv[(i*3)-1].split(',') # lat,lon
+                if (sys.argv[(i*3)-1]).count('.') >= 4 : # lat/long is in minutes/seconds
                     restricted_start[0] = convertDecimal(restricted_start[0])
                     restricted_start[1] = convertDecimal(restricted_start[1])
                 else :
                     restricted_start[0] = float(restricted_start[0])
                     restricted_start[1] = float(restricted_start[1])
                 
-                restricted_finish = sys.argv[(i*3)-1].split(',') # lat,lon
-                if (sys.argv[(i*3)-1]).count('.') >= 4 : # lat/long is in minutes/seconds
+                restricted_finish = sys.argv[(i*3)].split(',') # lat,lon
+                if (sys.argv[(i*3)]).count('.') >= 4 : # lat/long is in minutes/seconds
                     restricted_finish[0] = convertDecimal(restricted_finish[0])
                     restricted_finish[1] = convertDecimal(restricted_finish[1])
                 else:
                     restricted_finish[0] = float(restricted_finish[0])
                     restricted_finish[1] = float(restricted_finish[1])
 
-                restricted_speed = float(sys.argv[i*3]) # kph
+                restricted_speed = float(sys.argv[(i*3)+1]) # kph
 
                 zone = FindClosest(i) # number of restricted zone
                 OutputSpedding(int(zone[0])+1,int(zone[1])-1,zone[2]) # to be safe: +1,-1 is to start checking 1 point inside the zone from start and end
@@ -328,7 +338,7 @@ with open("{0}/spedding_results.txt".format(cwd), "a") as speddingfile:
                 feature_group.add_to(my_map)
 
                 if i == restrictedZones :
-                    output = "\n{0}Top Speed: {1} kph on point {2}".format(file,zone[3],zone[4])
+                    output = "\n{0} Top Speed: {1} kph on point {2}".format(cleanFile,zone[3],zone[4])
                     print(output)
                     speddingfile.write("{0}\n".format(output))
 
