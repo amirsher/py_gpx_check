@@ -23,6 +23,7 @@ graceZone = int(options[0]) # grace zone in the start/end of the restricted zone
 distance_from_point_allowed = int(options[1]) # ring for display only, in meters
 showAllRestrictedPoints = options[2] # show all point of competitor in the restricted zone
 line_points = options[3] # display "line" or "points", points is very slow.
+merge_segments = options[4] # merege segments
 reverse = 0 # check for speeding on the reverse track
 
 
@@ -143,7 +144,7 @@ def foliumMap(file):
 
 def ConvertAndSpeed (file,my_map,color,line_points):
 
-
+    point_no_csv = 0
     with open("{1}/zzz_{0}.csv".format(file,cwd), "w"): pass # clear the csv file
 
     with open("{0}".format(file), "r") as gpx_file, open("{1}/zzz_{0}.csv".format(file,cwd), "a") as gpxfile: 
@@ -174,15 +175,21 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                             speed = round(speed*3.6,2) #convert to kph rounded to 2 decimal
                     if point_no == 0 and point.speed == None :
                         speed = 0.0
+                                        
+                    if merge_segments != "yes" :
+                        point_no_csv = point_no
+                        
                     if line_points == "points" :
-                        folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}<br>point no. {5}".format(cleanFile,speed,point.latitude,point.longitude,point.time,point_no+1),fill_opacity=0.8).add_to(feature_group)
+                        folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}<br>point no. {5}".format(cleanFile,speed,point.latitude,point.longitude,point.time,point_no_csv+1),fill_opacity=0.8).add_to(feature_group)
                             
-                    gpxfile.write('{0},{1},{2},{3},{4}\n'.format(point_no, point.latitude, point.longitude, speed, point.time))
+                    gpxfile.write('{0},{1},{2},{3},{4}\n'.format(point_no_csv, point.latitude, point.longitude, speed, point.time))
                 
                     if line_points == "line" :
                         latitude.append( point.latitude )
                         longitude.append( point.longitude )
                         foliumpoints.append(tuple([point.latitude, point.longitude]))
+                    
+                    point_no_csv = point_no_csv + 1
 
             if segment_no > 0 :
                 output1="\nWARNING!, file {0} contain {1} segments, should be no more then 1 segment to get correct results\n".format(file,segment_no+1)

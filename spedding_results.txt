@@ -1,222 +1,64 @@
-File generated on 2017-12-30 17:08:43.
+File generated on 2018-01-01 05:27:50.
 There are 2 restricted Zone(s).
 
-42
+WARNING!, file 7_with_segment.gpx contain 3 segments, should be no more then 1 segment to get correct results
+
+
+7_with_segment
 Restricted 40.0 kph Zone 1:
-Closest to start: Point 119 at 50.35 meters, Closest to finish: Point 131 at 145.3 meters.
+Closest to start: Point 359 at 39.79 meters, Closest to finish: Point 393 at 91.56 meters.
 
-SPEEDING!!! at point 124, location: (30.189387,35.052136), speed: 42.88 kph.
-SPEEDING!!! at point 125, location: (30.185529,35.054775), speed: 44.09 kph.
-SPEEDING!!! at point 130, location: (30.172821,35.063543), speed: 58.73 kph.
+SPEEDING!!! at point 365, location: (30.193725,35.049746), speed: 40.18 kph.
+SPEEDING!!! at point 371, location: (30.190065,35.051975), speed: 40.7 kph.
+SPEEDING!!! at point 372, location: (30.189187,35.052636), speed: 40.93 kph.
+SPEEDING!!! at point 373, location: (30.188254,35.053306), speed: 40.53 kph.
+SPEEDING!!! at point 374, location: (30.187217,35.054078), speed: 40.17 kph.
+SPEEDING!!! at point 390, location: (30.173321,35.063843), speed: 57.84 kph.
+SPEEDING!!! at point 391, location: (30.173829,35.064455), speed: 79.72 kph.
+SPEEDING!!! at point 392, location: (30.173975,35.064634), speed: 84.29 kph.
 
-42
+7_with_segment
 Restricted 70.0 kph Zone 2:
-Closest to start: Point 443 at 120.75 meters, Closest to finish: Point 470 at 94.45 meters.
+Closest to start: Point 1328 at 53.34 meters, Closest to finish: Point 1411 at 99.69 meters.
 
-SPEEDING!!! at point 445, location: (30.030106,34.934009), speed: 70.58 kph.
-SPEEDING!!! at point 446, location: (30.031323,34.934618), speed: 75.55 kph.
-SPEEDING!!! at point 447, location: (30.031582,34.938406), speed: 84.28 kph.
-SPEEDING!!! at point 448, location: (30.029528,34.940787), speed: 85.27 kph.
-SPEEDING!!! at point 451, location: (30.023701,34.946877), speed: 74.65 kph.
-SPEEDING!!! at point 453, location: (30.015073,34.954083), speed: 75.48 kph.
-SPEEDING!!! at point 454, location: (30.014788,34.956234), speed: 87.55 kph.
-SPEEDING!!! at point 455, location: (30.013697,34.957602), speed: 74.26 kph.
-SPEEDING!!! at point 458, location: (30.00981,34.963147), speed: 95.75 kph.
-SPEEDING!!! at point 459, location: (30.009266,34.962191), speed: 112.76 kph.
-SPEEDING!!! at point 460, location: (30.007809,34.961337), speed: 73.13 kph.
+SPEEDING!!! at point 1342, location: (30.030465,34.939689), speed: 70.3 kph.
+SPEEDING!!! at point 1343, location: (30.030084,34.940109), speed: 70.35 kph.
+SPEEDING!!! at point 1344, location: (30.029828,34.940387), speed: 70.5 kph.
+SPEEDING!!! at point 1345, location: (30.029442,34.940807), speed: 71.31 kph.
+SPEEDING!!! at point 1346, location: (30.029313,34.940951), speed: 72.09 kph.
+SPEEDING!!! at point 1347, location: (30.028924,34.941386), speed: 71.37 kph.
+SPEEDING!!! at point 1350, location: (30.026004,34.944561), speed: 70.54 kph.
+SPEEDING!!! at point 1351, location: (30.025446,34.945065), speed: 70.15 kph.
+SPEEDING!!! at point 1410, location: (29.977536,34.933646), speed: 71.0 kph.
 
-42 Top Speed: 168.91 kph on point 656
+7_with_segment Top Speed: 144.34 kph on point 1971
 
-46
+WARNING!, file Track_2017-12-20 122142.gpx contain 11 segments, should be no more then 1 segment to get correct results
+
+
+Track_2017-12-20 122142
 Restricted 40.0 kph Zone 1:
-Closest to start: Point 120 at 22.98 meters, Closest to finish: Point 129 at 133.35 meters.
+Closest to start: Point 543 at 39.79 meters, Closest to finish: Point 577 at 91.56 meters.
 
-SPEEDING!!! at point 121, location: (30.194228,35.049718), speed: 44.06 kph.
-SPEEDING!!! at point 124, location: (30.189587,35.052436), speed: 40.71 kph.
-SPEEDING!!! at point 125, location: (30.185729,35.055075), speed: 41.97 kph.
+SPEEDING!!! at point 549, location: (30.193725,35.049746), speed: 40.18 kph.
+SPEEDING!!! at point 555, location: (30.190065,35.051975), speed: 40.7 kph.
+SPEEDING!!! at point 556, location: (30.189187,35.052636), speed: 40.93 kph.
+SPEEDING!!! at point 557, location: (30.188254,35.053306), speed: 40.53 kph.
+SPEEDING!!! at point 558, location: (30.187217,35.054078), speed: 40.17 kph.
+SPEEDING!!! at point 574, location: (30.173321,35.063843), speed: 57.84 kph.
+SPEEDING!!! at point 575, location: (30.173829,35.064455), speed: 79.72 kph.
+SPEEDING!!! at point 576, location: (30.173975,35.064634), speed: 84.29 kph.
 
-46
+Track_2017-12-20 122142
 Restricted 70.0 kph Zone 2:
-Closest to start: Point 445 at 72.89 meters, Closest to finish: Point 471 at 126.66 meters.
+Closest to start: Point 5329 at 45.3 meters, Closest to finish: Point 5222 at 84.67 meters.
 
-SPEEDING!!! at point 450, location: (30.025904,34.944761), speed: 73.59 kph.
-SPEEDING!!! at point 451, location: (30.023201,34.947077), speed: 71.27 kph.
-SPEEDING!!! at point 453, location: (30.016073,34.954283), speed: 70.33 kph.
-SPEEDING!!! at point 454, location: (30.014588,34.955534), speed: 81.76 kph.
-SPEEDING!!! at point 455, location: (30.013797,34.956902), speed: 71.56 kph.
-SPEEDING!!! at point 456, location: (30.013422,34.959134), speed: 73.62 kph.
-SPEEDING!!! at point 459, location: (30.009466,34.963091), speed: 95.32 kph.
-SPEEDING!!! at point 460, location: (30.007709,34.961437), speed: 98.55 kph.
-SPEEDING!!! at point 466, location: (29.992923,34.940181), speed: 70.49 kph.
-SPEEDING!!! at point 470, location: (29.977336,34.933946), speed: 95.22 kph.
 
-46 Top Speed: 161.36 kph on point 527
-
-15
-Restricted 40.0 kph Zone 1:
-Closest to start: Point 120 at 67.06 meters, Closest to finish: Point 130 at 142.24 meters.
-
-SPEEDING!!! at point 121, location: (30.194528,35.048918), speed: 42.87 kph.
-SPEEDING!!! at point 124, location: (30.189487,35.052836), speed: 41.23 kph.
-SPEEDING!!! at point 125, location: (30.186429,35.055375), speed: 41.99 kph.
-
-15
-Restricted 70.0 kph Zone 2:
-Closest to start: Point 445 at 44.91 meters, Closest to finish: Point 470 at 136.89 meters.
-
-SPEEDING!!! at point 446, location: (30.030623,34.935118), speed: 82.95 kph.
-SPEEDING!!! at point 447, location: (30.031282,34.938406), speed: 73.74 kph.
-SPEEDING!!! at point 448, location: (30.029828,34.940787), speed: 80.43 kph.
-SPEEDING!!! at point 449, location: (30.028624,34.940886), speed: 70.36 kph.
-SPEEDING!!! at point 454, location: (30.015388,34.956034), speed: 73.77 kph.
-SPEEDING!!! at point 457, location: (30.009803,34.961896), speed: 72.68 kph.
-SPEEDING!!! at point 461, location: (30.006367,34.959603), speed: 70.13 kph.
-SPEEDING!!! at point 464, location: (29.999186,34.947083), speed: 76.41 kph.
-SPEEDING!!! at point 465, location: (29.99674,34.943991), speed: 73.42 kph.
-SPEEDING!!! at point 467, location: (29.988945,34.936995), speed: 73.37 kph.
-
-15 Top Speed: 155.33 kph on point 808
-
-12
-Restricted 40.0 kph Zone 1:
-Closest to start: Point 121 at 74.51 meters, Closest to finish: Point 131 at 78.28 meters.
-
-SPEEDING!!! at point 124, location: (30.189487,35.052836), speed: 40.52 kph.
-SPEEDING!!! at point 125, location: (30.185829,35.054575), speed: 42.77 kph.
-
-12
-Restricted 70.0 kph Zone 2:
-Closest to start: Point 443 at 129.53 meters, Closest to finish: Point 469 at 112.91 meters.
-
-SPEEDING!!! at point 448, location: (30.029428,34.940387), speed: 76.35 kph.
-SPEEDING!!! at point 451, location: (30.023801,34.946377), speed: 70.86 kph.
-SPEEDING!!! at point 452, location: (30.016821,34.951461), speed: 76.26 kph.
-SPEEDING!!! at point 455, location: (30.014597,34.956602), speed: 76.6 kph.
-SPEEDING!!! at point 456, location: (30.012822,34.958934), speed: 77.65 kph.
-SPEEDING!!! at point 457, location: (30.010603,34.962196), speed: 78.84 kph.
-SPEEDING!!! at point 458, location: (30.00941,34.963247), speed: 86.1 kph.
-SPEEDING!!! at point 461, location: (30.005967,34.959703), speed: 77.57 kph.
-
-12 Top Speed: 156.21 kph on point 628
-
-36
-Restricted 40.0 kph Zone 1:
-Closest to start: Point 120 at 48.98 meters, Closest to finish: Point 130 at 153.29 meters.
-
-SPEEDING!!! at point 122, location: (30.193275,35.050036), speed: 40.81 kph.
-SPEEDING!!! at point 125, location: (30.185829,35.054675), speed: 40.72 kph.
-
-36
-Restricted 70.0 kph Zone 2:
-Closest to start: Point 445 at 51.31 meters, Closest to finish: Point 470 at 79.2 meters.
-
-SPEEDING!!! at point 447, location: (30.030882,34.938606), speed: 77.57 kph.
-SPEEDING!!! at point 452, location: (30.017221,34.951661), speed: 70.58 kph.
-SPEEDING!!! at point 456, location: (30.013722,34.958834), speed: 77.05 kph.
-SPEEDING!!! at point 457, location: (30.009903,34.962696), speed: 75.34 kph.
-SPEEDING!!! at point 461, location: (30.006167,34.959103), speed: 72.64 kph.
-SPEEDING!!! at point 468, location: (29.979903,34.935337), speed: 72.61 kph.
-SPEEDING!!! at point 469, location: (29.976945,34.934985), speed: 73.44 kph.
-
-36 Top Speed: 159.56 kph on point 902
-
-24
-Restricted 40.0 kph Zone 1:
-Closest to start: Point 120 at 63.06 meters, Closest to finish: Point 131 at 153.89 meters.
-
-SPEEDING!!! at point 122, location: (30.193675,35.050136), speed: 46.23 kph.
-SPEEDING!!! at point 124, location: (30.189287,35.052236), speed: 40.29 kph.
-SPEEDING!!! at point 125, location: (30.185729,35.054975), speed: 41.94 kph.
-SPEEDING!!! at point 130, location: (30.173521,35.063543), speed: 58.11 kph.
-
-24
-Restricted 70.0 kph Zone 2:
-Closest to start: Point 445 at 54.36 meters, Closest to finish: Point 468 at 142.19 meters.
-
-SPEEDING!!! at point 447, location: (30.031082,34.939206), speed: 73.95 kph.
-SPEEDING!!! at point 451, location: (30.023501,34.946377), speed: 71.77 kph.
-SPEEDING!!! at point 456, location: (30.012922,34.958834), speed: 79.17 kph.
-SPEEDING!!! at point 457, location: (30.010603,34.962496), speed: 83.75 kph.
-SPEEDING!!! at point 460, location: (30.007909,34.962037), speed: 75.78 kph.
-SPEEDING!!! at point 464, location: (29.999086,34.947183), speed: 71.08 kph.
-SPEEDING!!! at point 465, location: (29.99734,34.944191), speed: 71.41 kph.
-SPEEDING!!! at point 467, location: (29.988945,34.937895), speed: 71.38 kph.
-
-24 Top Speed: 155.19 kph on point 657
-
-28
-Restricted 40.0 kph Zone 1:
-Closest to start: Point 120 at 65.68 meters, Closest to finish: Point 131 at 99.31 meters.
-
-SPEEDING!!! at point 121, location: (30.193928,35.048918), speed: 41.91 kph.
-SPEEDING!!! at point 124, location: (30.188687,35.052436), speed: 44.54 kph.
-SPEEDING!!! at point 130, location: (30.173121,35.063943), speed: 62.54 kph.
-
-28
-Restricted 70.0 kph Zone 2:
-Closest to start: Point 445 at 24.03 meters, Closest to finish: Point 469 at 105.53 meters.
-
-SPEEDING!!! at point 447, location: (30.031382,34.938706), speed: 71.88 kph.
-SPEEDING!!! at point 448, location: (30.029728,34.939987), speed: 70.03 kph.
-SPEEDING!!! at point 449, location: (30.028924,34.940986), speed: 72.24 kph.
-SPEEDING!!! at point 450, location: (30.025604,34.944361), speed: 74.23 kph.
-SPEEDING!!! at point 454, location: (30.015388,34.955634), speed: 79.85 kph.
-SPEEDING!!! at point 455, location: (30.013897,34.957002), speed: 83.47 kph.
-SPEEDING!!! at point 456, location: (30.013222,34.959134), speed: 71.45 kph.
-SPEEDING!!! at point 461, location: (30.006167,34.959003), speed: 70.7 kph.
-SPEEDING!!! at point 464, location: (29.998486,34.947383), speed: 71.27 kph.
-SPEEDING!!! at point 465, location: (29.99724,34.944291), speed: 70.83 kph.
-
-28 Top Speed: 170.56 kph on point 630
-
-33
-Restricted 40.0 kph Zone 1:
-Closest to start: Point 120 at 19.7 meters, Closest to finish: Point 131 at 101.71 meters.
-
-SPEEDING!!! at point 121, location: (30.194028,35.049018), speed: 65.76 kph.
-SPEEDING!!! at point 124, location: (30.189687,35.052836), speed: 44.29 kph.
-SPEEDING!!! at point 125, location: (30.185729,35.055275), speed: 42.16 kph.
-SPEEDING!!! at point 130, location: (30.173621,35.064043), speed: 60.75 kph.
-
-33
-Restricted 70.0 kph Zone 2:
-Closest to start: Point 445 at 85.84 meters, Closest to finish: Point 470 at 55.06 meters.
-
-SPEEDING!!! at point 447, location: (30.030882,34.938606), speed: 77.91 kph.
-SPEEDING!!! at point 448, location: (30.029328,34.940687), speed: 70.22 kph.
-SPEEDING!!! at point 455, location: (30.014597,34.956702), speed: 72.57 kph.
-SPEEDING!!! at point 456, location: (30.013122,34.958634), speed: 78.2 kph.
-SPEEDING!!! at point 462, location: (30.002967,34.953735), speed: 72.04 kph.
-SPEEDING!!! at point 465, location: (29.99724,34.944191), speed: 73.95 kph.
-
-33 Top Speed: 157.45 kph on point 712
-
-55
-Restricted 40.0 kph Zone 1:
-Closest to start: Point 119 at 35.67 meters, Closest to finish: Point 131 at 139.81 meters.
-
-SPEEDING!!! at point 124, location: (30.189387,35.052836), speed: 40.59 kph.
-SPEEDING!!! at point 130, location: (30.173121,35.064043), speed: 52.23 kph.
-
-55
-Restricted 70.0 kph Zone 2:
-Closest to start: Point 446 at 108.72 meters, Closest to finish: Point 470 at 89.47 meters.
-
-SPEEDING!!! at point 448, location: (30.029828,34.939887), speed: 83.26 kph.
-SPEEDING!!! at point 449, location: (30.028424,34.941886), speed: 95.91 kph.
-SPEEDING!!! at point 454, location: (30.015388,34.955434), speed: 73.13 kph.
-SPEEDING!!! at point 455, location: (30.014297,34.957202), speed: 89.22 kph.
-SPEEDING!!! at point 456, location: (30.013022,34.959434), speed: 76.75 kph.
-SPEEDING!!! at point 461, location: (30.005967,34.959003), speed: 75.63 kph.
-SPEEDING!!! at point 463, location: (30.001275,34.950923), speed: 70.76 kph.
-SPEEDING!!! at point 464, location: (29.998486,34.946483), speed: 70.25 kph.
-SPEEDING!!! at point 468, location: (29.979703,34.935837), speed: 73.46 kph.
-
-55 Top Speed: 170.65 kph on point 591
+Track_2017-12-20 122142 Top Speed: 156.6 kph on point 82
 
 7
 Restricted 40.0 kph Zone 1:
-Closest to start: Point 359 at 34.88 meters, Closest to finish: Point 393 at 113.7 meters.
+Closest to start: Point 359 at 39.79 meters, Closest to finish: Point 393 at 91.56 meters.
 
 SPEEDING!!! at point 365, location: (30.193725,35.049746), speed: 40.18 kph.
 SPEEDING!!! at point 371, location: (30.190065,35.051975), speed: 40.7 kph.
@@ -229,7 +71,7 @@ SPEEDING!!! at point 392, location: (30.173975,35.064634), speed: 84.29 kph.
 
 7
 Restricted 70.0 kph Zone 2:
-Closest to start: Point 1328 at 74.51 meters, Closest to finish: Point 1405 at 106.96 meters.
+Closest to start: Point 1328 at 53.34 meters, Closest to finish: Point 1411 at 99.69 meters.
 
 SPEEDING!!! at point 1342, location: (30.030465,34.939689), speed: 70.3 kph.
 SPEEDING!!! at point 1343, location: (30.030084,34.940109), speed: 70.35 kph.
@@ -239,5 +81,6 @@ SPEEDING!!! at point 1346, location: (30.029313,34.940951), speed: 72.09 kph.
 SPEEDING!!! at point 1347, location: (30.028924,34.941386), speed: 71.37 kph.
 SPEEDING!!! at point 1350, location: (30.026004,34.944561), speed: 70.54 kph.
 SPEEDING!!! at point 1351, location: (30.025446,34.945065), speed: 70.15 kph.
+SPEEDING!!! at point 1410, location: (29.977536,34.933646), speed: 71.0 kph.
 
 7 Top Speed: 144.34 kph on point 1971
