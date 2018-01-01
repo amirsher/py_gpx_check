@@ -13,6 +13,10 @@ top.geometry('800x1000')
 def speeding():
     B2.flash()
     text.delete(1.0,END)
+    text1.delete(1.0,END)
+    text.insert(END, "console\n")
+    text1.insert(END, "warnings\n")
+    top.update_idletasks()
     arg = "speeding.py {1},{2},{3},{4},{5} {0}".format(E2.get(),V21.get(),V22.get(),CheckVar21.get(),CheckVar22.get(),CheckVar23.get())
     p = Popen(arg , stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
     #p = Popen("speeding.py " + E2.get(), stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
@@ -20,6 +24,8 @@ def speeding():
         retcode = p.poll()
         output = p.stdout.readline()
         print(output)
+        if "WARNING" in output: 
+             text1.insert(END, output+"\n")
         text.insert(END, output)
         if retcode is not None:
             break
@@ -35,6 +41,10 @@ def speeding():
 def marshaling():
     B1.flash()
     text.delete(1.0,END)
+    text1.delete(1.0,END)
+    text.insert(END, "console\n")
+    text1.insert(END, "warnings\n")
+    top.update_idletasks()
     arg = "marshaling.py {3},{4},{5},{1},{2},{6} {0}".format(E1.get(),CheckVar11.get(),CheckVar12.get(),V11.get(),V12.get(),CheckVar13.get(),CheckVar14.get())
     p = Popen(arg , stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
     #p = Popen("marshaling.py 90,120,line,1,1 " + E1.get(), stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
@@ -42,6 +52,8 @@ def marshaling():
         retcode = p.poll()
         output = p.stdout.readline()
         print(output)
+        if "WARNING" in output: 
+             text1.insert(END, output+"\n")
         text.insert(END, output)
         if retcode is not None:
             break
@@ -73,7 +85,7 @@ B3.pack()
 
 S2 = LabelFrame(top, text="")
 S2.pack(padx="20",pady="20")
-E2 = Entry(top, bd =5, width=100, font=("Ariel", "14"))
+E2 = Entry(top, bd =5, width=80, font=("Ariel", "12"))
 E2.pack(padx="20")
 T2 = Label(top, text="30.195176,35.04978 30.1749997,35.0642141 40 30.0310113,34.933191 29.978476,34.934311 70")
 T2.pack()
@@ -112,7 +124,7 @@ B2.pack(padx="20",pady="20")
 
 S1 = LabelFrame(top, text="")
 S1.pack(padx="20",pady="10")
-E1 = Entry(top, bd =5, width=100, font=("Ariel", "14"))
+E1 = Entry(top, bd =5, width=80, font=("Ariel", "12"))
 E1.pack(padx="20")
 T1 = Label(top, text="30.195176,35.04978 30.1749997,35.0642141")
 T1.pack()
@@ -153,8 +165,16 @@ C14.pack()
 B1 = Button(top, text ="marshaling", command = marshaling, font=("Ariel", "24"), bg="gray", fg="white", bd="5")
 B1.pack(padx="20",pady="20")
 
-T3 = Label(top, text="console")
-T3.pack()
-text = Text(top)
-text.pack(padx="20",pady="10")
+F13 = Frame(top)
+#T3 = Label(F13, text="results")
+#T3.pack(side = RIGHT)
+text = Text(F13,bg="lightgray", width=70)
+text.pack(side = RIGHT,padx="10",pady="10")
+#T4 = Label(F13, text="warnings")
+#T4.pack(side = LEFT)
+text1 = Text(F13,bg="lightgray", width=70)
+text1.pack(side = LEFT,padx="10",pady="10")
+text.insert(END, "results\n")
+text1.insert(END, "warnings\n")
+F13.pack()
 top.mainloop()
