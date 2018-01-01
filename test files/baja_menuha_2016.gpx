@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gpx version="1.1" creator="GPS Visualizer http://www.gpsvisualizer.com/" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<wpt lat="30.289270392" lon="35.098214546">
+  <ele>0.0</ele>
+  <name>A001</name>
+</wpt>
+<wpt lat="30.283340921" lon="35.07621766">
+  <ele>0.0</ele>
+  <name>A002</name>
+</wpt>
+<wpt lat="30.277872314" lon="35.065873514">
+  <ele>0.0</ele>
+  <name>A003</name>
+</wpt>
+<wpt lat="30.271083046" lon="35.068814272">
+  <ele>0.0</ele>
+  <name>A004</name>
+</wpt>
+<wpt lat="30.267680538" lon="35.075636482">
+  <ele>0.0</ele>
+  <name>A005</name>
+</wpt>
+<wpt lat="30.251637413" lon="35.089384494">
+  <ele>0.0</ele>
+  <name>A006</name>
+</wpt>
+<wpt lat="30.238438788" lon="35.078710506">
+  <ele>0.0</ele>
+  <name>A007</name>
+</wpt>
+<wpt lat="30.237774336" lon="35.056925602">
+  <ele>0.0</ele>
+  <name>A008</name>
+</wpt>
+<wpt lat="30.235170151" lon="35.0517457">
+  <ele>0.0</ele>
+  <name>A009</name>
+</wpt>
+<wpt lat="30.228787196" lon="35.047434612">
+  <ele>0.0</ele>
+  <name>A010</name>
+</wpt>
+<wpt lat="30.215572115" lon="35.047602035">
+  <ele>0.0</ele>
+  <name>A011</name>
+</wpt>
+<wpt lat="30.198936375" lon="35.032644205">
+  <ele>0.0</ele>
+  <name>A012</name>
+</wpt>
+<wpt lat="30.202077891" lon="35.021495094">
+  <ele>0.0</ele>
+  <name>A013</name>
+</wpt>
+<wpt lat="30.203288543" lon="35.016642773">
+  <ele>0.0</ele>
+  <name>A014</name>
+</wpt>
+<wpt lat="30.20227246" lon="35.012812601">
+  <ele>0.0</ele>
+  <name>A015</name>
+</wpt>
+<wpt lat="30.174925481" lon="35.015349049">
+  <ele>0.0</ele>
+  <name>A016</name>
+</wpt>
+<wpt lat="30.172639056" lon="35.024822157">
+  <ele>0.0</ele>
+  <name>A017</name>
+</wpt>
+<wpt lat="30.153886883" lon="35.069461448">
+  <ele>0.0</ele>
+  <name>A018</name>
+</wpt>
+<wpt lat="30.144455" lon="35.064783598">
+  <ele>0.0</ele>
+  <name>A019</name>
+</wpt>
+<wpt lat="30.14012448" lon="35.064302227">
+  <ele>0.0</ele>
+  <name>A020</name>
+</wpt>
+<wpt lat="30.133684125" lon="35.056912225">
+  <ele>0.0</ele>
+  <name>A021</name>
+</wpt>
+<wpt lat="30.124280315" lon="35.061108914">
+  <ele>0.0</ele>
+  <name>A022</name>
+</wpt>
+<wpt lat="30.118720905" lon="35.058876035">
+  <ele>0.0</ele>
+  <name>A023</name>
+</wpt>
+<wpt lat="30.123442923" lon="35.047381358">
+  <ele>0.0</ele>
+  <name>A024</name>
+</wpt>
+<wpt lat="30.110251711" lon="35.038231151">
+  <ele>0.0</ele>
+  <name>A025</name>
+</wpt>
+<wpt lat="30.109402852" lon="35.044478736">
+  <ele>0.0</ele>
+  <name>A026</name>
+</wpt>
+<wpt lat="30.102760021" lon="35.048868147">
+  <ele>0.0</ele>
+  <name>A027</name>
+</wpt>
+<wpt lat="30.096608126" lon="35.049127236">
+  <ele>0.0</ele>
+  <name>A028</name>
+</wpt>
+<wpt lat="30.070483328" lon="35.034898849">
+  <ele>0.0</ele>
+  <name>A029</name>
+</wpt>
+<wpt lat="30.065459905" lon="35.035799702">
+  <ele>0.0</ele>
+  <name>A030</name>
+</wpt>
+<wpt lat="30.057763563" lon="35.048589413">
+  <ele>0.0</ele>
+  <name>A031</name>
+</wpt>
+<wpt lat="30.052319508" lon="35.052310681">
+  <ele>0.0</ele>
+  <name>A032</name>
+</wpt>
+<wpt lat="30.053785646" lon="35.056269581">
+  <ele>0.0</ele>
+  <name>A033</name>
+</wpt>
+<wpt lat="30.063683015" lon="35.057488208">
+  <ele>0.0</ele>
+  <name>A034</name>
+</wpt>
+<wpt lat="30.065964393" lon="35.056717206">
+  <ele>0.0</ele>
+  <name>A035</name>
+</wpt>
+<wpt lat="30.073008328" lon="35.063323397">
+  <ele>0.0</ele>
+  <name>A036</name>
+</wpt>
+<wpt lat="30.099341901" lon="35.073077532">
+  <ele>0.0</ele>
+  <name>A037</name>
+</wpt>
+<wpt lat="30.10400246" lon="35.078673516">
+  <ele>0.0</ele>
+  <name>A038</name>
+</wpt>
+<wpt lat="30.110240349" lon="35.083168173">
+  <ele>0.0</ele>
+  <name>A039</name>
+</wpt>
+<wpt lat="30.119469733" lon="35.084266488">
+  <ele>0.0</ele>
+  <name>A040</name>
+</wpt>
+<wpt lat="30.122305596" lon="35.087728728">
+  <ele>0.0</ele>
+  <name>A041</name>
+</wpt>
+<wpt lat="30.126896764" lon="35.087276747">
+  <ele>0.0</ele>
+  <name>A042</name>
+</wpt>
+<wpt lat="30.12958139" lon="35.083568537">
+  <ele>0.0</ele>
+  <name>A043</name>
+</wpt>
+<wpt lat="30.134529691" lon="35.070776182">
+  <ele>0.0</ele>
+  <name>A044</name>
+</wpt>
+<wpt lat="30.137632898" lon="35.070823654">
+  <ele>0.0</ele>
+  <name>A045</name>
+</wpt>
+<wpt lat="30.144167212" lon="35.073886594">
+  <ele>0.0</ele>
+  <name>A046</name>
+</wpt>
+<wpt lat="30.151408708" lon="35.08053006">
+  <ele>0.0</ele>
+  <name>A047</name>
+</wpt>
+<wpt lat="30.150004957" lon="35.084061062">
+  <ele>0.0</ele>
+  <name>A048</name>
+</wpt>
+<wpt lat="30.147605899" lon="35.094194619">
+  <ele>0.0</ele>
+  <name>A049</name>
+</wpt>
+<wpt lat="30.155447794" lon="35.097392834">
+  <ele>0.0</ele>
+  <name>A050</name>
+</wpt>
+<wpt lat="30.156912669" lon="35.101481072">
+  <ele>0.0</ele>
+  <name>A051</name>
+</wpt>
+<wpt lat="30.165930055" lon="35.097536424">
+  <ele>0.0</ele>
+  <name>A052</name>
+</wpt>
+<wpt lat="30.16708735" lon="35.10059766">
+  <ele>0.0</ele>
+  <name>A053</name>
+</wpt>
+<wpt lat="30.168008117" lon="35.10136487">
+  <ele>0.0</ele>
+  <name>A054</name>
+</wpt>
+<wpt lat="30.174389744" lon="35.095512461">
+  <ele>0.0</ele>
+  <name>A055</name>
+</wpt>
+<wpt lat="30.174890755" lon="35.081526741">
+  <ele>0.0</ele>
+  <name>A056</name>
+</wpt>
+<wpt lat="30.176062552" lon="35.071910954">
+  <ele>0.0</ele>
+  <name>A057</name>
+</wpt>
+<wpt lat="30.173102232" lon="35.062373863">
+  <ele>0.0</ele>
+  <name>A058</name>
+</wpt>
+<wpt lat="30.194898437" lon="35.049017549">
+  <ele>0.0</ele>
+  <name>A059</name>
+</wpt>
+<wpt lat="30.197942286" lon="35.052159143">
+  <ele>0.0</ele>
+  <name>A060</name>
+</wpt>
+<wpt lat="30.22751402" lon="35.077987706">
+  <ele>0.0</ele>
+  <name>A061</name>
+</wpt>
+<wpt lat="30.223960768" lon="35.08805809">
+  <ele>0.0</ele>
+  <name>A062</name>
+</wpt>
+<wpt lat="30.231448" lon="35.088131801">
+  <ele>0.0</ele>
+  <name>A063</name>
+</wpt>
+<wpt lat="30.252581388" lon="35.095773532">
+  <ele>0.0</ele>
+  <name>A064</name>
+</wpt>
+<wpt lat="30.254741846" lon="35.090814568">
+  <ele>0.0</ele>
+  <name>A065</name>
+</wpt>
+<wpt lat="30.266303933" lon="35.098230665">
+  <ele>0.0</ele>
+  <name>A066</name>
+</wpt>
+<wpt lat="30.287309069" lon="35.104318233">
+  <ele>0.0</ele>
+  <name>A067</name>
+</wpt>
+</gpx>
