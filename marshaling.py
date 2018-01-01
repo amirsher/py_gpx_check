@@ -205,7 +205,7 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                     point_no_csv = point_no_csv + 1
 
             if segment_no > 0 :
-                output1="\nWARNING!, file {0} contain {1} segments, should be no more then 1 segment to get correct results\n".format(file,segment_no+1)
+                output1="\nWARNING!, file {0} contain {1} segments, should not have more then 1 segment, results may be corrupted!\n".format(file,segment_no+1)
                 print(output1)
                 marshalfile.write("{0}\n".format(output1))
         '''
@@ -228,8 +228,11 @@ def ConvertAndSpeed (file,my_map,color,line_points):
     plt.legend()
     plt.show(block=False)
     '''
-    if showWaypoints == "yes" :
-        for waypoint_no, waypoint in enumerate(gpx.waypoints):
+    is_waypoints = "no"
+    for waypoint_no, waypoint in enumerate(gpx.waypoints):
+        if waypoint_no != None :
+            is_waypoints = "yes"
+        if showWaypoints == "yes" :
             if waypoint.name == None :
                 waypoint.name = waypoint_no + 1
             folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='lightgray', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,round(waypoint.latitude,6),round(waypoint.longitude,6))).add_to(feature_group)
@@ -240,7 +243,10 @@ def ConvertAndSpeed (file,my_map,color,line_points):
     
     if showWaypointsLine == "yes" :
         folium.features.PolyLine(foliumWPTpoints, color="lightgray",popup="waypoint track", weight=3, opacity=1).add_to(feature_group)
-               
+    if  is_waypoints == "yes" :          
+        output1="\nWARNING!, file {0} contain {1} waypoints, results may be corrupted!\n".format(file,waypoint_no)
+        print(output1)
+        marshalfile.write("{0}\n".format(output1))
 
     return my_map
 
@@ -358,6 +364,7 @@ with open("{0}/marshaling_results.txt".format(cwd), "a") as marshalfile:
         my_map.fit_bounds(my_map.get_bounds())
         with open("TrackingMap.html", "w"): pass # clear the txt file
         my_map.save("TrackingMap.html")
+        print("a.ok")
 
     else:
         print('\nworong arguments, please use:\n\npython rally_marshal_folder.py marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n')

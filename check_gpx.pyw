@@ -20,6 +20,7 @@ def speeding():
     arg = "speeding.py {1},{2},{3},{4},{5} {0}".format(E2.get(),V21.get(),V22.get(),CheckVar21.get(),CheckVar22.get(),CheckVar23.get())
     p = Popen(arg , stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
     #p = Popen("speeding.py " + E2.get(), stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
+    finished = 0
     while True:
         retcode = p.poll()
         output = p.stdout.readline()
@@ -27,17 +28,19 @@ def speeding():
         if "WARNING" in output: 
              text1.insert(END, output+"\n")
         text.insert(END, output)
+        top.update_idletasks()
+        if "a.ok" in output:
+            finished =  1
         if retcode is not None:
             break
-    text.insert(END, "\n")
+    if finished == 1 :
+        filename = "SpeedingMap.html"
+        result = messagebox.askquestion("Results", "saved results to {0}\n\nShow results in web browser?".format(os.path.realpath(filename)))
+        if result == 'yes':
+            webbrowser.open('file://' + os.path.realpath(filename))
+    else :
+            messagebox.showinfo("Information","something went wrong, \nplease check warnings for more information")
 
-    filename = "SpeedingMap.html"
-    result = messagebox.askquestion("Results", "Show results in web browser?")
-    if result == 'yes':
-        webbrowser.open('file://' + os.path.realpath(filename))
-    else:
-        messagebox.showinfo("Information","saved results to " + filename)
-    
 def marshaling():
     B1.flash()
     text.delete(1.0,END)
@@ -48,6 +51,7 @@ def marshaling():
     arg = "marshaling.py {3},{4},{5},{1},{2},{6} {0}".format(E1.get(),CheckVar11.get(),CheckVar12.get(),V11.get(),V12.get(),CheckVar13.get(),CheckVar14.get())
     p = Popen(arg , stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
     #p = Popen("marshaling.py 90,120,line,1,1 " + E1.get(), stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
+    finished = 0
     while True:
         retcode = p.poll()
         output = p.stdout.readline()
@@ -55,16 +59,18 @@ def marshaling():
         if "WARNING" in output: 
              text1.insert(END, output+"\n")
         text.insert(END, output)
+        top.update_idletasks()
+        if "a.ok" in output:
+            finished = 1
         if retcode is not None:
             break
-    text.insert(END, "\n")
-
-    filename = "TrackingMap.html"
-    result = messagebox.askquestion("Results", "Show results in web browser?")
-    if result == 'yes':
-        webbrowser.open('file://' + os.path.realpath(filename))
-    else:
-        messagebox.showinfo("Information","saved results to " + filename)
+    if finished == 1 :
+        filename = "TrackingMap.html"
+        result = messagebox.askquestion("Results", "saved results to {0}\n\nShow results in web browser?".format(os.path.realpath(filename)))
+        if result == 'yes':
+            webbrowser.open('file://' + os.path.realpath(filename))
+    else :
+            messagebox.showinfo("Information","something went wrong, \nplease check warnings for more information")
 
 def browse_button():
     # Allow user to select a directory and store it in global var

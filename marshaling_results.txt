@@ -1,7 +1,22 @@
-File generated on 2018-01-01 05:35:55.
+File generated on 2018-01-01 18:10:58.
 There are 4 Marshal Point(s).
 Out of range set to 80 meters.
 
+42
+Passed Marshal 1 on 2017-12-14 09:16:54 at distance of 63 meters and speed of 30.2 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 116 meters and speed of 94.05 kph. OUT OF RANGE
+Passed Marshal 3 on 2017-12-14 10:04:41 at distance of 98 meters and speed of 46.06 kph. OUT OF RANGE
+Passed Marshal 4 on 2017-12-14 10:12:33 at distance of 77 meters and speed of 85.08 kph.
+46
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 20 meters and speed of 56.34 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 105 meters and speed of 77.52 kph. OUT OF RANGE
+Passed Marshal 3 on 2017-12-14 10:04:41 at distance of 64 meters and speed of 110.61 kph.
+Passed Marshal 4 on 2017-12-14 10:12:36 at distance of 108 meters and speed of 102.39 kph. OUT OF RANGE
+15
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 55 meters and speed of 54.9 kph.
+Passed Marshal 2 on 2017-12-14 09:21:22 at distance of 112 meters and speed of 40.11 kph. OUT OF RANGE
+Passed Marshal 3 on 2017-12-14 10:04:52 at distance of 29 meters and speed of 84.29 kph.
+Passed Marshal 4 on 2017-12-14 10:12:33 at distance of 116 meters and speed of 91.8 kph. OUT OF RANGE
 
 WARNING!, file 7_with_segment.gpx contain 3 segments, should be no more then 1 segment to get correct results
 
@@ -10,14 +25,44 @@ Passed Marshal 1 on 2017-12-14 09:16:45 at distance of 39 meters and speed of 70
 Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 91 meters and speed of 78.73 kph. OUT OF RANGE
 Passed Marshal 3 on 2017-12-14 10:04:39 at distance of 53 meters and speed of 80.74 kph.
 Passed Marshal 4 on 2017-12-14 10:12:34 at distance of 99 meters and speed of 81.23 kph. OUT OF RANGE
+12
+Passed Marshal 1 on 2017-12-14 09:16:54 at distance of 61 meters and speed of 38.69 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 50 meters and speed of 71.74 kph.
+Passed Marshal 3 on 2017-12-14 10:04:41 at distance of 108 meters and speed of 67.85 kph. OUT OF RANGE
+Passed Marshal 4 on 2017-12-14 10:12:33 at distance of 96 meters and speed of 87.47 kph. OUT OF RANGE
+36
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 58 meters and speed of 65.27 kph.
+Passed Marshal 2 on 2017-12-14 09:21:22 at distance of 123 meters and speed of 50.67 kph. OUT OF RANGE
+Passed Marshal 3 on 2017-12-14 10:04:41 at distance of 55 meters and speed of 75.73 kph.
+Passed Marshal 4 on 2017-12-14 10:12:33 at distance of 59 meters and speed of 79.89 kph.
+24
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 54 meters and speed of 42.9 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 134 meters and speed of 88.31 kph. OUT OF RANGE
+Passed Marshal 3 on 2017-12-14 10:04:52 at distance of 50 meters and speed of 60.57 kph.
+Passed Marshal 4 on 2017-12-14 10:12:33 at distance of 150 meters and speed of 107.13 kph. OUT OF RANGE
+28
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 47 meters and speed of 65.75 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 76 meters and speed of 84.67 kph.
+Passed Marshal 3 on 2017-12-14 10:04:41 at distance of 31 meters and speed of 57.75 kph.
+Passed Marshal 4 on 2017-12-14 10:12:26 at distance of 87 meters and speed of 42.21 kph. OUT OF RANGE
+33
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 35 meters and speed of 70.05 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 93 meters and speed of 72.22 kph. OUT OF RANGE
+Passed Marshal 3 on 2017-12-14 10:04:52 at distance of 93 meters and speed of 58.55 kph. OUT OF RANGE
+Passed Marshal 4 on 2017-12-14 10:12:33 at distance of 34 meters and speed of 56.49 kph.
 
-WARNING!, file Track_2017-12-20 122142.gpx contain 11 segments, should be no more then 1 segment to get correct results
+WARNING!, file 7_with_waypoints.gpx contain 6 waypoints, may cuse corrupt results
 
-Track_2017-12-20 122142
+7_with_waypoints
 Passed Marshal 1 on 2017-12-14 09:16:45 at distance of 39 meters and speed of 70.54 kph.
 Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 91 meters and speed of 78.73 kph. OUT OF RANGE
-Passed Marshal 3 on 2017-12-15 09:25:49 at distance of 45 meters and speed of 2.58 kph.
-Passed Marshal 4 on 2017-12-15 09:19:24 at distance of 84 meters and speed of 64.19 kph. OUT OF RANGE
+Passed Marshal 3 on 2017-12-14 10:04:39 at distance of 53 meters and speed of 80.74 kph.
+Passed Marshal 4 on 2017-12-14 10:12:34 at distance of 99 meters and speed of 81.23 kph. OUT OF RANGE
+55
+Passed Marshal 1 on 2017-12-14 09:16:40 at distance of 54 meters and speed of 84.76 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 113 meters and speed of 80.09 kph. OUT OF RANGE
+Passed Marshal 3 on 2017-12-14 10:04:52 at distance of 105 meters and speed of 52.64 kph. OUT OF RANGE
+Passed Marshal 4 on 2017-12-14 10:12:33 at distance of 68 meters and speed of 70.49 kph.
 7
 Passed Marshal 1 on 2017-12-14 09:16:45 at distance of 39 meters and speed of 70.54 kph.
 Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 91 meters and speed of 78.73 kph. OUT OF RANGE

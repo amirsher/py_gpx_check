@@ -192,7 +192,7 @@ def ConvertAndSpeed (file,my_map,color,line_points):
                     point_no_csv = point_no_csv + 1
 
             if segment_no > 0 :
-                output1="\nWARNING!, file {0} contain {1} segments, should be no more then 1 segment to get correct results\n".format(file,segment_no+1)
+                output1="\nWARNING!, file {0} contain {1} segments, should not have more then 1 segment, results may be corrupted!\n".format(file,segment_no+1)
                 print(output1)
                 speddingfile.write("{0}\n".format(output1))
 
@@ -202,6 +202,14 @@ def ConvertAndSpeed (file,my_map,color,line_points):
     for waypoint in gpx.waypoints:
         folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='blue', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,waypoint.latitude,waypoint.longitude)).add_to(feature_group)
     '''
+    is_waypoints = "no"
+    for waypoint_no, waypoint in enumerate(gpx.waypoints):
+        if waypoint_no != None :
+            is_waypoints = "yes"
+    if  is_waypoints == "yes" :          
+        output1="\nWARNING!, file {0} contain {1} waypoints, results may be corrupted!\n".format(file,waypoint_no)
+        print(output1)
+        speddingfile.write("{0}\n".format(output1))
 
     return my_map
 
@@ -239,6 +247,10 @@ def FindClosest(i):
         if finish_meters < closest_to_finish_meters  :
             closest_to_finish = row[0]
             closest_to_finish_meters = round(finish_meters,2)
+
+    if closest_to_start == None :
+        print("\nWARNING!, file {0} may not contain valid track, please check before running the script again, Exiting...\n".format(file))
+        sys.exit(0)
 
     output = ('\n{4}\nRestricted {6} kph Zone {5}:\nClosest to start: Point {0} at {1} meters, Closest to finish: Point {2} at {3} meters.\n'.format(closest_to_start, closest_to_start_meters, closest_to_finish, closest_to_finish_meters, cleanFile,i,restricted_speed))
     print(output)
@@ -364,6 +376,7 @@ with open("{0}/spedding_results.txt".format(cwd), "a") as speddingfile:
         my_map.fit_bounds(my_map.get_bounds())
         with open("SpeedingMap.html", "w"): pass # clear the txt file
         my_map.save("SpeedingMap.html")
+        print("a.ok")
 
     else:
         print('\nworong arguments, please use:\n\npython rally_speeding_folder.py start_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n')
