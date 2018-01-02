@@ -1,4 +1,4 @@
-File generated on 2018-01-01 18:16:54.
+File generated on 2018-01-02 09:38:06.
 There are 2 restricted Zone(s).
 
 42
@@ -52,31 +52,6 @@ SPEEDING!!! at point 470, location: (29.977336,34.933946), speed: 95.22 kph.
 
 46 Top Speed: 161.36 kph on point 527
 
-15
-Restricted 40.0 kph Zone 1:
-Closest to start: Point 120 at 55.72 meters, Closest to finish: Point 130 at 112.23 meters.
-
-SPEEDING!!! at point 121, location: (30.194528,35.048918), speed: 42.87 kph.
-SPEEDING!!! at point 124, location: (30.189487,35.052836), speed: 41.23 kph.
-SPEEDING!!! at point 125, location: (30.186429,35.055375), speed: 41.99 kph.
-
-15
-Restricted 70.0 kph Zone 2:
-Closest to start: Point 445 at 29.18 meters, Closest to finish: Point 470 at 116.1 meters.
-
-SPEEDING!!! at point 446, location: (30.030623,34.935118), speed: 82.95 kph.
-SPEEDING!!! at point 447, location: (30.031282,34.938406), speed: 73.74 kph.
-SPEEDING!!! at point 448, location: (30.029828,34.940787), speed: 80.43 kph.
-SPEEDING!!! at point 449, location: (30.028624,34.940886), speed: 70.36 kph.
-SPEEDING!!! at point 454, location: (30.015388,34.956034), speed: 73.77 kph.
-SPEEDING!!! at point 457, location: (30.009803,34.961896), speed: 72.68 kph.
-SPEEDING!!! at point 461, location: (30.006367,34.959603), speed: 70.13 kph.
-SPEEDING!!! at point 464, location: (29.999186,34.947083), speed: 76.41 kph.
-SPEEDING!!! at point 465, location: (29.99674,34.943991), speed: 73.42 kph.
-SPEEDING!!! at point 467, location: (29.988945,34.936995), speed: 73.37 kph.
-
-15 Top Speed: 155.33 kph on point 808
-
 WARNING!, file 7_with_segment.gpx contain 3 segments, should not have more then 1 segment, results may be corrupted!
 
 
@@ -92,151 +67,22 @@ SPEEDING!!! at point 374, location: (30.187217,35.054078), speed: 40.17 kph.
 SPEEDING!!! at point 390, location: (30.173321,35.063843), speed: 57.84 kph.
 SPEEDING!!! at point 391, location: (30.173829,35.064455), speed: 79.72 kph.
 SPEEDING!!! at point 392, location: (30.173975,35.064634), speed: 84.29 kph.
-SPEEDING!!! at point 360, location: (30.053601,34.81534), speed: 58.1 kph.
-SPEEDING!!! at point 361, location: (30.053612,34.815001), speed: 63.17 kph.
-SPEEDING!!! at point 362, location: (30.053721,34.81443), speed: 67.99 kph.
-SPEEDING!!! at point 363, location: (30.053802,34.814262), speed: 64.44 kph.
-SPEEDING!!! at point 364, location: (30.053891,34.814121), speed: 62.76 kph.
-SPEEDING!!! at point 365, location: (30.054095,34.813838), speed: 64.98 kph.
-SPEEDING!!! at point 366, location: (30.054205,34.8137), speed: 64.37 kph.
-SPEEDING!!! at point 367, location: (30.054385,34.813196), speed: 69.21 kph.
-SPEEDING!!! at point 368, location: (30.054409,34.812986), speed: 72.37 kph.
-SPEEDING!!! at point 369, location: (30.054691,34.812249), speed: 57.76 kph.
-SPEEDING!!! at point 370, location: (30.054729,34.811992), speed: 52.05 kph.
-SPEEDING!!! at point 371, location: (30.054607,34.811505), speed: 67.77 kph.
-SPEEDING!!! at point 372, location: (30.054421,34.81112), speed: 78.47 kph.
-SPEEDING!!! at point 373, location: (30.054259,34.810218), speed: 68.78 kph.
-SPEEDING!!! at point 374, location: (30.054286,34.809901), speed: 49.96 kph.
-SPEEDING!!! at point 376, location: (30.054451,34.809269), speed: 41.54 kph.
-SPEEDING!!! at point 377, location: (30.054374,34.80889), speed: 43.54 kph.
-SPEEDING!!! at point 378, location: (30.054362,34.808658), speed: 44.75 kph.
-SPEEDING!!! at point 379, location: (30.054366,34.808383), speed: 49.06 kph.
-SPEEDING!!! at point 380, location: (30.05436,34.808242), speed: 49.23 kph.
-SPEEDING!!! at point 381, location: (30.054455,34.807688), speed: 56.14 kph.
-SPEEDING!!! at point 382, location: (30.054525,34.807529), speed: 62.96 kph.
-SPEEDING!!! at point 383, location: (30.054559,34.807351), speed: 68.94 kph.
-SPEEDING!!! at point 384, location: (30.054575,34.806921), speed: 80.53 kph.
-SPEEDING!!! at point 385, location: (30.054524,34.806428), speed: 83.29 kph.
-SPEEDING!!! at point 386, location: (30.0544,34.80599), speed: 69.07 kph.
-SPEEDING!!! at point 387, location: (30.054299,34.805682), speed: 59.01 kph.
-SPEEDING!!! at point 388, location: (30.054256,34.805519), speed: 63.31 kph.
-SPEEDING!!! at point 389, location: (30.054204,34.805338), speed: 64.37 kph.
-SPEEDING!!! at point 390, location: (30.053943,34.804893), speed: 60.32 kph.
-SPEEDING!!! at point 391, location: (30.053815,34.804812), speed: 61.66 kph.
-SPEEDING!!! at point 392, location: (30.053532,34.804628), speed: 71.12 kph.
-SPEEDING!!! at point 360, location: (30.284168,34.87714), speed: 95.46 kph.
-SPEEDING!!! at point 361, location: (30.28528,34.87768), speed: 93.74 kph.
-SPEEDING!!! at point 362, location: (30.28589,34.878029), speed: 85.39 kph.
-SPEEDING!!! at point 363, location: (30.286255,34.878213), speed: 85.15 kph.
-SPEEDING!!! at point 364, location: (30.286657,34.878444), speed: 93.9 kph.
-SPEEDING!!! at point 365, location: (30.287275,34.878895), speed: 102.35 kph.
-SPEEDING!!! at point 366, location: (30.28791,34.879467), speed: 108.06 kph.
-SPEEDING!!! at point 367, location: (30.289063,34.880804), speed: 107.58 kph.
-SPEEDING!!! at point 368, location: (30.29018,34.882527), speed: 107.61 kph.
-SPEEDING!!! at point 369, location: (30.290338,34.882784), speed: 104.61 kph.
-SPEEDING!!! at point 370, location: (30.290609,34.883265), speed: 92.67 kph.
-SPEEDING!!! at point 371, location: (30.290701,34.883483), speed: 84.33 kph.
-SPEEDING!!! at point 372, location: (30.29079,34.883701), speed: 86.93 kph.
-SPEEDING!!! at point 373, location: (30.290902,34.883926), speed: 93.09 kph.
-SPEEDING!!! at point 374, location: (30.291042,34.88415), speed: 96.25 kph.
-SPEEDING!!! at point 375, location: (30.291195,34.884366), speed: 96.12 kph.
-SPEEDING!!! at point 376, location: (30.291341,34.884578), speed: 92.14 kph.
-SPEEDING!!! at point 377, location: (30.291467,34.884785), speed: 86.01 kph.
-SPEEDING!!! at point 378, location: (30.291564,34.884995), speed: 82.27 kph.
-SPEEDING!!! at point 379, location: (30.291635,34.885212), speed: 81.47 kph.
-SPEEDING!!! at point 380, location: (30.291704,34.885431), speed: 79.31 kph.
-SPEEDING!!! at point 381, location: (30.291784,34.885631), speed: 72.1 kph.
-SPEEDING!!! at point 382, location: (30.291876,34.885795), speed: 67.31 kph.
-SPEEDING!!! at point 383, location: (30.291994,34.885933), speed: 71.93 kph.
-SPEEDING!!! at point 384, location: (30.292139,34.886076), speed: 80.81 kph.
-SPEEDING!!! at point 385, location: (30.292298,34.886232), speed: 86.31 kph.
-SPEEDING!!! at point 386, location: (30.292648,34.886537), speed: 87.05 kph.
-SPEEDING!!! at point 387, location: (30.29284,34.886652), speed: 84.37 kph.
-SPEEDING!!! at point 388, location: (30.293036,34.886718), speed: 81.26 kph.
-SPEEDING!!! at point 389, location: (30.293235,34.886741), speed: 81.25 kph.
-SPEEDING!!! at point 390, location: (30.293441,34.886742), speed: 83.48 kph.
-SPEEDING!!! at point 391, location: (30.293652,34.886729), speed: 85.29 kph.
-SPEEDING!!! at point 392, location: (30.294081,34.886707), speed: 88.27 kph.
 
 7_with_segment
 Restricted 70.0 kph Zone 2:
-Closest to start: Point 8 at 53.34 meters, Closest to finish: Point 91 at 99.69 meters.
+Closest to start: Point 1328 at 53.34 meters, Closest to finish: Point 1411 at 99.69 meters.
 
-SPEEDING!!! at point 22, location: (30.030465,34.939689), speed: 70.3 kph.
-SPEEDING!!! at point 23, location: (30.030084,34.940109), speed: 70.35 kph.
-SPEEDING!!! at point 24, location: (30.029828,34.940387), speed: 70.5 kph.
-SPEEDING!!! at point 25, location: (30.029442,34.940807), speed: 71.31 kph.
-SPEEDING!!! at point 26, location: (30.029313,34.940951), speed: 72.09 kph.
-SPEEDING!!! at point 27, location: (30.028924,34.941386), speed: 71.37 kph.
-SPEEDING!!! at point 30, location: (30.026004,34.944561), speed: 70.54 kph.
-SPEEDING!!! at point 31, location: (30.025446,34.945065), speed: 70.15 kph.
-SPEEDING!!! at point 90, location: (29.977536,34.933646), speed: 71.0 kph.
-SPEEDING!!! at point 9, location: (30.16373,34.814151), speed: 106.15 kph.
-SPEEDING!!! at point 10, location: (30.163979,34.81404), speed: 109.16 kph.
-SPEEDING!!! at point 11, location: (30.164233,34.813918), speed: 111.27 kph.
-SPEEDING!!! at point 12, location: (30.164487,34.813785), speed: 107.85 kph.
-SPEEDING!!! at point 13, location: (30.164722,34.813669), speed: 95.24 kph.
-SPEEDING!!! at point 14, location: (30.165126,34.813505), speed: 79.04 kph.
-SPEEDING!!! at point 20, location: (30.166088,34.813621), speed: 77.22 kph.
-SPEEDING!!! at point 21, location: (30.166292,34.813625), speed: 87.02 kph.
-SPEEDING!!! at point 22, location: (30.166751,34.813646), speed: 96.52 kph.
-SPEEDING!!! at point 23, location: (30.167254,34.813648), speed: 101.69 kph.
-SPEEDING!!! at point 24, location: (30.168537,34.81367), speed: 98.68 kph.
-SPEEDING!!! at point 25, location: (30.168771,34.813714), speed: 93.99 kph.
-SPEEDING!!! at point 26, location: (30.168997,34.813776), speed: 90.14 kph.
-SPEEDING!!! at point 27, location: (30.169203,34.813853), speed: 81.61 kph.
-SPEEDING!!! at point 28, location: (30.169379,34.813936), speed: 71.94 kph.
-SPEEDING!!! at point 29, location: (30.169537,34.814007), speed: 70.32 kph.
-SPEEDING!!! at point 30, location: (30.169711,34.814064), speed: 74.93 kph.
-SPEEDING!!! at point 31, location: (30.1699,34.8141), speed: 76.82 kph.
-SPEEDING!!! at point 32, location: (30.170091,34.814117), speed: 81.23 kph.
-SPEEDING!!! at point 33, location: (30.170518,34.814127), speed: 93.24 kph.
-SPEEDING!!! at point 34, location: (30.171524,34.814202), speed: 105.84 kph.
-SPEEDING!!! at point 35, location: (30.172072,34.814282), speed: 113.32 kph.
-SPEEDING!!! at point 36, location: (30.17265,34.814304), speed: 119.07 kph.
-SPEEDING!!! at point 37, location: (30.17326,34.814267), speed: 121.95 kph.
-SPEEDING!!! at point 38, location: (30.173867,34.814274), speed: 118.05 kph.
-SPEEDING!!! at point 39, location: (30.174438,34.814292), speed: 112.05 kph.
-SPEEDING!!! at point 40, location: (30.174712,34.814273), speed: 109.08 kph.
-SPEEDING!!! at point 41, location: (30.174974,34.814247), speed: 104.29 kph.
-SPEEDING!!! at point 42, location: (30.175222,34.814233), speed: 96.02 kph.
-SPEEDING!!! at point 43, location: (30.175451,34.814242), speed: 87.01 kph.
-SPEEDING!!! at point 44, location: (30.175654,34.814257), speed: 78.07 kph.
-SPEEDING!!! at point 45, location: (30.175838,34.814261), speed: 78.03 kph.
-SPEEDING!!! at point 46, location: (30.176245,34.814262), speed: 87.03 kph.
-SPEEDING!!! at point 47, location: (30.176475,34.814267), speed: 96.83 kph.
-SPEEDING!!! at point 48, location: (30.177236,34.814247), speed: 104.29 kph.
-SPEEDING!!! at point 49, location: (30.177771,34.814234), speed: 98.97 kph.
-SPEEDING!!! at point 50, location: (30.177994,34.814231), speed: 82.7 kph.
-SPEEDING!!! at point 53, location: (30.178495,34.814291), speed: 74.54 kph.
-SPEEDING!!! at point 54, location: (30.178689,34.814355), speed: 83.67 kph.
-SPEEDING!!! at point 55, location: (30.178891,34.814445), speed: 88.39 kph.
-SPEEDING!!! at point 56, location: (30.179098,34.814549), speed: 94.38 kph.
-SPEEDING!!! at point 57, location: (30.179554,34.814764), speed: 102.21 kph.
-SPEEDING!!! at point 58, location: (30.180024,34.815039), speed: 103.88 kph.
-SPEEDING!!! at point 59, location: (30.180474,34.815317), speed: 102.43 kph.
-SPEEDING!!! at point 60, location: (30.181616,34.815995), speed: 90.53 kph.
-SPEEDING!!! at point 61, location: (30.18177,34.816127), speed: 74.1 kph.
-SPEEDING!!! at point 62, location: (30.181898,34.816264), speed: 71.31 kph.
-SPEEDING!!! at point 63, location: (30.182031,34.816408), speed: 78.97 kph.
-SPEEDING!!! at point 64, location: (30.182521,34.816881), speed: 87.87 kph.
-SPEEDING!!! at point 65, location: (30.182703,34.817036), speed: 95.27 kph.
-SPEEDING!!! at point 66, location: (30.183488,34.817752), speed: 105.25 kph.
-SPEEDING!!! at point 67, location: (30.183707,34.817944), speed: 109.51 kph.
-SPEEDING!!! at point 68, location: (30.183917,34.818142), speed: 107.24 kph.
-SPEEDING!!! at point 69, location: (30.184109,34.818351), speed: 101.28 kph.
-SPEEDING!!! at point 70, location: (30.18473,34.819206), speed: 86.92 kph.
-SPEEDING!!! at point 71, location: (30.184875,34.819354), speed: 73.98 kph.
-SPEEDING!!! at point 74, location: (30.185346,34.819563), speed: 75.07 kph.
-SPEEDING!!! at point 75, location: (30.185944,34.819725), speed: 77.51 kph.
-SPEEDING!!! at point 82, location: (30.187312,34.820585), speed: 76.62 kph.
-SPEEDING!!! at point 83, location: (30.187502,34.820675), speed: 79.57 kph.
-SPEEDING!!! at point 84, location: (30.187863,34.82083), speed: 70.09 kph.
-SPEEDING!!! at point 88, location: (30.188502,34.821017), speed: 72.22 kph.
-SPEEDING!!! at point 89, location: (30.188651,34.821144), speed: 78.01 kph.
-SPEEDING!!! at point 90, location: (30.188801,34.821304), speed: 86.34 kph.
+SPEEDING!!! at point 1342, location: (30.030465,34.939689), speed: 70.3 kph.
+SPEEDING!!! at point 1343, location: (30.030084,34.940109), speed: 70.35 kph.
+SPEEDING!!! at point 1344, location: (30.029828,34.940387), speed: 70.5 kph.
+SPEEDING!!! at point 1345, location: (30.029442,34.940807), speed: 71.31 kph.
+SPEEDING!!! at point 1346, location: (30.029313,34.940951), speed: 72.09 kph.
+SPEEDING!!! at point 1347, location: (30.028924,34.941386), speed: 71.37 kph.
+SPEEDING!!! at point 1350, location: (30.026004,34.944561), speed: 70.54 kph.
+SPEEDING!!! at point 1351, location: (30.025446,34.945065), speed: 70.15 kph.
+SPEEDING!!! at point 1410, location: (29.977536,34.933646), speed: 71.0 kph.
 
-7_with_segment Top Speed: 144.34 kph on point 651
+7_with_segment Top Speed: 144.34 kph on point 1971
 
 12
 Restricted 40.0 kph Zone 1:
@@ -280,55 +126,6 @@ SPEEDING!!! at point 468, location: (29.979903,34.935337), speed: 72.61 kph.
 SPEEDING!!! at point 469, location: (29.976945,34.934985), speed: 73.44 kph.
 
 36 Top Speed: 159.56 kph on point 902
-
-24
-Restricted 40.0 kph Zone 1:
-Closest to start: Point 120 at 54.94 meters, Closest to finish: Point 131 at 134.63 meters.
-
-SPEEDING!!! at point 122, location: (30.193675,35.050136), speed: 46.23 kph.
-SPEEDING!!! at point 124, location: (30.189287,35.052236), speed: 40.29 kph.
-SPEEDING!!! at point 125, location: (30.185729,35.054975), speed: 41.94 kph.
-SPEEDING!!! at point 130, location: (30.173521,35.063543), speed: 58.11 kph.
-
-24
-Restricted 70.0 kph Zone 2:
-Closest to start: Point 445 at 50.46 meters, Closest to finish: Point 470 at 150.63 meters.
-
-SPEEDING!!! at point 447, location: (30.031082,34.939206), speed: 73.95 kph.
-SPEEDING!!! at point 451, location: (30.023501,34.946377), speed: 71.77 kph.
-SPEEDING!!! at point 456, location: (30.012922,34.958834), speed: 79.17 kph.
-SPEEDING!!! at point 457, location: (30.010603,34.962496), speed: 83.75 kph.
-SPEEDING!!! at point 460, location: (30.007909,34.962037), speed: 75.78 kph.
-SPEEDING!!! at point 464, location: (29.999086,34.947183), speed: 71.08 kph.
-SPEEDING!!! at point 465, location: (29.99734,34.944191), speed: 71.41 kph.
-SPEEDING!!! at point 467, location: (29.988945,34.937895), speed: 71.38 kph.
-
-24 Top Speed: 155.19 kph on point 657
-
-28
-Restricted 40.0 kph Zone 1:
-Closest to start: Point 120 at 47.66 meters, Closest to finish: Point 131 at 76.88 meters.
-
-SPEEDING!!! at point 121, location: (30.193928,35.048918), speed: 41.91 kph.
-SPEEDING!!! at point 124, location: (30.188687,35.052436), speed: 44.54 kph.
-SPEEDING!!! at point 130, location: (30.173121,35.063943), speed: 62.54 kph.
-
-28
-Restricted 70.0 kph Zone 2:
-Closest to start: Point 443 at 31.58 meters, Closest to finish: Point 469 at 87.79 meters.
-
-SPEEDING!!! at point 447, location: (30.031382,34.938706), speed: 71.88 kph.
-SPEEDING!!! at point 448, location: (30.029728,34.939987), speed: 70.03 kph.
-SPEEDING!!! at point 449, location: (30.028924,34.940986), speed: 72.24 kph.
-SPEEDING!!! at point 450, location: (30.025604,34.944361), speed: 74.23 kph.
-SPEEDING!!! at point 454, location: (30.015388,34.955634), speed: 79.85 kph.
-SPEEDING!!! at point 455, location: (30.013897,34.957002), speed: 83.47 kph.
-SPEEDING!!! at point 456, location: (30.013222,34.959134), speed: 71.45 kph.
-SPEEDING!!! at point 461, location: (30.006167,34.959003), speed: 70.7 kph.
-SPEEDING!!! at point 464, location: (29.998486,34.947383), speed: 71.27 kph.
-SPEEDING!!! at point 465, location: (29.99724,34.944291), speed: 70.83 kph.
-
-28 Top Speed: 170.56 kph on point 630
 
 33
 Restricted 40.0 kph Zone 1:

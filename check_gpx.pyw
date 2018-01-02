@@ -10,6 +10,51 @@ top = Tk()
 top.title("Check gpx files")
 top.geometry('800x1000')
 
+def rClicker(e):
+    ''' right click context menu for all Tk Entry and Text widgets
+    '''
+
+    try:
+        def rClick_Copy(e, apnd=0):
+            e.widget.event_generate('<Control-c>')
+
+        def rClick_Cut(e):
+            e.widget.event_generate('<Control-x>')
+
+        def rClick_Paste(e):
+            e.widget.event_generate('<Control-v>')
+
+        e.widget.focus()
+
+        nclst=[
+               (' Cut', lambda e=e: rClick_Cut(e)),
+               (' Copy', lambda e=e: rClick_Copy(e)),
+               (' Paste', lambda e=e: rClick_Paste(e)),
+               ]
+
+        rmenu = Menu(None, tearoff=0, takefocus=0)
+
+        for (txt, cmd) in nclst:
+            rmenu.add_command(label=txt, command=cmd, font=("Ariel", "12"))
+
+        rmenu.tk_popup(e.x_root+40, e.y_root+10,entry="0")
+
+    except TclError:
+        pass
+
+    return "break"
+
+
+def rClickbinder(r):
+
+    try:
+        for b in [ 'Text', 'Entry', 'Listbox', 'Label']: #
+            r.bind_class(b, sequence='<Button-3>',
+                         func=rClicker, add='')
+    except TclError:
+        pass
+
+
 def speeding():
     B2.flash()
     text.delete(1.0,END)
@@ -22,8 +67,8 @@ def speeding():
     #p = Popen("speeding.py " + E2.get(), stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
     finished = 0
     while True:
-        retcode = p.poll()
         output = p.stdout.readline()
+        if output == '' and p.poll() != None: break
         print(output)
         if "WARNING" in output: 
              text1.insert(END, output+"\n")
@@ -31,8 +76,6 @@ def speeding():
         top.update_idletasks()
         if "a.ok" in output:
             finished =  1
-        if retcode is not None:
-            break
     if finished == 1 :
         filename = "SpeedingMap.html"
         result = messagebox.askquestion("Results", "saved results to {0}\n\nShow results in web browser?".format(os.path.realpath(filename)))
@@ -53,8 +96,8 @@ def marshaling():
     #p = Popen("marshaling.py 90,120,line,1,1 " + E1.get(), stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
     finished = 0
     while True:
-        retcode = p.poll()
         output = p.stdout.readline()
+        if output == '' and p.poll() != None: break
         print(output)
         if "WARNING" in output: 
              text1.insert(END, output+"\n")
@@ -62,8 +105,6 @@ def marshaling():
         top.update_idletasks()
         if "a.ok" in output:
             finished = 1
-        if retcode is not None:
-            break
     if finished == 1 :
         filename = "TrackingMap.html"
         result = messagebox.askquestion("Results", "saved results to {0}\n\nShow results in web browser?".format(os.path.realpath(filename)))
@@ -183,4 +224,5 @@ text1.pack(side = LEFT,padx="10",pady="10")
 text.insert(END, "results\n")
 text1.insert(END, "warnings\n")
 F13.pack()
+rClickbinder(top)
 top.mainloop()
