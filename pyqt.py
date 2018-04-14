@@ -1,7 +1,9 @@
+#!/usr/bin/python
+
 import webbrowser, os 
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QCheckBox, QLabel, QSizePolicy, QHBoxLayout, QVBoxLayout, QComboBox, QPlainTextEdit, QFileDialog
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QTextCursor
 from PyQt5.QtCore import pyqtSlot, Qt
 from subprocess import check_output, Popen, PIPE
             
@@ -11,39 +13,42 @@ class App(QWidget):
     def __init__(self):
         super().__init__()
         self.title = 'Check gpx files'
-        self.left = 100
-        self.top = 100
-        self.width = 320
-        self.height = 200
         self.initUI()
  
     def initUI(self):
         self.setWindowTitle(self.title)
-        self.setGeometry(self.left, self.top, self.width, self.height)
+   #     self.setStyleSheet("background-color: lightgray;")
 
          
         # Create textbox
         self.textbox0 = QPlainTextEdit(self)
         self.textbox0.insertPlainText("plaese select folder")
-        self.textbox0.setStyleSheet("QPlainTextEdit {background-color:lightgray; color:blue;}")
-        self.textbox0.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.textbox0.setStyleSheet("QPlainTextEdit {font-size:36px; background-color:#eff0f1; color:blue; border:none; margin-top:50%;}")
         self.textbox0.setReadOnly(True)
+#        self.textbox0.setMinimumWidth(400)        
 
         # Create a button in the window
         self.button1 = QPushButton('select folder')
         # connect button to function marshal
         self.button1.clicked.connect(self.selectFolder)
+        self.button1.setStyleSheet("QPushButton {font-size:48px; background-color:lightgray; color:black; margin:30px;}")
 
         self.textbox4 = QPlainTextEdit(self)
-        self.textbox4.setFixedWidth(600)
-        self.textbox4.setFixedHeight(600)
-        self.textbox4.insertPlainText("warnings\n")
+#        self.textbox4.setFixedWidth(600)
+#        self.textbox4.setFixedHeight(600)
+        self.textbox4.setMinimumHeight(400)        
+        self.textbox4.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.textbox4.insertPlainText("warnings:\n\n")
         self.textbox4.setReadOnly(True)
+        self.textbox4.setStyleSheet("QPlainTextEdit {margin:20px;}")
         self.textbox5 = QPlainTextEdit(self)
-        self.textbox5.setFixedWidth(600)
-        self.textbox5.setFixedHeight(600)
-        self.textbox5.insertPlainText("output\n")
+#        self.textbox5.setFixedWidth(600)
+#        self.textbox5.setFixedHeight(600)
+        self.textbox5.setMinimumHeight(400)        
+        self.textbox5.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.textbox5.insertPlainText("output\n\n")
         self.textbox5.setReadOnly(True)
+        self.textbox5.setStyleSheet("QPlainTextEdit {margin:20px;}")
 
 
 #########################################
@@ -68,7 +73,7 @@ class App(QWidget):
         # Create textbox
         self.s_textbox = QLineEdit(self)
 #        self.s_textbox.setText("30.195176,35.04978 30.1749997,35.0642141 40 30.0310113,34.933191 29.978476,34.934311 70") # FOR TESTING
-        self.s_textbox.setPlaceholderText('please as follow: "30.195176,35.04978 30.1749997,35.0642141 40 30.0310113,34.933191 29.978476,34.934311 70"') 
+        self.s_textbox.setPlaceholderText('Ex: 30.195176,35.04978 30.1749997,35.0642141 40 30.0310113,34.933191 29.978476,34.934311 70') 
         self.s_textbox1 = QLineEdit(self)
         self.s_textbox1.setFixedWidth(80)
         self.s_textbox1.setText("90")
@@ -78,7 +83,7 @@ class App(QWidget):
         
         self.s_button = QPushButton('speeding')
         self.s_button.setToolTip('check speeding zones')
-        self.s_button.setStyleSheet("QPushButton {font-size:48px; background-color:lightgray; color:blue;}")
+        self.s_button.setStyleSheet("QPushButton {font-size:48px; background-color:lightgray; color:blue; margin:30px;}")
         # connect button to function marshal
         self.s_button.clicked.connect(self.spedding)
  
@@ -112,7 +117,7 @@ class App(QWidget):
  
         self.textbox = QLineEdit(self)
 #        self.textbox.setText("30.195176,35.04978 30.1749997,35.0642141") # FOR TESTING
-        self.textbox.setPlaceholderText('please as follow: "30.195176,35.04978 30.1749997,35.0642141"') 
+        self.textbox.setPlaceholderText('Ex: 30.195176,35.04978 30.1749997,35.0642141') 
         self.textbox1 = QLineEdit(self)
         self.textbox1.setFixedWidth(80)
         self.textbox1.setText("80")
@@ -123,7 +128,7 @@ class App(QWidget):
         # Create a button in the window
         self.button = QPushButton('marshaling')
         self.button.setToolTip('check marshaling points')
-        self.button.setStyleSheet("QPushButton {font-size:48px; background-color:lightgray; color:blue;}")
+        self.button.setStyleSheet("QPushButton {font-size:48px; background-color:lightgray; color:blue; margin:30px;}")
         # connect button to function marshal
         self.button.clicked.connect(self.marshal)
  
@@ -156,6 +161,10 @@ class App(QWidget):
         s_h_box3.addWidget(self.s_comboBox)
         s_h_box3.addStretch()
 
+        s_h_box5 = QHBoxLayout()
+        s_h_box5.addStretch()
+        s_h_box5.addWidget(self.s_button)
+        s_h_box5.addStretch()
 
 #########################################
 ########       marshaling    ############
@@ -184,16 +193,23 @@ class App(QWidget):
         h_box4.addWidget(self.textbox5)
         h_box4.addWidget(self.textbox4)
 
+        h_box5 = QHBoxLayout()
+        h_box5.addStretch()
+        h_box5.addWidget(self.button)
+        h_box5.addStretch()
+
 ####combined
 
         h_box0 = QHBoxLayout()
         h_box0.addStretch()
+        h_box0.addWidget(self.button1)
         h_box0.addWidget(self.textbox0)
         h_box0.addStretch()
 
         box = QVBoxLayout()
+        box.addStretch()
         box.addLayout(h_box0)
-        box.addWidget(self.button1)
+#        box.addWidget(self.button1)
 
 ### speeding
         box.addWidget(self.s_textbox)
@@ -204,7 +220,8 @@ class App(QWidget):
         box.addLayout(s_h_box3)
         box.addWidget(self.s_checkbox1)
         box.addWidget(self.s_checkbox3)
-        box.addWidget(self.s_button)
+        box.addLayout(s_h_box5)
+#        box.addWidget(self.s_button)
 
 ### marshaling
         box.addWidget(self.textbox)
@@ -216,7 +233,8 @@ class App(QWidget):
         box.addWidget(self.checkbox1)
         box.addWidget(self.checkbox2)
         box.addWidget(self.checkbox3)
-        box.addWidget(self.button)
+        box.addLayout(h_box5)
+#        box.addWidget(self.button)
 
         box.addLayout(h_box4)
 
@@ -227,16 +245,16 @@ class App(QWidget):
     def spedding(self):
     #    print('PyQt5 button click')
    #     print(self.s_comboBox.currentText())
-        self.textbox4.setStyleSheet("QPlainTextEdit {background-color:white; color:black;}")
-        self.textbox5.setStyleSheet("QPlainTextEdit {background-color:white; color:black;}")
+        self.textbox4.setStyleSheet("QPlainTextEdit {background-color:white; color:black; margin:20px;}")
+        self.textbox5.setStyleSheet("QPlainTextEdit {background-color:white; color:black; margin:20px;}")
         self.textbox4.clear()
         self.textbox5.clear()
-        self.textbox4.insertPlainText("warnings\n")
-        self.textbox5.insertPlainText("output\n")
+        self.textbox4.insertPlainText("warnings:\n\n")
+        self.textbox5.insertPlainText("checking...\n\n")
         QApplication.processEvents() # update gui
         if not self.s_textbox.text():
             self.textbox4.clear()
-            self.textbox4.setStyleSheet("QPlainTextEdit {background-color:red; color:white;}")
+            self.textbox4.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
             self.textbox4.insertPlainText("ERROR: \nno spedding points to check! \nplease enter valid points")
             QApplication.processEvents() # update gui
             return
@@ -264,10 +282,12 @@ class App(QWidget):
             if "WARNING" in output:
                 self.textbox4.insertPlainText(output+"\n")
             self.textbox5.insertPlainText(output+"\n")
+            self.textbox5.moveCursor(QTextCursor.End)
+            QApplication.processEvents() # update gui
 
             if "a.ok" in output:
                 finished = 1
-                self.textbox5.setStyleSheet("QPlainTextEdit {background-color:green; color:white;}")
+                self.textbox5.setStyleSheet("QPlainTextEdit {background-color:green; color:white; margin:20px;}")
 
         if finished == 1 :
             filename = "SpeedingMap.html"
@@ -278,22 +298,22 @@ class App(QWidget):
                 webbrowser.open('file://' + os.path.realpath(filename))
         else:
             print("something went wrong, \nplease check warnings for more information")
-            self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white;}")
+            self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
 
 
     def marshal(self):
     #    print('PyQt5 button click')
    #     print(self.comboBox.currentText())
-        self.textbox4.setStyleSheet("QPlainTextEdit {background-color:white; color:black;}")
-        self.textbox5.setStyleSheet("QPlainTextEdit {background-color:white; color:black;}")
+        self.textbox4.setStyleSheet("QPlainTextEdit {background-color:white; color:black; margin:20px;}")
+        self.textbox5.setStyleSheet("QPlainTextEdit {background-color:white; color:black; margin:20px;}")
         self.textbox4.clear()
         self.textbox5.clear()
-        self.textbox4.insertPlainText("warnings\n")
-        self.textbox5.insertPlainText("output\n")
+        self.textbox4.insertPlainText("warnings:\n\n")
+        self.textbox5.insertPlainText("checking...\n\n")
         QApplication.processEvents() # update gui
         if not self.textbox.text():
             self.textbox4.clear()
-            self.textbox4.setStyleSheet("QPlainTextEdit {background-color:red; color:white;}")
+            self.textbox4.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
             self.textbox4.insertPlainText("ERROR: \nno marshal points to check! \nplease enter valid points")
             QApplication.processEvents() # update gui
             return
@@ -323,10 +343,12 @@ class App(QWidget):
             if "WARNING" in output:
                 self.textbox4.insertPlainText(output+"\n")
             self.textbox5.insertPlainText(output+"\n")
+            self.textbox5.moveCursor(QTextCursor.End)
+            QApplication.processEvents() # update gui
 
             if "a.ok" in output:
                 finished = 1
-                self.textbox5.setStyleSheet("QPlainTextEdit {background-color:green; color:white;}")
+                self.textbox5.setStyleSheet("QPlainTextEdit {background-color:green; color:white; margin:20px;}")
 
         if finished == 1 :
             filename = "TrackingMap.html"
@@ -337,7 +359,7 @@ class App(QWidget):
                 webbrowser.open('file://' + os.path.realpath(filename))
         else:
             print("something went wrong, \nplease check warnings for more information")
-            self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white;}")
+            self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
 
 
     def selectFolder(self):
