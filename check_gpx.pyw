@@ -93,7 +93,7 @@ def marshaling():
     top.update_idletasks()
     arg = "marshaling.py {3},{4},{5},{1},{2},{6} {0}".format(E1.get(),CheckVar11.get(),CheckVar12.get(),V11.get(),V12.get(),CheckVar13.get(),CheckVar14.get())
     p = Popen(arg , stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
-    #p = Popen("marshaling.py 90,120,line,1,1 " + E1.get(), stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
+    #p = Popen("marshaling.py 90,120,line,0,0,0 " + E1.get(), stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
     finished = 0
     while True:
         output = p.stdout.readline()
@@ -215,11 +215,11 @@ B1.pack(padx="20",pady="20")
 F13 = Frame(top)
 #T3 = Label(F13, text="results")
 #T3.pack(side = RIGHT)
-text = Text(F13,bg="lightgray", width=70)
+text = Text(F13,bg="lightgray", width=40)
 text.pack(side = RIGHT,padx="10",pady="10")
 #T4 = Label(F13, text="warnings")
 #T4.pack(side = LEFT)
-text1 = Text(F13,bg="lightgray", width=70)
+text1 = Text(F13,bg="lightgray", width=40)
 text1.pack(side = LEFT,padx="10",pady="10")
 text.insert(END, "results\n")
 text1.insert(END, "warnings\n")
