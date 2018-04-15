@@ -1,5 +1,12 @@
-File generated on 2018-04-14 18:52:41.
+File generated on 2018-04-15 07:24:24.
 There are 2 restricted Zone(s).
+
+start zone 1: 30.195176,35.04978
+end zone 1: 30.1749997,35.0642141
+restricted speed zone 1: 40 kph
+start zone 2: 30.0310113,34.933191
+end zone 2: 29.978476,34.934311
+restricted speed zone 2: 70 kph
 
 42
 Restricted 40.0 kph Zone 1:

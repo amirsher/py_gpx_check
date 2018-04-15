@@ -311,7 +311,18 @@ with open("{0}/spedding_results.txt".format(cwd), "a") as speddingfile:
         
     output = ("File generated on {1}.\nThere are {0} restricted Zone(s).".format(restrictedZones,now.strftime("%Y-%m-%d %H:%M:%S")))
     print("\n{}".format(output))
-    speddingfile.write("{}\n".format(output))
+    speddingfile.write("{}\n\n".format(output))
+
+    # loging the zones
+    for z in range(1, restrictedZones+1):
+
+        print ("start zone {0}: {1}\n".format(z, sys.argv[(z*3)-1]))
+        print ("end zone {0}: {1}\n".format(z, sys.argv[(z*3)]))
+        print ("restricted speed zone {0}: {1} kph\n".format(z, sys.argv[(z*3)+1]))
+        speddingfile.write("start zone {0}: {1}\n".format(z, sys.argv[(z*3)-1]))
+        speddingfile.write("end zone {0}: {1}\n".format(z, sys.argv[(z*3)]))
+        speddingfile.write("restricted speed zone {0}: {1} kph\n".format(z, sys.argv[(z*3)+1]))
+
 
     if isinstance(restrictedZones, int) :
         if (glob.glob("*.gpx")) :

@@ -311,6 +311,15 @@ with open("{0}/marshaling_results.txt".format(cwd), "a") as marshalfile:
     print("\n{}".format(output))
     marshalfile.write("{}\n".format(output))
 
+    # loging the points
+    arguments = len(sys.argv) - 1
+    # output argument-wise
+    position = 2  
+    while (arguments >= position):  
+        print ("point {0}: {1}\n".format((position-1), sys.argv[position]))
+        marshalfile.write("point {0}: {1}\n".format((position-1), sys.argv[position]))
+        position = position + 1
+
     if isinstance(MarshalPoints, int) :
         
         if (glob.glob("*.gpx")) :
@@ -328,7 +337,7 @@ with open("{0}/marshaling_results.txt".format(cwd), "a") as marshalfile:
             print(cleanFile)
             feature_group = folium.FeatureGroup(name=cleanFile)
             my_map=ConvertAndSpeed(file,my_map,color[c],line_points)
-            marshalfile.write("{}\n".format(cleanFile))
+            marshalfile.write("\n{}\n".format(cleanFile))
             for x in range(2, MarshalPoints+2):
                 marshalpoint = ((sys.argv)[x]).split(',')
 

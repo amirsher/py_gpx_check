@@ -241,7 +241,7 @@ class App(QWidget):
         self.setLayout(box)
         self.show()
  
-    @pyqtSlot()
+#    @pyqtSlot()
     def spedding(self):
     #    print('PyQt5 button click')
    #     print(self.s_comboBox.currentText())
@@ -278,12 +278,12 @@ class App(QWidget):
             output = p.stdout.readline()
             if output == '' and p.poll() != None: break
             print(output)
-
-            if "WARNING" in output:
-                self.textbox4.insertPlainText(output+"\n")
             self.textbox5.insertPlainText(output+"\n")
             self.textbox5.moveCursor(QTextCursor.End)
             QApplication.processEvents() # update gui
+
+            if "WARNING" in output:
+                self.textbox4.insertPlainText(output+"\n")
 
             if "a.ok" in output:
                 finished = 1
@@ -339,12 +339,12 @@ class App(QWidget):
             output = p.stdout.readline()
             if output == '' and p.poll() != None: break
             print(output)
-
-            if "WARNING" in output:
-                self.textbox4.insertPlainText(output+"\n")
             self.textbox5.insertPlainText(output+"\n")
             self.textbox5.moveCursor(QTextCursor.End)
             QApplication.processEvents() # update gui
+
+            if "WARNING" in output:
+                self.textbox4.insertPlainText(output+"\n")
 
             if "a.ok" in output:
                 finished = 1
