@@ -2,33 +2,59 @@
 
 import webbrowser, os 
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QCheckBox, QLabel, QSizePolicy, QHBoxLayout, QVBoxLayout, QComboBox, QPlainTextEdit, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QCheckBox, QLabel, QSizePolicy, QHBoxLayout, QVBoxLayout, QComboBox, QPlainTextEdit, QFileDialog, QTabWidget
 from PyQt5.QtGui import QIcon, QTextCursor
 from PyQt5.QtCore import pyqtSlot, Qt
 from subprocess import check_output, Popen, PIPE
             
 
-class App(QWidget):
+class App(QMainWindow):
  
     def __init__(self):
         super().__init__()
-        self.title = 'Check gpx files'
-        self.initUI()
- 
-    def initUI(self):
+        self.title = 'GPS Check'
+#        self.left = 0
+ #       self.top = 0
+  #      self.width = 300
+   #     self.height = 200
         self.setWindowTitle(self.title)
-   #     self.setStyleSheet("background-color: lightgray;")
+  #      self.setGeometry(self.left, self.top, self.width, self.height)
+ 
+        self.table_widget = MyTableWidget(self)
+        self.setCentralWidget(self.table_widget)
+ 
+        self.show()
+ 
 
+class MyTableWidget(QWidget):        
+ 
+    def __init__(self, parent):   
+        super(QWidget, self).__init__(parent)
+ #       self.layout = QVBoxLayout(self)
+        self.layout = QVBoxLayout()
+
+        # Initialize tab screen
+        self.tabs = QTabWidget()
+ #       self.tab1 = QWidget()	
+        self.tab2 = QWidget()
+        self.tab3 = QWidget()
+#        self.tabs.resize(300,200) 
+        self.tabs.setStyleSheet("QTabBar{font: bold;}")
+
+        # Add tabs
+  #      self.tabs.addTab(self.tab1,"Folder")
+        self.tabs.addTab(self.tab2,"Speeding")
+        self.tabs.addTab(self.tab3,"Marshaling")
          
         # Create textbox
         self.textbox0 = QPlainTextEdit(self)
-        self.textbox0.insertPlainText("plaese select folder")
-        self.textbox0.setStyleSheet("QPlainTextEdit {font-size:36px; background-color:#eff0f1; color:blue; border:none; margin-top:50%;}")
+        self.textbox0.insertPlainText("plaese select folder!")
+        self.textbox0.setStyleSheet("QPlainTextEdit {font-size:36px; background-color:#eff0f1; color:black; border:none; margin-top:50%;}")
         self.textbox0.setReadOnly(True)
 #        self.textbox0.setMinimumWidth(400)        
 
         # Create a button in the window
-        self.button1 = QPushButton('select folder')
+        self.button1 = QPushButton('  select folder  ')
         # connect button to function marshal
         self.button1.clicked.connect(self.selectFolder)
         self.button1.setStyleSheet("QPushButton {font-size:48px; background-color:lightgray; color:black; margin:30px;}")
@@ -81,9 +107,9 @@ class App(QWidget):
         self.s_textbox2.setFixedWidth(80)
         self.s_textbox2.setText("120")
         
-        self.s_button = QPushButton('speeding')
+        self.s_button = QPushButton('  check speeding  ')
         self.s_button.setToolTip('check speeding zones')
-        self.s_button.setStyleSheet("QPushButton {font-size:48px; background-color:lightgray; color:blue; margin:30px;}")
+        self.s_button.setStyleSheet("QPushButton {font-size:48px; background-color:lightgray; color:black; margin:30px;}")
         # connect button to function marshal
         self.s_button.clicked.connect(self.spedding)
  
@@ -126,9 +152,9 @@ class App(QWidget):
         self.textbox2.setText("100")
         
         # Create a button in the window
-        self.button = QPushButton('marshaling')
+        self.button = QPushButton('  check marshaling  ')
         self.button.setToolTip('check marshaling points')
-        self.button.setStyleSheet("QPushButton {font-size:48px; background-color:lightgray; color:blue; margin:30px;}")
+        self.button.setStyleSheet("QPushButton {font-size:48px; background-color:lightgray; color:black; margin:30px;}")
         # connect button to function marshal
         self.button.clicked.connect(self.marshal)
  
@@ -201,45 +227,62 @@ class App(QWidget):
 ####combined
 
         h_box0 = QHBoxLayout()
-        h_box0.addStretch()
+#        h_box0.addStretch()
         h_box0.addWidget(self.button1)
         h_box0.addWidget(self.textbox0)
         h_box0.addStretch()
 
-        box = QVBoxLayout()
-        box.addStretch()
-        box.addLayout(h_box0)
+        # Create first tab
+#        self.tab1.layout = QVBoxLayout(self)
+#        box = QVBoxLayout()
+#        self.tab1.layout.addStretch()
+#        self.tab1.layout.addLayout(h_box0)
 #        box.addWidget(self.button1)
+#        self.tab1.setLayout(self.tab1.layout)
 
 ### speeding
-        box.addWidget(self.s_textbox)
+        self.tab2.layout = QVBoxLayout(self)
+        self.tab2.layout.addWidget(self.s_textbox)
 #        box.addLayout(s_h_box)
-        box.addLayout(s_h_box1)
-        box.addLayout(s_h_box2)
+        self.tab2.layout.addLayout(s_h_box1)
+        self.tab2.layout.addLayout(s_h_box2)
 #        box.addWidget(self.s_comboBox)
-        box.addLayout(s_h_box3)
-        box.addWidget(self.s_checkbox1)
-        box.addWidget(self.s_checkbox3)
-        box.addLayout(s_h_box5)
+        self.tab2.layout.addLayout(s_h_box3)
+        self.tab2.layout.addWidget(self.s_checkbox1)
+        self.tab2.layout.addWidget(self.s_checkbox3)
+        self.tab2.layout.addLayout(s_h_box5)
 #        box.addWidget(self.s_button)
+        self.tab2.setLayout(self.tab2.layout)
 
 ### marshaling
-        box.addWidget(self.textbox)
+        self.tab3.layout = QVBoxLayout(self)
+        self.tab3.layout.addWidget(self.textbox)
 #        box.addLayout(h_box)
-        box.addLayout(h_box1)
-        box.addLayout(h_box2)
+        self.tab3.layout.addLayout(h_box1)
+        self.tab3.layout.addLayout(h_box2)
 #        box.addWidget(self.comboBox)
-        box.addLayout(h_box3)
-        box.addWidget(self.checkbox1)
-        box.addWidget(self.checkbox2)
-        box.addWidget(self.checkbox3)
-        box.addLayout(h_box5)
+        self.tab3.layout.addLayout(h_box3)
+        self.tab3.layout.addWidget(self.checkbox1)
+        self.tab3.layout.addWidget(self.checkbox2)
+        self.tab3.layout.addWidget(self.checkbox3)
+        self.tab3.layout.addLayout(h_box5)
 #        box.addWidget(self.button)
+#        self.tab3.layout.addLayout(h_box4)
+        self.tab3.setLayout(self.tab3.layout)
 
-        box.addLayout(h_box4)
 
-        self.setLayout(box)
-        self.show()
+        layout2 = QVBoxLayout()
+        layout3 = QVBoxLayout()
+
+        layout2.addLayout(h_box0)
+        layout3.addLayout(h_box4)
+
+        self.layout.addLayout( layout2 )
+        # Add tabs to widget        
+        self.layout.addWidget(self.tabs)
+        self.layout.addLayout( layout3 )
+
+        self.setLayout(self.layout)
  
     @pyqtSlot()
     def spedding(self):
@@ -255,7 +298,9 @@ class App(QWidget):
         if not self.s_textbox.text():
             self.textbox4.clear()
             self.textbox4.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
-            self.textbox4.insertPlainText("ERROR: \nno spedding points to check! \nplease enter valid points")
+            self.textbox4.insertPlainText("ERROR: \nno speeding zone(s) to check! \nplease enter valid zone(s)")
+            self.textbox5.clear()
+            self.textbox5.insertPlainText("output\n\n")
             QApplication.processEvents() # update gui
             return
 
@@ -315,7 +360,9 @@ class App(QWidget):
         if not self.textbox.text():
             self.textbox4.clear()
             self.textbox4.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
-            self.textbox4.insertPlainText("ERROR: \nno marshal points to check! \nplease enter valid points")
+            self.textbox4.insertPlainText("ERROR: \nno marshaling point(s) to check! \nplease enter valid point(s)")
+            self.textbox5.clear()
+            self.textbox5.insertPlainText("output\n\n")
             QApplication.processEvents() # update gui
             return
 

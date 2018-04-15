@@ -1,6 +1,8 @@
 checking .gpx files for speeding on restricted segments and electronic marshaling.
 Built in python with [gpxpy](https://github.com/tkrajina/gpxpy).
 
+[split_pyqt_tabed.py](https://github.com/amirsher/py_gpx_check/blob/master/pyqt_tabed.py) is a GUI built on pyqt5[split_pyqt5](https://pypi.python.org/pypi/PyQt5).
+
 Accept lat/long in decimal (30.1749997,35.0642141) or min/sec (29.58.42.516,34.56.03.523) without N S E W
 
 If .gpx file contain more the 1 segment, use [split_gpx_to_segments.py](https://github.com/amirsher/py_gpx_check/blob/master/split_gpx_to_segments.py) to split to individual files, otherwise the result will be currupt. 
