@@ -1,9 +1,11 @@
-File generated on 2018-04-15 06:58:33.
+File generated on 2018-04-15 10:16:23.
 There are 2 Marshal Point(s).
 Out of range set to 80 meters.
 
 point 1: 30.195176,35.04978
 point 2: 30.1749997,35.0642141
+
+checking folder: /home/amir/py_gpx_check
 
 42
 Passed Marshal 1 on 2017-12-14 09:16:40 at distance of 50 meters and speed of 66.79 kph.

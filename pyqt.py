@@ -364,11 +364,10 @@ class App(QWidget):
 
 
     def selectFolder(self):
-        dialog = QFileDialog()
-        folder_path = dialog.getExistingDirectory(self, "Select Folder")
+        folder_path = QFileDialog.getExistingDirectory(self, "Select Folder")
         if folder_path:
-            print(folder_path)
             os.chdir(folder_path)
+            print(folder_path)
             self.textbox0.clear()
             self.textbox0.insertPlainText(folder_path)
     #        return folder_path        

@@ -323,6 +323,8 @@ with open("{0}/spedding_results.txt".format(cwd), "a") as speddingfile:
         speddingfile.write("end zone {0}: {1}\n".format(z, sys.argv[(z*3)]))
         speddingfile.write("restricted speed zone {0}: {1} kph\n".format(z, sys.argv[(z*3)+1]))
 
+    speddingfile.write("\nchecking folder: {0}\n".format(cwd))
+    print("\nchecking folder: {0}\n".format(cwd))
 
     if isinstance(restrictedZones, int) :
         if (glob.glob("*.gpx")) :

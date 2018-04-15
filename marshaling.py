@@ -320,6 +320,9 @@ with open("{0}/marshaling_results.txt".format(cwd), "a") as marshalfile:
         marshalfile.write("point {0}: {1}\n".format((position-1), sys.argv[position]))
         position = position + 1
 
+    marshalfile.write("\nchecking folder: {0}\n".format(cwd))
+    print("\nchecking folder: {0}\n".format(cwd))
+
     if isinstance(MarshalPoints, int) :
         
         if (glob.glob("*.gpx")) :
