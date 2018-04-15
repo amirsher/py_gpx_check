@@ -241,7 +241,7 @@ class App(QWidget):
         self.setLayout(box)
         self.show()
  
-#    @pyqtSlot()
+    @pyqtSlot()
     def spedding(self):
     #    print('PyQt5 button click')
    #     print(self.s_comboBox.currentText())
@@ -301,6 +301,7 @@ class App(QWidget):
             self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
 
 
+    @pyqtSlot()
     def marshal(self):
     #    print('PyQt5 button click')
    #     print(self.comboBox.currentText())
@@ -364,12 +365,13 @@ class App(QWidget):
 
     def selectFolder(self):
         dialog = QFileDialog()
-        folder_path = dialog.getExistingDirectory(None, "Select Folder")
-        print(folder_path)
-        self.textbox0.clear()
-        self.textbox0.insertPlainText(folder_path)
-        os.chdir(folder_path)
-        return folder_path        
+        folder_path = dialog.getExistingDirectory(self, "Select Folder")
+        if folder_path:
+            print(folder_path)
+            os.chdir(folder_path)
+            self.textbox0.clear()
+            self.textbox0.insertPlainText(folder_path)
+    #        return folder_path        
  
 if __name__ == '__main__':
     app = QApplication(sys.argv)
