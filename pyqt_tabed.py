@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
-import webbrowser, os 
-import sys
+import webbrowser, os, sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QCheckBox, QLabel, QSizePolicy, QHBoxLayout, QVBoxLayout, QComboBox, QPlainTextEdit, QFileDialog, QTabWidget
 from PyQt5.QtGui import QIcon, QTextCursor
 from PyQt5.QtCore import pyqtSlot, Qt
@@ -19,7 +18,9 @@ class App(QMainWindow):
    #     self.height = 200
         self.setWindowTitle(self.title)
   #      self.setGeometry(self.left, self.top, self.width, self.height)
- 
+        scriptDir = os.path.dirname(os.path.realpath(__file__))
+        self.setWindowIcon(QIcon(scriptDir + os.path.sep + 'logo-512x512.png')) 
+
         self.table_widget = MyTableWidget(self)
         self.setCentralWidget(self.table_widget)
  
@@ -47,17 +48,20 @@ class MyTableWidget(QWidget):
         self.tabs.addTab(self.tab3,"Marshaling")
          
         # Create textbox
-        self.textbox0 = QPlainTextEdit(self)
-        self.textbox0.insertPlainText("plaese select folder!")
-        self.textbox0.setStyleSheet("QPlainTextEdit {font-size:36px; background-color:#eff0f1; color:black; border:none; margin-top:50%;}")
-        self.textbox0.setReadOnly(True)
+        self.textbox0 = QLabel(self)
+        self.textbox0.setText("plaese select folder!")
+        self.textbox0.setToolTip('Please select the folder where all the GPX files are. All the results files will be saved to the this folder as well')
+        self.textbox0.setStyleSheet("QLabel {font-size:36px; background-color:#eff0f1; color:black; border:none;}")
+#        self.textbox0.setReadOnly(True)
 #        self.textbox0.setMinimumWidth(400)        
+        self.textbox0.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         # Create a button in the window
         self.button1 = QPushButton('  select folder  ')
         # connect button to function marshal
         self.button1.clicked.connect(self.selectFolder)
-        self.button1.setStyleSheet("QPushButton {font-size:48px; background-color:lightgray; color:black; margin:30px;}")
+        self.button1.setStyleSheet("QPushButton {font-size:48px; background-color:lightgray; color:black; margin:20px;}")
+        self.button1.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
 
         self.textbox4 = QPlainTextEdit(self)
 #        self.textbox4.setFixedWidth(600)
@@ -83,7 +87,7 @@ class MyTableWidget(QWidget):
 
 
         # Create label
-#        self.s_label = QLabel("30.195176,35.04978 30.1749997,35.0642141")
+#        self.s_label = QLabel("30.195176,35.04978 30.1749997,35.0642141 40 30.0310113,34.933191 29.978476,34.934311 70")
 #        self.s_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 #        self.s_label.setAlignment(Qt.AlignCenter)
 #        self.s_label.setStyleSheet("QLabel {font-size:24px; background-color:black; color:white;}")     
@@ -100,6 +104,7 @@ class MyTableWidget(QWidget):
         self.s_textbox = QLineEdit(self)
 #        self.s_textbox.setText("30.195176,35.04978 30.1749997,35.0642141 40 30.0310113,34.933191 29.978476,34.934311 70") # FOR TESTING
         self.s_textbox.setPlaceholderText('Ex: 30.195176,35.04978 30.1749997,35.0642141 40 30.0310113,34.933191 29.978476,34.934311 70') 
+        self.s_textbox.setToolTip('Please enter the speed restricted zone(s) "lat,lon speed lat,lon speed"')
         self.s_textbox1 = QLineEdit(self)
         self.s_textbox1.setFixedWidth(80)
         self.s_textbox1.setText("90")
@@ -144,6 +149,7 @@ class MyTableWidget(QWidget):
         self.textbox = QLineEdit(self)
 #        self.textbox.setText("30.195176,35.04978 30.1749997,35.0642141") # FOR TESTING
         self.textbox.setPlaceholderText('Ex: 30.195176,35.04978 30.1749997,35.0642141') 
+        self.textbox.setToolTip('Please enter the marshaling point(s) "lat,lon lat,lon"')
         self.textbox1 = QLineEdit(self)
         self.textbox1.setFixedWidth(80)
         self.textbox1.setText("80")
@@ -226,11 +232,12 @@ class MyTableWidget(QWidget):
 
 ####combined
 
+ 
         h_box0 = QHBoxLayout()
 #        h_box0.addStretch()
         h_box0.addWidget(self.button1)
         h_box0.addWidget(self.textbox0)
-        h_box0.addStretch()
+#        h_box0.addStretch()
 
         # Create first tab
 #        self.tab1.layout = QVBoxLayout(self)
@@ -272,15 +279,14 @@ class MyTableWidget(QWidget):
 
 
         layout2 = QVBoxLayout()
-        layout3 = QVBoxLayout()
-
         layout2.addLayout(h_box0)
+
+        layout3 = QVBoxLayout()
         layout3.addLayout(h_box4)
 
-        self.layout.addLayout( layout2 )
-        # Add tabs to widget        
-        self.layout.addWidget(self.tabs)
-        self.layout.addLayout( layout3 )
+        self.layout.addLayout( layout2 )  # Add "select folder" to widget              
+        self.layout.addWidget(self.tabs) # Add tabs to widget
+        self.layout.addLayout( layout3 )# Add output/warnings to widget
 
         self.setLayout(self.layout)
  
@@ -415,8 +421,8 @@ class MyTableWidget(QWidget):
         if folder_path:
             os.chdir(folder_path)
             print(folder_path)
-            self.textbox0.clear()
-            self.textbox0.insertPlainText(folder_path)
+#            self.textbox0.clear()
+            self.textbox0.setText(folder_path)
     #        return folder_path        
  
 if __name__ == '__main__':

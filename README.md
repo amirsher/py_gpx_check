@@ -2,6 +2,7 @@ checking .gpx files for speeding on restricted segments and electronic marshalin
 Built in python with [gpxpy](https://github.com/tkrajina/gpxpy).
 
 [pyqt_tabed.py](https://github.com/amirsher/py_gpx_check/blob/master/pyqt_tabed.py) is a GUI built on [pyqt5](https://pypi.python.org/pypi/PyQt5).
+![pyqt5 GUI](https://github.com/amirsher/py_gpx_check/blob/master/pyqt5_gui.png)
 
 Accept lat/long in decimal (30.1749997,35.0642141) or min/sec (29.58.42.516,34.56.03.523) without N S E W
 
