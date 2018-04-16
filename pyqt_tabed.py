@@ -4,7 +4,7 @@ import webbrowser, os, sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QCheckBox, QLabel, QSizePolicy, QHBoxLayout, QVBoxLayout, QComboBox, QPlainTextEdit, QFileDialog, QTabWidget
 from PyQt5.QtGui import QIcon, QTextCursor
 from PyQt5.QtCore import pyqtSlot, Qt
-from subprocess import check_output, Popen, PIPE
+from subprocess import Popen, PIPE
             
 
 class App(QMainWindow):
@@ -321,7 +321,7 @@ class MyTableWidget(QWidget):
 
         arg = "speeding.py {0},{1},{2},{3},{4} {5}".format(s_textboxValue1 ,s_textboxValue2 ,s_textboxValue3, self.s_comboBox.currentText() ,s_textboxValue5 ,s_textboxValue)
         print(arg)
-        p = Popen(arg , stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
+        p = Popen(arg , stdout=PIPE, shell=True, universal_newlines=True, bufsize=1) # to run on windows need to add "python"
         
         #p = Popen("speeding.py 90,120,line,0,0,0 " + textboxValue, stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
         finished = 0
@@ -385,7 +385,7 @@ class MyTableWidget(QWidget):
 
         arg = "marshaling.py {0},{1},{2},{3},{4},{5} {6}".format(textboxValue1 ,textboxValue2 ,self.comboBox.currentText() ,textboxValue3 ,textboxValue4 ,textboxValue5 ,textboxValue)
         print(arg)
-        p = Popen(arg , stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
+        p = Popen(arg , stdout=PIPE, shell=True, universal_newlines=True, bufsize=1) # to run on windows need to add "python"
         
         #p = Popen("marshaling.py 90,120,line,0,0,0 " + textboxValue, stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
         finished = 0
