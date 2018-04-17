@@ -1,5 +1,19 @@
 checking .gpx files for speeding on restricted segments and electronic marshaling.
-Built in python with [gpxpy](https://github.com/tkrajina/gpxpy).
+Built in python with [gpxpy](https://github.com/tkrajina/gpxpy) and [folium](https://github.com/python-visualization/folium).
+
+### Installation ###
+
+install [python](https://www.python.org/downloads/)
+on windows install for all users and add to path
+
+open cmd as admin:
+`python -m install gpxpy`
+`python -m install folium`
+`python -m install PyQt5` (for GUI)
+
+copy the .py files to the python scripts folder (C:\Program Files\Python36\Scripts)
+
+### GUI ###
 
 [pyqt_tabed.py](https://github.com/amirsher/py_gpx_check/blob/master/pyqt_tabed.py) is a GUI built on [pyqt5](https://pypi.python.org/pypi/PyQt5).
 ![pyqt5 GUI](https://github.com/amirsher/py_gpx_check/blob/master/pyqt5_gui.png)
