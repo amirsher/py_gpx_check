@@ -7,8 +7,11 @@ install [python](https://www.python.org/downloads/)
 on windows install for all users and add to path
 
 open cmd as admin:
+
 `python -m install gpxpy`
+
 `python -m install folium`
+
 `python -m install PyQt5` (for GUI)
 
 copy the .py files to the python scripts folder (C:\Program Files\Python36\Scripts)
