@@ -4,7 +4,8 @@ Built in python with [gpxpy](https://github.com/tkrajina/gpxpy) and [folium](htt
 ### Installation ###
 
 install [python](https://www.python.org/downloads/)
-on windows install for all users and add to path
+
+on windows install for all users and add to path.
 
 open cmd as admin:
 
@@ -14,12 +15,14 @@ open cmd as admin:
 
 `python -m install PyQt5` (for GUI)
 
-copy the .py files to the python scripts folder (C:\Program Files\Python36\Scripts)
+copy the .py files to the python scripts folder (C:\Program Files\Python36\Scripts).
 
 ### GUI ###
 
 [pyqt_tabed.py](https://github.com/amirsher/py_gpx_check/blob/master/pyqt_tabed.py) is a GUI built on [pyqt5](https://pypi.python.org/pypi/PyQt5).
 ![pyqt5 GUI](https://github.com/amirsher/py_gpx_check/blob/master/pyqt5_gui.png)
+
+### info ###
 
 Accept lat/long in decimal (30.1749997,35.0642141) or min/sec (29.58.42.516,34.56.03.523) without N S E W
 
@@ -49,7 +52,7 @@ run: python marshaling.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45
 
 see [marshaling_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/marshaling_results.txt) for sample report.
 
-### Track Ploting and Web Map ###
+### Track Ploting and Web Map  (deprecated)###
 
 Added ploting of the tracks using [matplotlib](https://matplotlib.org/), and displaying on a web page
 
@@ -67,7 +70,7 @@ for sample reports see:
 ![marshal point](https://github.com/amirsher/py_gpx_check/blob/master/marshal.png)
 [TrackingMap.html](https://github.com/amirsher/py_gpx_check/blob/master/TrackingMap.html)
 
-plot
+plot (deprecated)
 ![marshal point](https://github.com/amirsher/py_gpx_check/blob/master/tracking.png)
 
 
