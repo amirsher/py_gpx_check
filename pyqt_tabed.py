@@ -319,8 +319,8 @@ class MyTableWidget(QWidget):
         s_textboxValue3 = (1 if self.s_checkbox1.checkState() > 0 else 0) # show all points in the restricted zone
         s_textboxValue5 = (1 if self.s_checkbox3.checkState() > 0 else 0) # merge segments(need testing)
 
-        arg = "speeding.py {0},{1},{2},{3},{4} {5}".format(s_textboxValue1 ,s_textboxValue2 ,s_textboxValue3, self.s_comboBox.currentText() ,s_textboxValue5 ,s_textboxValue)
-        print(arg)
+        arg = "{6}/speeding.py {0},{1},{2},{3},{4} {5}".format(s_textboxValue1 ,s_textboxValue2 ,s_textboxValue3, self.s_comboBox.currentText() ,s_textboxValue5 ,s_textboxValue, os.path.dirname(os.path.realpath(__file__)))
+  #      print(arg)
         p = Popen(arg , stdout=PIPE, shell=True, universal_newlines=True, bufsize=1) # to run on windows need to add "python"
         
         #p = Popen("speeding.py 90,120,line,0,0,0 " + textboxValue, stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
@@ -328,10 +328,10 @@ class MyTableWidget(QWidget):
         while True:
             output = p.stdout.readline()
             if output == '' and p.poll() != None: break
-            print(output)
+    #        print(output)
             self.textbox5.insertPlainText(output+"\n")
             self.textbox5.moveCursor(QTextCursor.End)
-            QApplication.processEvents() # update gui
+     #       QApplication.processEvents() # update gui
 
             if "WARNING" in output:
                 self.textbox4.insertPlainText(output+"\n")
@@ -348,7 +348,7 @@ class MyTableWidget(QWidget):
             if buttonReply == QMessageBox.Yes:
                 webbrowser.open('file://' + os.path.realpath(filename))
         else:
-            print("something went wrong, \nplease check warnings for more information")
+     #       print("something went wrong, \nplease check warnings for more information")
             self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
 
 
@@ -383,8 +383,8 @@ class MyTableWidget(QWidget):
         textboxValue4 = (1 if self.checkbox2.checkState() > 0 else 0) # show waypoints line
         textboxValue5 = (1 if self.checkbox3.checkState() > 0 else 0) # merge segments(need testing)
 
-        arg = "marshaling.py {0},{1},{2},{3},{4},{5} {6}".format(textboxValue1 ,textboxValue2 ,self.comboBox.currentText() ,textboxValue3 ,textboxValue4 ,textboxValue5 ,textboxValue)
-        print(arg)
+        arg = "{7}/marshaling.py {0},{1},{2},{3},{4},{5} {6}".format(textboxValue1 ,textboxValue2 ,self.comboBox.currentText() ,textboxValue3 ,textboxValue4 ,textboxValue5 ,textboxValue, os.path.dirname(os.path.realpath(__file__)))
+   #     print(arg)
         p = Popen(arg , stdout=PIPE, shell=True, universal_newlines=True, bufsize=1) # to run on windows need to add "python"
         
         #p = Popen("marshaling.py 90,120,line,0,0,0 " + textboxValue, stdout=PIPE, shell=True, universal_newlines=True) # to run on windows need to add "python"
@@ -392,10 +392,10 @@ class MyTableWidget(QWidget):
         while True:
             output = p.stdout.readline()
             if output == '' and p.poll() != None: break
-            print(output)
+     #       print(output)
             self.textbox5.insertPlainText(output+"\n")
             self.textbox5.moveCursor(QTextCursor.End)
-            QApplication.processEvents() # update gui
+     #       QApplication.processEvents() # update gui
 
             if "WARNING" in output:
                 self.textbox4.insertPlainText(output+"\n")
@@ -412,7 +412,7 @@ class MyTableWidget(QWidget):
             if buttonReply == QMessageBox.Yes:
                 webbrowser.open('file://' + os.path.realpath(filename))
         else:
-            print("something went wrong, \nplease check warnings for more information")
+       #     print("something went wrong, \nplease check warnings for more information")
             self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
 
 
@@ -420,7 +420,7 @@ class MyTableWidget(QWidget):
         folder_path = QFileDialog.getExistingDirectory(self, "Select Folder")
         if folder_path:
             os.chdir(folder_path)
-            print(folder_path)
+        #    print(folder_path)
 #            self.textbox0.clear()
             self.textbox0.setText(folder_path)
     #        return folder_path        
