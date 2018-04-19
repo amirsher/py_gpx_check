@@ -285,7 +285,7 @@ def OutputMarshal(x,closest_to_marshal_point,closest_to_marshal_point_meters,out
                 print(output)
                 marshalfile.write("{}\n".format(output))
 
-                if closest_to_marshal_point_meters < out_of_range :
+                if int(closest_to_marshal_point_meters) < int(out_of_range) :
                     folium.features.Circle(location=(float(row[1]),float(row[2])),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0}<br>passed {1} meters from marshal {2}".format(cleanFile,closest_to_marshal_point_meters,x),fill_opacity=1).add_to(feature_group)
                 else :                
                     folium.Marker(location=(float(row[1]),float(row[2])),icon=folium.Icon(color='red', icon='info', prefix="fa"), popup="{0}<br>passed {1} meters from marshal {2}<br>OUT OF RANGE!".format(cleanFile,closest_to_marshal_point_meters,x)).add_to(feature_group)
