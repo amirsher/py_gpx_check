@@ -320,7 +320,7 @@ class MyTableWidget(QWidget):
         s_textboxValue3 = (1 if self.s_checkbox1.checkState() > 0 else 0) # show all points in the restricted zone
         s_textboxValue5 = (1 if self.s_checkbox3.checkState() > 0 else 0) # merge segments(need testing)
 
-        arg = "{6}/speeding.py {0},{1},{2},{3},{4} {5}".format(s_textboxValue1 ,s_textboxValue2 ,s_textboxValue3, self.s_comboBox.currentText() ,s_textboxValue5 ,s_textboxValue, script_folder)
+        arg = "speeding.py {0},{1},{2},{3},{4} {5}".format(s_textboxValue1 ,s_textboxValue2 ,s_textboxValue3, self.s_comboBox.currentText() ,s_textboxValue5 ,s_textboxValue)
   #      print(arg)
         p = Popen(arg , stdout=PIPE, shell=True, universal_newlines=True, bufsize=1) # to run on windows need to add "python"
         
@@ -384,7 +384,7 @@ class MyTableWidget(QWidget):
         textboxValue4 = (1 if self.checkbox2.checkState() > 0 else 0) # show waypoints line
         textboxValue5 = (1 if self.checkbox3.checkState() > 0 else 0) # merge segments(need testing)
 
-        arg = "{7}/marshaling.py {0},{1},{2},{3},{4},{5} {6}".format(textboxValue1 ,textboxValue2 ,self.comboBox.currentText() ,textboxValue3 ,textboxValue4 ,textboxValue5 ,textboxValue, script_folder)
+        arg = "marshaling.py {0},{1},{2},{3},{4},{5} {6}".format(textboxValue1 ,textboxValue2 ,self.comboBox.currentText() ,textboxValue3 ,textboxValue4 ,textboxValue5 ,textboxValue)
    #     print(arg)
         p = Popen(arg , stdout=PIPE, shell=True, universal_newlines=True, bufsize=1) # to run on windows need to add "python"
         
