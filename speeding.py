@@ -34,7 +34,7 @@ showAllRestrictedPoints = 1 # show all point of competitor in the restricted zon
 line_points = "line" # display "line" or "points", points is very slow.
 reverse = 0 # check for speeding on the reverse track
 '''
-color = [ "red", "blue", "green", "yellow", "purple", "orange", "brown", "palegreen", "indigo", "aqua", "brick", "emeraldgreen", "lightred", "gray", "white" ]
+color = ['#FF0000', '#008000', '#0000FF', '#FFFF00', '#00FF00', '#FF00FF', '#00FFFF', '#800000', '#008080', '#800080', '#000080', '#808000', '#FFFFFF']
 c = 0
 now = datetime.datetime.now() 
 cwd = os.getcwd()
