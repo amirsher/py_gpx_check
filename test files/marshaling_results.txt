@@ -1,4 +1,4 @@
-File generated on 2018-04-18 15:38:00.
+File generated on 2018-04-19 10:18:54.
 There are 2 Marshal Point(s).
 Out of range set to 80 meters.
 
@@ -82,3 +82,44 @@ Passed Marshal 1 on 2017-12-14 10:51:49 at distance of 29 meters and speed of 77
 Passed Marshal 1 on 2017-12-15 10:23:23 at distance of 29 meters and speed of 48.83 kph.
 Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 113 meters and speed of 78.73 kph. OUT OF RANGE
 Passed Marshal 2 on 2017-12-15 08:11:59 at distance of 113 meters and speed of 37.98 kph. OUT OF RANGE
+
+24
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 63 meters and speed of 42.9 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 153 meters and speed of 88.31 kph. OUT OF RANGE
+
+28
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 65 meters and speed of 65.75 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 99 meters and speed of 84.67 kph. OUT OF RANGE
+
+WARNING!, file Ashelim2016_wpt.gpx contain 27 waypoints, results may be corrupted!
+
+
+Ashelim2016_wpt
+
+WARNING!, file baja_menuha_2016.gpx contain 66 waypoints, results may be corrupted!
+
+
+baja_menuha_2016
+
+33
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 19 meters and speed of 70.05 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 101 meters and speed of 72.22 kph. OUT OF RANGE
+
+WARNING!, file 7_with_waypoints.gpx contain 6 waypoints, results may be corrupted!
+
+
+7_with_waypoints
+Passed Marshal 1 on 2017-12-14 09:16:45 at distance of 34 meters and speed of 70.54 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 113 meters and speed of 78.73 kph. OUT OF RANGE
+
+55
+Passed Marshal 1 on 2017-12-14 09:16:40 at distance of 35 meters and speed of 84.76 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 139 meters and speed of 80.09 kph. OUT OF RANGE
+
+7
+Passed Marshal 1 on 2017-12-14 09:16:45 at distance of 34 meters and speed of 70.54 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 113 meters and speed of 78.73 kph. OUT OF RANGE
+
+Track201712141045
+Passed Marshal 1 on 2017-12-14 08:51:56 at distance of 3048784 meters and speed of 20.99 kph. OUT OF RANGE
+Passed Marshal 2 on 2017-12-14 08:51:56 at distance of 3051314 meters and speed of 20.99 kph. OUT OF RANGE
