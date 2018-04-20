@@ -13,7 +13,7 @@ from folium.plugins import FloatImage
 #from folium.plugins import MeasureControl
 
 # python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
-# # decimal lat,lon can also be in min/sec (30.11.42.635,35.02.59.208)
+# # decimal lat,lon can also be in min/sec (30.11.42.635,35.02.59.208 30.09.42.635,35.01.59.998)
 
 # options is the first argv and contains 5 options
 options = ((sys.argv)[1]).split(',')

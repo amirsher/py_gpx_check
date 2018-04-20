@@ -23,7 +23,7 @@ class App(QMainWindow):
  
     def __init__(self):
         super().__init__()
-        self.title = 'GPS Check'
+        self.title = 'GPX Check'
 #        self.left = 0
  #       self.top = 0
   #      self.width = 300
@@ -400,11 +400,12 @@ class MyTableWidget(QWidget):
                     speeding_feature_group = folium.FeatureGroup(name="speeding zone")
 
                 else:
-                    print("No gpx files\n")
-                    self.textbox5.insertPlainText("No gpx files\n")
+                    print("\n\nNo gpx files!\n")
+                    self.textbox5.insertPlainText("\n\nNo gpx files!\n")
                     self.textbox5.moveCursor(QTextCursor.End)
+                    self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
                     QApplication.processEvents() # update gui
-                    App()
+                    return App()
 
                 #os.chdir("/mydir")
                 for file in glob.glob("*.gpx"):
@@ -424,16 +425,16 @@ class MyTableWidget(QWidget):
 
                         restricted_start = pointsCheck[(i*3)].split(',') # lat,lon
                         if (pointsCheck[(i*3)]).count('.') >= 4 : # lat/long is in minutes/seconds
-                            restricted_start[0] = convertDecimal(restricted_start[0])
-                            restricted_start[1] = convertDecimal(restricted_start[1])
+                            restricted_start[0] = self.convertDecimal(restricted_start[0])
+                            restricted_start[1] = self.convertDecimal(restricted_start[1])
                         else :
                             restricted_start[0] = float(restricted_start[0])
                             restricted_start[1] = float(restricted_start[1])
                         
                         restricted_finish = pointsCheck[(i*3)+1].split(',') # lat,lon
                         if (pointsCheck[(i*3)+1]).count('.') >= 4 : # lat/long is in minutes/seconds
-                            restricted_finish[0] = convertDecimal(restricted_finish[0])
-                            restricted_finish[1] = convertDecimal(restricted_finish[1])
+                            restricted_finish[0] = self.convertDecimal(restricted_finish[0])
+                            restricted_finish[1] = self.convertDecimal(restricted_finish[1])
                         else:
                             restricted_finish[0] = float(restricted_finish[0])
                             restricted_finish[1] = float(restricted_finish[1])
@@ -618,12 +619,6 @@ class MyTableWidget(QWidget):
 
         return my_map
 
-
-    def convertDecimal(tude):
-    # converter only work for N,E and not shown in string
-        a = tude.split('.',3)
-        dd = float(a[0]) + (float(a[1]))/60 + (float(a[2]))/3600
-        return dd
 
 
     def SFindClosest(self,i,cwd,file,restricted_start,restricted_finish,restricted_speed,cleanFile,speddingfile,speeding_feature_group,distance_from_point_allowed,graceZone):
@@ -835,9 +830,10 @@ class MyTableWidget(QWidget):
                     marshals_feature_group = folium.FeatureGroup(name="Marshal(s)")
 
                 else:
-                    print("No gpx files\n")
-                    self.textbox5.insertPlainText("No gpx files\n")
+                    print("\n\nNo gpx files!\n")
+                    self.textbox5.insertPlainText("\n\nNo gpx files!\n")
                     self.textbox5.moveCursor(QTextCursor.End)
+                    self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
                     QApplication.processEvents() # update gui
                     return App()
                 #os.chdir("/mydir")
@@ -859,8 +855,8 @@ class MyTableWidget(QWidget):
 
 
                         if ((pointsCheck)[x]).count('.') >= 4 : # lat/long is in minutes/seconds
-                            marshal_lat = convertDecimal(marshalpoint[0])
-                            marshal_long = convertDecimal(marshalpoint[1])
+                            marshal_lat = self.convertDecimal(marshalpoint[0])
+                            marshal_long = self.convertDecimal(marshalpoint[1])
                         else :
                             marshal_lat = float(marshalpoint[0])
                             marshal_long = float(marshalpoint[1])
@@ -1180,7 +1176,7 @@ class MyTableWidget(QWidget):
                         folium.Marker(location=(float(row[1]),float(row[2])),icon=folium.Icon(color='red', icon='info', prefix="fa"), popup="{0}<br>passed {1} meters from marshal {2}<br>OUT OF RANGE!".format(cleanFile,closest_to_marshal_point_meters,x)).add_to(feature_group)
 
 
-    def convertDecimal(tude):
+    def convertDecimal(self,tude):
     # converter only work for N,E and not in string
         a = tude.split('.',3)
         dd = float(a[0]) + (float(a[1]))/60 + (float(a[2]))/3600

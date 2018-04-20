@@ -14,7 +14,7 @@ from folium.plugins import FloatImage
 # python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 70
 
 #restricted_start = (32.49222,34.90380) # decimal lat,lon can also be in min/sec (30.11.42.635,35.02.59.208) 
-#restricted_finish = (32.49885,34.90372) # decimal lat,lon can also be in min/sec (30.11.42.635,35.02.59.208)
+#restricted_finish = (32.49885,34.90372) # decimal lat,lon can also be in min/sec (30.09.42.635,35.01.59.998)
 #restricted_speed = 70 # kph
 
 # options is the first argv and contains 5 options
