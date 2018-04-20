@@ -108,7 +108,7 @@ class MyTableWidget(QWidget):
         self.s_textbox = QLineEdit(self)
    #     self.s_textbox.setText("30.195176,35.04978 30.1749997,35.0642141 40 30.0310113,34.933191 29.978476,34.934311 70 30.195176,35.04978 30.1749997,35.0642141 50 30.0310113,34.933191 29.978476,34.934311 80") # FOR TESTING
         self.s_textbox.setPlaceholderText('Ex: 30.195176,35.04978 30.1749997,35.0642141 40 30.0310113,34.933191 29.978476,34.934311 70') 
-        self.s_textbox.setToolTip('Please enter the speed restricted zone(s) "lat,lon speed lat,lon speed"\nFormat could be 30.195176,35.04978 or 30.11.42.635,35.02.59.208')
+        self.s_textbox.setToolTip('Please enter the speed restricted zone(s) "lat,lon speed lat,lon speed"\nFormat could be DD: 30.195176,35.04978 or DMS: 30.11.42.635,35.02.59.208')
         self.s_textbox1 = QLineEdit(self)
         self.s_textbox1.setFixedWidth(80)
         self.s_textbox1.setText("90")
@@ -153,7 +153,7 @@ class MyTableWidget(QWidget):
         self.textbox = QLineEdit(self)
 #        self.textbox.setText("30.195176,35.04978 30.1749997,35.0642141") # FOR TESTING
         self.textbox.setPlaceholderText('Ex: 30.195176,35.04978 30.1749997,35.0642141') 
-        self.textbox.setToolTip('Please enter the marshaling point(s) "lat,lon lat,lon"\nFormat could be 30.195176,35.04978 or 30.11.42.635,35.02.59.208')
+        self.textbox.setToolTip('Please enter the marshaling point(s) "lat,lon lat,lon"\nFormat could be DD: 30.195176,35.04978 or DMS: 30.11.42.635,35.02.59.208')
         self.textbox1 = QLineEdit(self)
         self.textbox1.setFixedWidth(80)
         self.textbox1.setText("80")
@@ -383,7 +383,7 @@ class MyTableWidget(QWidget):
                 self.textbox5.moveCursor(QTextCursor.End)
                 QApplication.processEvents() # update gui
                 
-                if (("," not in pointsCheck[(3*z)]) or ("," not in pointsCheck[(3*z)+1]) or ("," in pointsCheck[(3*z)+2])): # check the first 2 elements has "'" and the third dont
+                if (("," not in pointsCheck[(3*z)]) or ("," not in pointsCheck[(3*z)+1]) or ("," in pointsCheck[(3*z)+2])): # check the first 2 elements has "," and the third dont
                     checkArguments = 1
 
          #   print("checkArguments "+str(checkArguments))
@@ -1177,9 +1177,11 @@ class MyTableWidget(QWidget):
 
 
     def convertDecimal(self,tude):
-    # converter only work for N,E and not in string
+    # converter only work for N,E and not in string # FIXED: S, W is negative
         a = tude.split('.',3)
-        dd = float(a[0]) + (float(a[1]))/60 + (float(a[2]))/3600
+        dd = abs(float(a[0])) + (float(a[1]))/60 + (float(a[2]))/3600
+        if float(a[0]) < 0:  
+            dd = dd * -1.0  
         return dd
 
 
