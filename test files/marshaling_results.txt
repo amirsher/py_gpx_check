@@ -1,0 +1,119 @@
+File generated on 2018-04-20 21:43:48.
+There are 2 Marshal Point(s).
+Out of range set to 120 meters.
+
+point 1: 30.195176,35.04978
+point 2: 30.1749997,35.0642141
+
+checking folder: /home/amir/py_gpx_check/test files
+
+Checking file: 42
+Passed Marshal 1 on 2017-12-14 09:16:40 at distance of 50 meters and speed of 66.79 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 145 meters and speed of 94.05 kph. OUT OF RANGE
+
+Checking file: Track201712141045R
+Passed Marshal 1 on 2017-12-14 08:51:56 at distance of 3045514 meters and speed of 20.99 kph. OUT OF RANGE
+Passed Marshal 2 on 2017-12-14 08:51:56 at distance of 3048047 meters and speed of 20.99 kph. OUT OF RANGE
+
+Checking file: z20171214-111736
+Passed Marshal 1 on 2017-12-14 09:19:24 at distance of 3045510 meters and speed of 12.24 kph. OUT OF RANGE
+Passed Marshal 2 on 2017-12-14 09:19:24 at distance of 3048043 meters and speed of 12.24 kph. OUT OF RANGE
+
+Checking file: 9
+Passed Marshal 1 on 2017-12-15 10:23:23 at distance of 29 meters and speed of 48.83 kph.
+Passed Marshal 2 on 2017-12-15 10:18:24 at distance of 116 meters and speed of 94.02 kph.
+
+WARNING!, file wpt.gpx contain 34 waypoints, results may be corrupted!
+
+
+Checking file: wpt
+
+WARNING!, file wpt_mapstogpx20171225_103318.gpx contain 4 waypoints, results may be corrupted!
+
+
+Checking file: wpt_mapstogpx20171225_103318
+Passed Marshal 1 on None at distance of 3908 meters and speed of None kph. OUT OF RANGE
+Passed Marshal 2 on None at distance of 4697 meters and speed of None kph. OUT OF RANGE
+
+Checking file: z20171214-104524R
+Passed Marshal 1 on 2017-12-14 08:51:52 at distance of 3045497 meters and speed of 23.04 kph. OUT OF RANGE
+Passed Marshal 2 on 2017-12-14 08:51:52 at distance of 3048030 meters and speed of 23.04 kph. OUT OF RANGE
+
+Checking file: 46
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 22 meters and speed of 56.34 kph.
+Passed Marshal 2 on 2017-12-14 09:21:05 at distance of 133 meters and speed of 30.7 kph. OUT OF RANGE
+
+Checking file: 15
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 66 meters and speed of 54.9 kph.
+Passed Marshal 2 on 2017-12-14 09:21:22 at distance of 142 meters and speed of 40.11 kph. OUT OF RANGE
+
+Checking file: z20171214-104524
+Passed Marshal 1 on 2017-12-14 08:51:52 at distance of 3045497 meters and speed of 23.04 kph. OUT OF RANGE
+Passed Marshal 2 on 2017-12-14 08:51:52 at distance of 3048030 meters and speed of 23.04 kph. OUT OF RANGE
+
+Checking file: Track201712141117
+Passed Marshal 1 on 2017-12-14 09:19:21 at distance of 3045511 meters and speed of 22.1 kph. OUT OF RANGE
+Passed Marshal 2 on 2017-12-14 09:19:21 at distance of 3048044 meters and speed of 22.1 kph. OUT OF RANGE
+
+WARNING!, file 7_with_segment.gpx contain 3 segments, should not have more then 1 segment, results may be corrupted!
+
+
+Checking file: 7_with_segment
+Passed Marshal 1 on 2017-12-14 09:16:45 at distance of 34 meters and speed of 70.54 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 113 meters and speed of 78.73 kph.
+
+Checking file: 12
+Passed Marshal 1 on 2017-12-14 09:16:54 at distance of 74 meters and speed of 38.69 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 78 meters and speed of 71.74 kph.
+
+Checking file: 36
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 48 meters and speed of 65.27 kph.
+Passed Marshal 2 on 2017-12-14 09:21:22 at distance of 153 meters and speed of 50.67 kph. OUT OF RANGE
+
+WARNING!, file Track_2017-12-20 122142.gpx contain 11 segments, should not have more then 1 segment, results may be corrupted!
+
+
+Checking file: Track_2017-12-20 122142
+Passed Marshal 1 on 2017-12-15 10:23:23 at distance of 29 meters and speed of 48.83 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 113 meters and speed of 78.73 kph.
+
+Checking file: 24
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 62 meters and speed of 42.9 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 154 meters and speed of 88.31 kph. OUT OF RANGE
+
+Checking file: 28
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 65 meters and speed of 65.75 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 99 meters and speed of 84.67 kph.
+
+WARNING!, file Ashelim2016_wpt.gpx contain 27 waypoints, results may be corrupted!
+
+
+Checking file: Ashelim2016_wpt
+
+WARNING!, file baja_menuha_2016.gpx contain 66 waypoints, results may be corrupted!
+
+
+Checking file: baja_menuha_2016
+
+Checking file: 33
+Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 19 meters and speed of 70.05 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 101 meters and speed of 72.22 kph.
+
+WARNING!, file 7_with_waypoints.gpx contain 6 waypoints, results may be corrupted!
+
+
+Checking file: 7_with_waypoints
+Passed Marshal 1 on 2017-12-14 09:16:45 at distance of 34 meters and speed of 70.54 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 113 meters and speed of 78.73 kph.
+
+Checking file: 55
+Passed Marshal 1 on 2017-12-14 09:16:40 at distance of 35 meters and speed of 84.76 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 140 meters and speed of 80.09 kph. OUT OF RANGE
+
+Checking file: 7
+Passed Marshal 1 on 2017-12-14 09:16:45 at distance of 34 meters and speed of 70.54 kph.
+Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 113 meters and speed of 78.73 kph.
+
+Checking file: Track201712141045
+Passed Marshal 1 on 2017-12-14 08:51:56 at distance of 3045514 meters and speed of 20.99 kph. OUT OF RANGE
+Passed Marshal 2 on 2017-12-14 08:51:56 at distance of 3048047 meters and speed of 20.99 kph. OUT OF RANGE

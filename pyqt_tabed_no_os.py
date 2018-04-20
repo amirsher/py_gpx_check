@@ -329,7 +329,7 @@ class MyTableWidget(QWidget):
         showAllRestrictedPoints = s_textboxValue3 # show all point of competitor in the restricted zone
         line_points = self.s_comboBox.currentText() # display "line" or "points", points is very slow.
         merge_segments = s_textboxValue5 # merege segments
-        reverse = 0 # check for speeding on the reverse track
+        reverse = 0 # check for speeding on the reverse track FIXME
 
 
         '''
@@ -448,9 +448,9 @@ class MyTableWidget(QWidget):
              #           print(str(restricted_speed)+"\n")
 
                         zone = self.SFindClosest(i,cwd,file,restricted_start,restricted_finish,restricted_speed,cleanFile,speddingfile,speeding_feature_group,distance_from_point_allowed,graceZone) # number of restricted zone
-                        self.OutputSpedding(int(zone[0])+1,int(zone[1])-1,zone[2],cwd,file,cleanFile,speddingfile,restricted_start,restricted_finish,graceZone,showAllRestrictedPoints,feature_group) # to be safe: +1,-1 is to start checking 1 point inside the zone from start and end
+                        self.OutputSpedding(int(zone[0])+1,int(zone[1])-1,zone[2],cwd,file,cleanFile,speddingfile,restricted_start,restricted_finish,graceZone,showAllRestrictedPoints,line_points,feature_group) # to be safe: +1,-1 is to start checking 1 point inside the zone from start and end
                         if reverse == 1 :
-                            self.OutputSpedding(zone[1]+1,zone[0]-1,zone[2],cwd,file,cleanFile,speddingfile,restricted_start,restricted_finish,graceZone,showAllRestrictedPoints,feature_group)
+                            self.OutputSpedding(zone[1]+1,zone[0]-1,zone[2],cwd,file,cleanFile,speddingfile,restricted_start,restricted_finish,graceZone,showAllRestrictedPoints,line_points,feature_group)
                         feature_group.add_to(my_map)
 
                         if i == restrictedZones :
@@ -571,7 +571,7 @@ class MyTableWidget(QWidget):
                         if point_no == 0 and point.speed == None :
                             speed = 0.0
                                             
-                        if merge_segments != "yes" :
+                        if merge_segments != 1 :
                             point_no_csv = point_no
                             
                         if line_points == "points" :
@@ -637,8 +637,8 @@ class MyTableWidget(QWidget):
                 topspeed = row[3]
                 topspeed_point = row[0]
 
-            start_meters = self.distance_vincenty(restricted_start, (float(row[1]),float(row[2])))
-            finish_meters = self.distance_vincenty(restricted_finish, (float(row[1]),float(row[2])))
+            start_meters = self.great_circle(restricted_start, (float(row[1]),float(row[2])))
+            finish_meters = self.great_circle(restricted_finish, (float(row[1]),float(row[2])))
 
             # determine if point closest to start or finish
             if start_meters < closest_to_start_meters  :
@@ -676,15 +676,15 @@ class MyTableWidget(QWidget):
         return (closest_to_start,closest_to_finish,restricted_speed,topspeed,topspeed_point)
         
         
-    def OutputSpedding(self,closest_to_start,closest_to_finish,restricted_speed,cwd,file,cleanFile,speddingfile,restricted_start,restricted_finish,graceZone,showAllRestrictedPoints,feature_group):
+    def OutputSpedding(self,closest_to_start,closest_to_finish,restricted_speed,cwd,file,cleanFile,speddingfile,restricted_start,restricted_finish,graceZone,showAllRestrictedPoints,line_points,feature_group):
         sz = 0
         reader = csv.reader(open("{1}/zzz_{0}.csv".format(file,cwd)), delimiter=',')
         for row in reader:
             
             row[1] = round(float(row[1]),6)
             row[2] = round(float(row[2]),6)
-            distToStart = round(self.distance_vincenty(restricted_start, (row[1],row[2])),2)
-            distToFinish = round(self.distance_vincenty(restricted_finish, (row[1],row[2])),2)
+            distToStart = round(self.great_circle(restricted_start, (row[1],row[2])),2)
+            distToFinish = round(self.great_circle(restricted_finish, (row[1],row[2])),2)
             
             if ((int(row[0]) >= int(closest_to_start)) and (int(row[0]) <= int(closest_to_finish)) and (distToStart > graceZone) and (distToFinish > graceZone)):
                 if (float(row[3]) >= int(restricted_speed)) :
@@ -695,7 +695,7 @@ class MyTableWidget(QWidget):
                     self.textbox5.moveCursor(QTextCursor.End)
                     QApplication.processEvents() # update gui
                     folium.Marker(location=(row[1],row[2]),icon=folium.Icon(color='black', icon='camera', prefix='fa'), popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4])).add_to(feature_group)
-                elif showAllRestrictedPoints == "yes" and line_points == "line":
+                elif ((showAllRestrictedPoints == 1) and (line_points == "line")):
                     folium.features.Circle(location=(row[1],row[2]),radius=3,stroke=False,fill="true",color="#000000", popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4]),fill_opacity=1).add_to(feature_group)
 
                     
@@ -755,10 +755,10 @@ class MyTableWidget(QWidget):
         distance_to_marshal_allowed = int(textboxValue1)
         distance_to_waypoint_allowed = int(textboxValue2)
         line_points = self.comboBox.currentText()
-        showWaypoints = textboxValue3 # "yes" to show waypoints
-        showWaypointsLine = textboxValue4 # "yes" to show waypoints line
-        if showWaypointsLine == "yes" :
-            showWaypoints = "yes"
+        showWaypoints = textboxValue3 # 1 to show waypoints
+        showWaypointsLine = textboxValue4 # 1 to show waypoints line
+        if showWaypointsLine == 1 :
+            showWaypoints = 1
         merge_segments = textboxValue5 # merege segments
 
 
@@ -843,7 +843,7 @@ class MyTableWidget(QWidget):
                             
           #          print(cleanFile)
                     feature_group = folium.FeatureGroup(name=cleanFile)
-                    my_map=self.ConvertAndSpeed(file,my_map,color[c],line_points,cwd,merge_segments,cleanFile,feature_group,showWaypointsLine,marshalfile,showWaypoints)
+                    my_map=self.ConvertAndSpeed(file,my_map,color[c],line_points,cwd,merge_segments,cleanFile,feature_group,showWaypointsLine,marshalfile,showWaypoints,distance_to_waypoint_allowed)
                     marshalfile.write("\nChecking file: {}\n".format(cleanFile))
                     self.textbox5.insertPlainText("\nChecking file: {}\n".format(cleanFile))
                     self.textbox5.moveCursor(QTextCursor.End)
@@ -920,7 +920,7 @@ class MyTableWidget(QWidget):
     #        return folder_path        
  
 
-    def distance_vincenty(self,point1, point2):
+    def distance_vincenty(self, point1, point2): # deprecated
         """
         Vincenty's formula (inverse method) to calculate the distance (in
         kilometers or miles) between two points on the surface of a spheroid
@@ -986,6 +986,27 @@ class MyTableWidget(QWidget):
         return round(s, 6)
 
 
+
+    def great_circle(self, point1, point2): # replace vincenty
+        EARTH_RADIUS = 6371009 # in meters
+
+        lat1, lng1 = math.radians(point1[0]), math.radians(point1[1])
+        lat2, lng2 = math.radians(point2[0]), math.radians(point2[1])
+
+        sin_lat1, cos_lat1 = math.sin(lat1), math.cos(lat1)
+        sin_lat2, cos_lat2 = math.sin(lat2), math.cos(lat2)
+
+        delta_lng = lng2 - lng1
+        cos_delta_lng, sin_delta_lng = math.cos(delta_lng), math.sin(delta_lng)
+
+        d = math.atan2(math.sqrt((cos_lat2 * sin_delta_lng) ** 2 +
+                        (cos_lat1 * sin_lat2 -
+                        sin_lat1 * cos_lat2 * cos_delta_lng) ** 2),
+                    sin_lat1 * sin_lat2 + cos_lat1 * cos_lat2 * cos_delta_lng)
+
+        return round((EARTH_RADIUS * d), 6)
+ 
+
     def foliumMap(self,file):
         foliumpoints = [] # for folium
         foliumWptpoints = [] # for folium
@@ -1030,7 +1051,7 @@ class MyTableWidget(QWidget):
         return my_map
 
 
-    def ConvertAndSpeed (self,file,my_map,color,line_points,cwd,merge_segments,cleanFile,feature_group,showWaypointsLine,marshalfile,showWaypoints):
+    def ConvertAndSpeed (self,file,my_map,color,line_points,cwd,merge_segments,cleanFile,feature_group,showWaypointsLine,marshalfile,showWaypoints,distance_to_waypoint_allowed):
         
         point_no_csv = 0
 
@@ -1066,7 +1087,7 @@ class MyTableWidget(QWidget):
                             if speed != None:
                                 speed = round(speed*3.6,2) #convert to kph rounded to 2 decimal
 
-                        if merge_segments != "yes" :
+                        if merge_segments != 1 :
                             point_no_csv = point_no
 
                         if line_points == "points" :
@@ -1109,16 +1130,16 @@ class MyTableWidget(QWidget):
         for waypoint_no, waypoint in enumerate(gpx.waypoints):
             if waypoint_no != None :
                 is_waypoints = "yes"
-            if showWaypoints == "yes" :
+            if showWaypoints == 1 :
                 if waypoint.name == None :
                     waypoint.name = waypoint_no + 1
                 folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='lightgray', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,round(waypoint.latitude,6),round(waypoint.longitude,6))).add_to(feature_group)
                 folium.features.Circle(location=(waypoint.latitude,waypoint.longitude),radius=distance_to_waypoint_allowed, weight=1,color="gray", popup="allowed {0} meters from waypoint".format(distance_to_waypoint_allowed),opacity=0.2).add_to(feature_group)
 
-                if showWaypointsLine == "yes" :
+                if showWaypointsLine == 1 :
                     foliumWPTpoints.append(tuple([waypoint.latitude, waypoint.longitude]))
         
-        if showWaypointsLine == "yes" :
+        if showWaypointsLine == 1 :
             folium.features.PolyLine(foliumWPTpoints, color="lightgray",popup="waypoint track", weight=3, opacity=1).add_to(feature_group)
         if  is_waypoints == "yes" :          
             output1="\nWARNING!, file {0} contain {1} waypoints, results may be corrupted!\n".format(file,waypoint_no)
@@ -1144,7 +1165,7 @@ class MyTableWidget(QWidget):
         reader = csv.reader(open("{1}/zzz_{0}.csv".format(file,cwd)), delimiter=',')
         for row in reader:
 
-            start_meters = self.distance_vincenty(marshal_point, (float(row[1]),float(row[2])))
+            start_meters = self.great_circle(marshal_point, (float(row[1]),float(row[2])))
 
             # determine if point closest to marshal
             if start_meters < closest_to_marshal_point_meters  :
