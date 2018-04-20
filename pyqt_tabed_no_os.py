@@ -411,6 +411,12 @@ class MyTableWidget(QWidget):
                     
 
                     cleanFile = os.path.splitext(file)[0]                
+
+                    speddingfile.write("\nChecking file: {0}\n".format(cleanFile))
+                    self.textbox5.insertPlainText("\nChecking file: {0}\n".format(cleanFile))
+                    self.textbox5.moveCursor(QTextCursor.End)
+                    QApplication.processEvents() # update gui
+
                     feature_group = folium.FeatureGroup(name=cleanFile)
                     my_map=self.SConvertAndSpeed(file,my_map,color[c],line_points,cwd,merge_segments,cleanFile,speddingfile,feature_group)
 
@@ -485,7 +491,7 @@ class MyTableWidget(QWidget):
             else:
      #           print('\nworong arguments, please use:\n\npython rally_speeding_folder.py start_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n')
                 self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
-                self.textbox5.insertPlainText("\nworong arguments, please use:\n\nstart_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n")
+                self.textbox5.insertPlainText("\nworong arguments, please use:\n\nstart_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n")
                 QApplication.processEvents() # update gui
                 return App()
 
@@ -842,8 +848,8 @@ class MyTableWidget(QWidget):
           #          print(cleanFile)
                     feature_group = folium.FeatureGroup(name=cleanFile)
                     my_map=self.ConvertAndSpeed(file,my_map,color[c],line_points,cwd,merge_segments,cleanFile,feature_group,showWaypointsLine,marshalfile,showWaypoints)
-                    marshalfile.write("\n{}\n".format(cleanFile))
-                    self.textbox5.insertPlainText("\n{}\n".format(cleanFile))
+                    marshalfile.write("\nChecking file: {}\n".format(cleanFile))
+                    self.textbox5.insertPlainText("\nChecking file: {}\n".format(cleanFile))
                     self.textbox5.moveCursor(QTextCursor.End)
                     QApplication.processEvents() # update gui
 
