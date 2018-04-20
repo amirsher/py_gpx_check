@@ -988,7 +988,7 @@ class MyTableWidget(QWidget):
 
 
     def great_circle(self, point1, point2): # replace vincenty
-        EARTH_RADIUS = 6371009 # in meters
+        EARTH_RADIUS = 6371009 # WGS 84 in meters
 
         lat1, lng1 = math.radians(point1[0]), math.radians(point1[1])
         lat2, lng2 = math.radians(point2[0]), math.radians(point2[1])
