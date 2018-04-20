@@ -108,7 +108,7 @@ class MyTableWidget(QWidget):
         self.s_textbox = QLineEdit(self)
    #     self.s_textbox.setText("30.195176,35.04978 30.1749997,35.0642141 40 30.0310113,34.933191 29.978476,34.934311 70 30.195176,35.04978 30.1749997,35.0642141 50 30.0310113,34.933191 29.978476,34.934311 80") # FOR TESTING
         self.s_textbox.setPlaceholderText('Ex: 30.195176,35.04978 30.1749997,35.0642141 40 30.0310113,34.933191 29.978476,34.934311 70') 
-        self.s_textbox.setToolTip('Please enter the speed restricted zone(s) "lat,lon speed lat,lon speed"')
+        self.s_textbox.setToolTip('Please enter the speed restricted zone(s) "lat,lon speed lat,lon speed"\nFormat could be 30.195176,35.04978 or 30.11.42.635,35.02.59.208')
         self.s_textbox1 = QLineEdit(self)
         self.s_textbox1.setFixedWidth(80)
         self.s_textbox1.setText("90")
@@ -153,7 +153,7 @@ class MyTableWidget(QWidget):
         self.textbox = QLineEdit(self)
 #        self.textbox.setText("30.195176,35.04978 30.1749997,35.0642141") # FOR TESTING
         self.textbox.setPlaceholderText('Ex: 30.195176,35.04978 30.1749997,35.0642141') 
-        self.textbox.setToolTip('Please enter the marshaling point(s) "lat,lon lat,lon"')
+        self.textbox.setToolTip('Please enter the marshaling point(s) "lat,lon lat,lon"\nFormat could be 30.195176,35.04978 or 30.11.42.635,35.02.59.208')
         self.textbox1 = QLineEdit(self)
         self.textbox1.setFixedWidth(80)
         self.textbox1.setText("80")
