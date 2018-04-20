@@ -308,7 +308,8 @@ class MyTableWidget(QWidget):
             self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
             self.textbox5.insertPlainText("ERROR: \nno speeding zone(s) to check! \nplease enter valid zone(s)")
             QApplication.processEvents() # update gui
-            return
+            return App()
+
 
         s_textboxValue = self.s_textbox.text() # 30.195176,35.04978 30.1749997,35.0642141 40 30.0310113,34.933191 29.978476,34.934311 70
         s_textboxValue1 = self.s_textbox1.text() # grace zone in the start/end of the restricted zone (in meters)
@@ -355,15 +356,18 @@ class MyTableWidget(QWidget):
         #    restrictedZones= int((len(sys.argv)-2)/3)
             pointsCheck = s_textboxValue.split()
             restrictedZones = int(len(pointsCheck)/3)
-       #     print(restrictedZones)
-            
+        #    print("restrictedZones "+str(restrictedZones))
+            checkArguments = 0
+            if int(restrictedZones) < 1: # check if we have at least 1 zone
+                checkArguments = 1
+                
             output = ("File generated on {1}.\nThere are {0} restricted Zone(s).".format(restrictedZones,now.strftime("%Y-%m-%d %H:%M:%S")))
      #       print("\n{}".format(output))
             speddingfile.write("{}\n\n".format(output))
             self.textbox5.insertPlainText("{}\n\n".format(output))
             self.textbox5.moveCursor(QTextCursor.End)
             QApplication.processEvents() # update gui
-
+            
             # loging the zones
             for z in range(0, restrictedZones):
 
@@ -378,14 +382,19 @@ class MyTableWidget(QWidget):
                 self.textbox5.insertPlainText("restricted speed zone {0}: {1} kph\n".format(z+1, pointsCheck[(3*z)+2]))
                 self.textbox5.moveCursor(QTextCursor.End)
                 QApplication.processEvents() # update gui
+                
+                if (("," not in pointsCheck[(3*z)]) or ("," not in pointsCheck[(3*z)+1]) or ("," in pointsCheck[(3*z)+2])): # check the first 2 elements has "'" and the third dont
+                    checkArguments = 1
 
+         #   print("checkArguments "+str(checkArguments))
+            
             speddingfile.write("\nchecking folder: {0}\n".format(cwd))
     #        print("\nchecking folder: {0}\n".format(cwd))
             self.textbox5.insertPlainText("\nchecking folder: {0}\n".format(cwd))
             self.textbox5.moveCursor(QTextCursor.End)
             QApplication.processEvents() # update gui
 
-            if isinstance(restrictedZones, int) :
+            if (((len(pointsCheck))%3 == 0) and (checkArguments == 0)): # check in number of arguments are devided by 3 using modulo and it structured right
                 if (glob.glob("*.gpx")) :
                     my_map=self.SfoliumMap(glob.glob("*.gpx")[0])
                     speeding_feature_group = folium.FeatureGroup(name="speeding zone")
@@ -395,7 +404,7 @@ class MyTableWidget(QWidget):
                     self.textbox5.insertPlainText("No gpx files\n")
                     self.textbox5.moveCursor(QTextCursor.End)
                     QApplication.processEvents() # update gui
-                    sys.exit(0)
+                    App()
 
                 #os.chdir("/mydir")
                 for file in glob.glob("*.gpx"):
@@ -476,7 +485,9 @@ class MyTableWidget(QWidget):
             else:
      #           print('\nworong arguments, please use:\n\npython rally_speeding_folder.py start_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n')
                 self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
-                sys.exit(0)
+                self.textbox5.insertPlainText("\nworong arguments, please use:\n\nstart_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n")
+                QApplication.processEvents() # update gui
+                return App()
 
 
 
@@ -644,7 +655,7 @@ class MyTableWidget(QWidget):
             self.textbox5.setStyleSheet("QPlainTextEdit {border: 5px solid red;}")
             self.textbox5.moveCursor(QTextCursor.End)
             QApplication.processEvents() # update gui
-            sys.exit(0)
+            return App()
 
         output = ('\n{4}\nRestricted {6} kph Zone {5}:\nClosest to start: Point {0} at {1} meters, Closest to finish: Point {2} at {3} meters.\n'.format(closest_to_start, closest_to_start_meters, closest_to_finish, closest_to_finish_meters, cleanFile,i+1,restricted_speed))
    #     print(output)
@@ -733,9 +744,12 @@ class MyTableWidget(QWidget):
 
         pointsCheck = textboxValue.split()
         MarshalPoints = (len(pointsCheck))
-        arguments = MarshalPoints + 1
+   #     arguments = MarshalPoints + 1
 
-
+   #     print("MarshalPoints "+str(MarshalPoints))
+        checkArguments = 0
+        if int(MarshalPoints) < 1: # check if we have at least 1 Marshal Point
+            checkArguments = 1
 
         distance_to_marshal_allowed = int(textboxValue1)
         distance_to_waypoint_allowed = int(textboxValue2)
@@ -784,7 +798,7 @@ class MyTableWidget(QWidget):
             # loging the points
 #            arguments = len(sys.argv) - 1
             # output argument-wise
-            position = 2  
+            #position = 2  
 
             for x in range(0, MarshalPoints):
      #           print((pointsCheck)[x])
@@ -794,9 +808,12 @@ class MyTableWidget(QWidget):
                 self.textbox5.moveCursor(QTextCursor.End)
                 QApplication.processEvents() # update gui
 
+                if ("," not in (pointsCheck)[x]): # check pointsCheck has "," 
+                    checkArguments = 1
+
                 marshalpoint = ((pointsCheck)[x]).split(',')
 
-
+          #      print("checkArguments "+str(checkArguments))
 
             marshalfile.write("\nchecking folder: {0}\n".format(cwd))
             self.textbox5.insertPlainText("\nchecking folder: {0}\n".format(cwd))
@@ -804,8 +821,9 @@ class MyTableWidget(QWidget):
             QApplication.processEvents() # update gui
  #           print("\nchecking folder: {0}\n".format(cwd))
 
-            if isinstance(MarshalPoints, int) :
-                
+ #           if isinstance(MarshalPoints, int) :
+            if (checkArguments == 0):
+
                 if (glob.glob("*.gpx")) :
                     my_map=self.foliumMap(glob.glob("*.gpx")[0])
                     marshals_feature_group = folium.FeatureGroup(name="Marshal(s)")
@@ -815,7 +833,7 @@ class MyTableWidget(QWidget):
                     self.textbox5.insertPlainText("No gpx files\n")
                     self.textbox5.moveCursor(QTextCursor.End)
                     QApplication.processEvents() # update gui
-                    sys.exit(0)
+                    return App()
                 #os.chdir("/mydir")
                 for file in glob.glob("*.gpx"):
                             
@@ -830,14 +848,8 @@ class MyTableWidget(QWidget):
                     QApplication.processEvents() # update gui
 
 
-
-
                     for x in range(0, MarshalPoints):
                         marshalpoint = ((pointsCheck)[x]).split(',')
-
-
-
-
 
 
                         if ((pointsCheck)[x]).count('.') >= 4 : # lat/long is in minutes/seconds
@@ -886,20 +898,13 @@ class MyTableWidget(QWidget):
                     webbrowser.open('file://' + os.path.realpath(filename))
 
             else:
-                print('\nworong arguments, please use:\n\npython rally_marshal_folder.py marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: python rally_marshal_folder.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n')
+          #      print('\nworong arguments, please use:\n\n marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n')
                 self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
-                sys.exit(0)
+                self.textbox5.insertPlainText("\nworong arguments, please use:\n\n marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n")
+                QApplication.processEvents() # update gui
+                return App()
 
         marshalfile.close()
-        '''
-        plt.xlabel('latitude')
-        plt.ylabel('longitude')
-        plt.savefig('tracking.png', bbox_inches='tight', dpi=288)
-        plt.title(u'\u25B2 \nN ',loc='left', rotation = 0,family='sans-serif', fontsize=16) # north arrow
-        plt.tight_layout()
-        plt.show()
-        '''
-
 
 
 
@@ -912,9 +917,6 @@ class MyTableWidget(QWidget):
             self.textbox0.setText(folder_path)
     #        return folder_path        
  
-
-
-
 
     def distance_vincenty(self,point1, point2):
         """
