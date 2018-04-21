@@ -401,6 +401,7 @@ class MyTableWidget(QWidget):
 
                 else:
                     print("\n\nNo gpx files!\n")
+                    speddingfile.write("\n\nNo gpx files!\n")
                     self.textbox5.insertPlainText("\n\nNo gpx files!\n")
                     self.textbox5.moveCursor(QTextCursor.End)
                     self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
@@ -409,9 +410,27 @@ class MyTableWidget(QWidget):
 
                 #os.chdir("/mydir")
                 for file in glob.glob("*.gpx"):
-                    
 
                     cleanFile = os.path.splitext(file)[0]                
+
+                    with open("{0}".format(file), "r") as gpx_file: # check if file contain track, if not passing on it
+                        gpxCheckTrack = gpxpy.parse(gpx_file)
+                        if len(gpxCheckTrack.tracks) == 0 : 
+         #                   print("\nwarning! {0} contain {1} tracks!, not checking.".format(cleanFile,len(gpxCheckTrack.tracks)))
+                            self.textbox5.insertPlainText("\nwarning! {0} contain {1} tracks!, not checking.".format(cleanFile,len(gpxCheckTrack.tracks)))
+                            self.textbox5.setStyleSheet("QPlainTextEdit {border: 5px solid red;}")
+                            self.textbox5.moveCursor(QTextCursor.End)
+                            QApplication.processEvents() # update gui
+                            speddingfile.write("\nwarning! {0} contain {1} tracks!, not checking.".format(cleanFile,len(gpxCheckTrack.tracks)))
+                            warning = 1
+                            continue
+                        else:
+       #                     print("\n{0} contain {1} track(s)".format(cleanFile,len(gpxCheckTrack.tracks)))
+                            self.textbox5.insertPlainText("\n{0} contain {1} track(s)".format(cleanFile,len(gpxCheckTrack.tracks)))
+                            self.textbox5.moveCursor(QTextCursor.End)
+                            QApplication.processEvents() # update gui
+                            speddingfile.write("\n{0} contain {1} track(s)".format(cleanFile,len(gpxCheckTrack.tracks)))
+
 
                     speddingfile.write("\nChecking file: {0}\n".format(cleanFile))
                     self.textbox5.insertPlainText("\nChecking file: {0}\n".format(cleanFile))
@@ -477,6 +496,7 @@ class MyTableWidget(QWidget):
                 with open("SpeedingMap.html", "w"): pass # clear the txt file
                 my_map.save("SpeedingMap.html")
         #        print("a.ok")
+                speddingfile.write("a.ok\n")
                 self.textbox5.insertPlainText("a.ok\n")
                 self.textbox5.moveCursor(QTextCursor.End)
                 self.textbox5.setStyleSheet("QPlainTextEdit {background-color:green; color:white; margin:20px;}")
@@ -494,6 +514,7 @@ class MyTableWidget(QWidget):
                 self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
                 self.textbox5.insertPlainText("\nworong arguments, please use:\n\nstart_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n")
                 QApplication.processEvents() # update gui
+                speddingfile.write("\nworong arguments, please use:\n\nstart_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n")
                 return App()
 
 
@@ -656,6 +677,7 @@ class MyTableWidget(QWidget):
             self.textbox5.setStyleSheet("QPlainTextEdit {border: 5px solid red;}")
             self.textbox5.moveCursor(QTextCursor.End)
             QApplication.processEvents() # update gui
+            speddingfile.write("\nWARNING!, file {0} may not contain valid track, please check before running the script again, Exiting...\n".format(file))
             return App()
 
         output = ('\n{4}\nRestricted {6} kph Zone {5}:\nClosest to start: Point {0} at {1} meters, Closest to finish: Point {2} at {3} meters.\n'.format(closest_to_start, closest_to_start_meters, closest_to_finish, closest_to_finish_meters, cleanFile,i+1,restricted_speed))
@@ -830,6 +852,7 @@ class MyTableWidget(QWidget):
                     marshals_feature_group = folium.FeatureGroup(name="Marshal(s)")
 
                 else:
+                    marshalfile.write("\n\nNo gpx files!\n")
                     print("\n\nNo gpx files!\n")
                     self.textbox5.insertPlainText("\n\nNo gpx files!\n")
                     self.textbox5.moveCursor(QTextCursor.End)
@@ -841,6 +864,26 @@ class MyTableWidget(QWidget):
                             
                     cleanFile = os.path.splitext(file)[0]                
                             
+                    with open("{0}".format(file), "r") as gpx_file: # check if file contain track, if not passing on it
+                        gpxCheckTrack = gpxpy.parse(gpx_file)
+                        if len(gpxCheckTrack.tracks) == 0 : 
+         #                   print("\nwarning! {0} contain {1} tracks! and {2} waypoint(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints)))
+                            self.textbox5.insertPlainText("\nwarning! {0} contain {1} tracks! and {2} waypoint(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints)))
+                            self.textbox5.setStyleSheet("QPlainTextEdit {border: 5px solid red;}")
+                            self.textbox5.moveCursor(QTextCursor.End)
+                            QApplication.processEvents() # update gui
+                            marshalfile.write("\nwarning! {0} contain {1} tracks! and {2} waypoint(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints)))
+                            warning = 1
+                    #        continue
+                        else:
+       #                     print("\n{0} contain {1} track(s) and {2} waypoint(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints)))
+                            self.textbox5.insertPlainText("\n{0} contain {1} track(s) and {2} waypoint(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints)))
+                            self.textbox5.moveCursor(QTextCursor.End)
+                            QApplication.processEvents() # update gui
+                            marshalfile.write("\n{0} contain {1} track(s) and {2} waypoint(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints)))
+
+
+
           #          print(cleanFile)
                     feature_group = folium.FeatureGroup(name=cleanFile)
                     my_map=self.ConvertAndSpeed(file,my_map,color[c],line_points,cwd,merge_segments,cleanFile,feature_group,showWaypointsLine,marshalfile,showWaypoints,distance_to_waypoint_allowed)
@@ -886,7 +929,8 @@ class MyTableWidget(QWidget):
                 my_map.fit_bounds(my_map.get_bounds())
                 with open("TrackingMap.html", "w"): pass # clear the txt file
                 my_map.save("TrackingMap.html")
-       #         print("a.ok")
+       #         print("a.ok\n")
+                marshalfile.write("a.ok\n")
                 self.textbox5.insertPlainText("a.ok\n")
                 self.textbox5.moveCursor(QTextCursor.End)
                 self.textbox5.setStyleSheet("QPlainTextEdit {background-color:green; color:white; margin:20px;}")
@@ -901,6 +945,7 @@ class MyTableWidget(QWidget):
 
             else:
           #      print('\nworong arguments, please use:\n\n marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n')
+                marshalfile.write("\nworong arguments, please use:\n\n marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n")
                 self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
                 self.textbox5.insertPlainText("\nworong arguments, please use:\n\n marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n")
                 QApplication.processEvents() # update gui
@@ -1142,7 +1187,7 @@ class MyTableWidget(QWidget):
         if showWaypointsLine == 1 :
             folium.features.PolyLine(foliumWPTpoints, color="lightgray",popup="waypoint track", weight=3, opacity=1).add_to(feature_group)
         if  is_waypoints == "yes" :          
-            output1="\nWARNING!, file {0} contain {1} waypoints, results may be corrupted!\n".format(file,waypoint_no)
+            output1="\nWARNING!, file {0} contain {1} waypoint(s), results may be corrupted!\n".format(file,waypoint_no+1)
             warning = 1
        #     print(output1)
             marshalfile.write("{0}\n".format(output1))

@@ -1,4 +1,4 @@
-File generated on 2018-04-20 21:46:56.
+File generated on 2018-04-21 05:43:24.
 There are 4 restricted Zone(s).
 
 start zone 1: 30.195176,35.04978
@@ -16,6 +16,7 @@ restricted speed zone 4: 80 kph
 
 checking folder: /home/amir/py_gpx_check
 
+42 contain 1 track(s)
 Checking file: 42
 
 42
@@ -58,6 +59,7 @@ SPEEDING!!! at point 454, location: (30.014788,34.956234), speed: 87.55 kph.
 SPEEDING!!! at point 458, location: (30.00981,34.963147), speed: 95.75 kph.
 SPEEDING!!! at point 459, location: (30.009266,34.962191), speed: 112.76 kph.
 
+46 contain 1 track(s)
 Checking file: 46
 
 46
@@ -97,6 +99,7 @@ SPEEDING!!! at point 459, location: (30.009466,34.963091), speed: 95.32 kph.
 SPEEDING!!! at point 460, location: (30.007709,34.961437), speed: 98.55 kph.
 SPEEDING!!! at point 470, location: (29.977336,34.933946), speed: 95.22 kph.
 
+15 contain 1 track(s)
 Checking file: 15
 
 15
@@ -134,6 +137,7 @@ Closest to start: Point 445 at 45.05 meters, Closest to finish: Point 470 at 137
 SPEEDING!!! at point 446, location: (30.030623,34.935118), speed: 82.95 kph.
 SPEEDING!!! at point 448, location: (30.029828,34.940787), speed: 80.43 kph.
 
+7_with_segment contain 1 track(s)
 Checking file: 7_with_segment
 
 WARNING!, file 7_with_segment.gpx contain 3 segments, should not have more then 1 segment, results may be corrupted!
@@ -406,6 +410,7 @@ SPEEDING!!! at point 68, location: (30.183917,34.818142), speed: 107.24 kph.
 SPEEDING!!! at point 69, location: (30.184109,34.818351), speed: 101.28 kph.
 SPEEDING!!! at point 70, location: (30.18473,34.819206), speed: 86.92 kph.
 
+12 contain 1 track(s)
 Checking file: 12
 
 12
@@ -439,6 +444,7 @@ Closest to start: Point 443 at 129.91 meters, Closest to finish: Point 469 at 11
 
 SPEEDING!!! at point 458, location: (30.00941,34.963247), speed: 86.1 kph.
 
+36 contain 1 track(s)
 Checking file: 36
 
 36
@@ -470,6 +476,7 @@ Restricted 80.0 kph Zone 4:
 Closest to start: Point 445 at 51.22 meters, Closest to finish: Point 470 at 79.36 meters.
 
 
+24 contain 1 track(s)
 Checking file: 24
 
 24
@@ -506,6 +513,7 @@ Closest to start: Point 445 at 54.44 meters, Closest to finish: Point 468 at 142
 
 SPEEDING!!! at point 457, location: (30.010603,34.962496), speed: 83.75 kph.
 
+28 contain 1 track(s)
 Checking file: 28
 
 28
@@ -543,6 +551,7 @@ Closest to start: Point 445 at 24.02 meters, Closest to finish: Point 469 at 105
 
 SPEEDING!!! at point 455, location: (30.013897,34.957002), speed: 83.47 kph.
 
+33 contain 1 track(s)
 Checking file: 33
 
 33
@@ -577,6 +586,7 @@ Restricted 80.0 kph Zone 4:
 Closest to start: Point 445 at 85.74 meters, Closest to finish: Point 470 at 55.17 meters.
 
 
+7_with_waypoints contain 1 track(s)
 Checking file: 7_with_waypoints
 
 WARNING!, file 7_with_waypoints.gpx contain 6 waypoints, results may be corrupted!
@@ -621,6 +631,7 @@ Restricted 80.0 kph Zone 4:
 Closest to start: Point 1328 at 74.73 meters, Closest to finish: Point 1405 at 106.9 meters.
 
 
+55 contain 1 track(s)
 Checking file: 55
 
 55
@@ -658,6 +669,7 @@ SPEEDING!!! at point 448, location: (30.029828,34.939887), speed: 83.26 kph.
 SPEEDING!!! at point 449, location: (30.028424,34.941886), speed: 95.91 kph.
 SPEEDING!!! at point 455, location: (30.014297,34.957202), speed: 89.22 kph.
 
+7 contain 1 track(s)
 Checking file: 7
 
 7
@@ -698,3 +710,4 @@ SPEEDING!!! at point 392, location: (30.173975,35.064634), speed: 84.29 kph.
 Restricted 80.0 kph Zone 4:
 Closest to start: Point 1328 at 74.73 meters, Closest to finish: Point 1405 at 106.9 meters.
 
+a.ok
