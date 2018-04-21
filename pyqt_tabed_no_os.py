@@ -293,6 +293,9 @@ class MyTableWidget(QWidget):
 
         self.setLayout(self.layout)
  
+
+
+
     @pyqtSlot()
     def spedding(self):
     #    print('PyQt5 button click')
@@ -416,20 +419,17 @@ class MyTableWidget(QWidget):
                     with open("{0}".format(file), "r") as gpx_file: # check if file contain track, if not passing on it
                         gpxCheckTrack = gpxpy.parse(gpx_file)
                         if len(gpxCheckTrack.tracks) == 0 : 
-         #                   print("\nwarning! {0} contain {1} tracks!, not checking.".format(cleanFile,len(gpxCheckTrack.tracks)))
-                            self.textbox5.insertPlainText("\nwarning! {0} contain {1} tracks!, not checking.".format(cleanFile,len(gpxCheckTrack.tracks)))
+                            output = "\nwarning! {0} contain {1} tracks! and {2} waypoint(s) and {3} route(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints),len(gpxCheckTrack.routes))
                             self.textbox5.setStyleSheet("QPlainTextEdit {border: 5px solid red;}")
-                            self.textbox5.moveCursor(QTextCursor.End)
-                            QApplication.processEvents() # update gui
-                            speddingfile.write("\nwarning! {0} contain {1} tracks!, not checking.".format(cleanFile,len(gpxCheckTrack.tracks)))
                             warning = 1
                             continue
                         else:
-       #                     print("\n{0} contain {1} track(s)".format(cleanFile,len(gpxCheckTrack.tracks)))
-                            self.textbox5.insertPlainText("\n{0} contain {1} track(s)".format(cleanFile,len(gpxCheckTrack.tracks)))
-                            self.textbox5.moveCursor(QTextCursor.End)
-                            QApplication.processEvents() # update gui
-                            speddingfile.write("\n{0} contain {1} track(s)".format(cleanFile,len(gpxCheckTrack.tracks)))
+                            output = "\n{0} contain {1} track(s) and {2} waypoint(s) and {3} route(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints),len(gpxCheckTrack.routes))
+       #                 print(output)
+                        self.textbox5.insertPlainText(output)
+                        self.textbox5.moveCursor(QTextCursor.End)
+                        QApplication.processEvents() # update gui
+                        speddingfile.write(output)
 
 
                     speddingfile.write("\nChecking file: {0}\n".format(cleanFile))
@@ -515,8 +515,8 @@ class MyTableWidget(QWidget):
                 self.textbox5.insertPlainText("\nworong arguments, please use:\n\nstart_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n")
                 QApplication.processEvents() # update gui
                 speddingfile.write("\nworong arguments, please use:\n\nstart_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n")
-                return App()
 
+        speddingfile.close()
 
 
 
@@ -867,20 +867,17 @@ class MyTableWidget(QWidget):
                     with open("{0}".format(file), "r") as gpx_file: # check if file contain track, if not passing on it
                         gpxCheckTrack = gpxpy.parse(gpx_file)
                         if len(gpxCheckTrack.tracks) == 0 : 
-         #                   print("\nwarning! {0} contain {1} tracks! and {2} waypoint(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints)))
-                            self.textbox5.insertPlainText("\nwarning! {0} contain {1} tracks! and {2} waypoint(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints)))
+                            output = "\nwarning! {0} contain {1} tracks! and {2} waypoint(s) and {3} route(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints),len(gpxCheckTrack.routes))
                             self.textbox5.setStyleSheet("QPlainTextEdit {border: 5px solid red;}")
-                            self.textbox5.moveCursor(QTextCursor.End)
-                            QApplication.processEvents() # update gui
-                            marshalfile.write("\nwarning! {0} contain {1} tracks! and {2} waypoint(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints)))
                             warning = 1
                     #        continue
                         else:
-       #                     print("\n{0} contain {1} track(s) and {2} waypoint(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints)))
-                            self.textbox5.insertPlainText("\n{0} contain {1} track(s) and {2} waypoint(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints)))
-                            self.textbox5.moveCursor(QTextCursor.End)
-                            QApplication.processEvents() # update gui
-                            marshalfile.write("\n{0} contain {1} track(s) and {2} waypoint(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints)))
+                            output = "\n{0} contain {1} track(s) and {2} waypoint(s) and {3} route(s)".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints),len(gpxCheckTrack.routes))
+       #                 print(output)
+                        self.textbox5.insertPlainText(output)
+                        self.textbox5.moveCursor(QTextCursor.End)
+                        QApplication.processEvents() # update gui
+                        marshalfile.write(output)
 
 
 
@@ -949,107 +946,10 @@ class MyTableWidget(QWidget):
                 self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
                 self.textbox5.insertPlainText("\nworong arguments, please use:\n\n marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n")
                 QApplication.processEvents() # update gui
-                return App()
 
         marshalfile.close()
 
 
-
-    def selectFolder(self):
-        folder_path = QFileDialog.getExistingDirectory(self, "Select Folder")
-        if folder_path:
-            os.chdir(folder_path)
-        #    print(folder_path)
-#            self.textbox0.clear()
-            self.textbox0.setText(folder_path)
-    #        return folder_path        
- 
-
-    def distance_vincenty(self, point1, point2): # deprecated
-        """
-        Vincenty's formula (inverse method) to calculate the distance (in
-        kilometers or miles) between two points on the surface of a spheroid
-        """
-        # WGS 84
-        a = 6378137  # meters
-        f = 1 / 298.257223563
-        b = 6356752.314245  # meters; b = (1 - f)a
-
-        MILES_PER_KILOMETER = 0.621371
-
-        MAX_ITERATIONS = 200
-        CONVERGENCE_THRESHOLD = 1e-12  # .000,000,000,001
-
-        # short-circuit coincident points
-        if point1[0] == point2[0] and point1[1] == point2[1]:
-            return 0.0
-
-        U1 = math.atan((1 - f) * math.tan(math.radians(point1[0])))
-        U2 = math.atan((1 - f) * math.tan(math.radians(point2[0])))
-        L = math.radians(point2[1] - point1[1])
-        Lambda = L
-
-        sinU1 = math.sin(U1)
-        cosU1 = math.cos(U1)
-        sinU2 = math.sin(U2)
-        cosU2 = math.cos(U2)
-
-        for iteration in range(MAX_ITERATIONS):
-            sinLambda = math.sin(Lambda)
-            cosLambda = math.cos(Lambda)
-            sinSigma = math.sqrt((cosU2 * sinLambda) ** 2 +
-                                (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda) ** 2)
-            if sinSigma == 0:
-                return 0.0  # coincident points
-            cosSigma = sinU1 * sinU2 + cosU1 * cosU2 * cosLambda
-            sigma = math.atan2(sinSigma, cosSigma)
-            sinAlpha = cosU1 * cosU2 * sinLambda / sinSigma
-            cosSqAlpha = 1 - sinAlpha ** 2
-            try:
-                cos2SigmaM = cosSigma - 2 * sinU1 * sinU2 / cosSqAlpha
-            except ZeroDivisionError:
-                cos2SigmaM = 0
-            C = f / 16 * cosSqAlpha * (4 + f * (4 - 3 * cosSqAlpha))
-            LambdaPrev = Lambda
-            Lambda = L + (1 - C) * f * sinAlpha * (sigma + C * sinSigma *
-                                                (cos2SigmaM + C * cosSigma *
-                                                    (-1 + 2 * cos2SigmaM ** 2)))
-            if abs(Lambda - LambdaPrev) < CONVERGENCE_THRESHOLD:
-                break  # successful convergence
-        else:
-            return None  # failure to converge
-
-        uSq = cosSqAlpha * (a ** 2 - b ** 2) / (b ** 2)
-        A = 1 + uSq / 16384 * (4096 + uSq * (-768 + uSq * (320 - 175 * uSq)))
-        B = uSq / 1024 * (256 + uSq * (-128 + uSq * (74 - 47 * uSq)))
-        deltaSigma = B * sinSigma * (cos2SigmaM + B / 4 * (cosSigma *
-                    (-1 + 2 * cos2SigmaM ** 2) - B / 6 * cos2SigmaM *
-                    (-3 + 4 * sinSigma ** 2) * (-3 + 4 * cos2SigmaM ** 2)))
-        s = b * A * (sigma - deltaSigma)
-
-    #    s /= 1000  # meters to kilometers
-        return round(s, 6)
-
-
-
-    def great_circle(self, point1, point2): # replace vincenty
-        EARTH_RADIUS = 6371009 # WGS 84 in meters
-
-        lat1, lng1 = math.radians(point1[0]), math.radians(point1[1])
-        lat2, lng2 = math.radians(point2[0]), math.radians(point2[1])
-
-        sin_lat1, cos_lat1 = math.sin(lat1), math.cos(lat1)
-        sin_lat2, cos_lat2 = math.sin(lat2), math.cos(lat2)
-
-        delta_lng = lng2 - lng1
-        cos_delta_lng, sin_delta_lng = math.cos(delta_lng), math.sin(delta_lng)
-
-        d = math.atan2(math.sqrt((cos_lat2 * sin_delta_lng) ** 2 +
-                        (cos_lat1 * sin_lat2 -
-                        sin_lat1 * cos_lat2 * cos_delta_lng) ** 2),
-                    sin_lat1 * sin_lat2 + cos_lat1 * cos_lat2 * cos_delta_lng)
-
-        return round((EARTH_RADIUS * d), 6)
  
 
     def foliumMap(self,file):
@@ -1242,6 +1142,94 @@ class MyTableWidget(QWidget):
                         folium.Marker(location=(float(row[1]),float(row[2])),icon=folium.Icon(color='red', icon='info', prefix="fa"), popup="{0}<br>passed {1} meters from marshal {2}<br>OUT OF RANGE!".format(cleanFile,closest_to_marshal_point_meters,x)).add_to(feature_group)
 
 
+
+
+    def distance_vincenty(self, point1, point2): # deprecated
+        """
+        Vincenty's formula (inverse method) to calculate the distance (in
+        kilometers or miles) between two points on the surface of a spheroid
+        """
+        # WGS 84
+        a = 6378137  # meters
+        f = 1 / 298.257223563
+        b = 6356752.314245  # meters; b = (1 - f)a
+
+        MILES_PER_KILOMETER = 0.621371
+
+        MAX_ITERATIONS = 200
+        CONVERGENCE_THRESHOLD = 1e-12  # .000,000,000,001
+
+        # short-circuit coincident points
+        if point1[0] == point2[0] and point1[1] == point2[1]:
+            return 0.0
+
+        U1 = math.atan((1 - f) * math.tan(math.radians(point1[0])))
+        U2 = math.atan((1 - f) * math.tan(math.radians(point2[0])))
+        L = math.radians(point2[1] - point1[1])
+        Lambda = L
+
+        sinU1 = math.sin(U1)
+        cosU1 = math.cos(U1)
+        sinU2 = math.sin(U2)
+        cosU2 = math.cos(U2)
+
+        for iteration in range(MAX_ITERATIONS):
+            sinLambda = math.sin(Lambda)
+            cosLambda = math.cos(Lambda)
+            sinSigma = math.sqrt((cosU2 * sinLambda) ** 2 +
+                                (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda) ** 2)
+            if sinSigma == 0:
+                return 0.0  # coincident points
+            cosSigma = sinU1 * sinU2 + cosU1 * cosU2 * cosLambda
+            sigma = math.atan2(sinSigma, cosSigma)
+            sinAlpha = cosU1 * cosU2 * sinLambda / sinSigma
+            cosSqAlpha = 1 - sinAlpha ** 2
+            try:
+                cos2SigmaM = cosSigma - 2 * sinU1 * sinU2 / cosSqAlpha
+            except ZeroDivisionError:
+                cos2SigmaM = 0
+            C = f / 16 * cosSqAlpha * (4 + f * (4 - 3 * cosSqAlpha))
+            LambdaPrev = Lambda
+            Lambda = L + (1 - C) * f * sinAlpha * (sigma + C * sinSigma *
+                                                (cos2SigmaM + C * cosSigma *
+                                                    (-1 + 2 * cos2SigmaM ** 2)))
+            if abs(Lambda - LambdaPrev) < CONVERGENCE_THRESHOLD:
+                break  # successful convergence
+        else:
+            return None  # failure to converge
+
+        uSq = cosSqAlpha * (a ** 2 - b ** 2) / (b ** 2)
+        A = 1 + uSq / 16384 * (4096 + uSq * (-768 + uSq * (320 - 175 * uSq)))
+        B = uSq / 1024 * (256 + uSq * (-128 + uSq * (74 - 47 * uSq)))
+        deltaSigma = B * sinSigma * (cos2SigmaM + B / 4 * (cosSigma *
+                    (-1 + 2 * cos2SigmaM ** 2) - B / 6 * cos2SigmaM *
+                    (-3 + 4 * sinSigma ** 2) * (-3 + 4 * cos2SigmaM ** 2)))
+        s = b * A * (sigma - deltaSigma)
+
+    #    s /= 1000  # meters to kilometers
+        return round(s, 6)
+
+
+
+    def great_circle(self, point1, point2): # replace vincenty
+        EARTH_RADIUS = 6371009 # WGS 84 in meters
+
+        lat1, lng1 = math.radians(point1[0]), math.radians(point1[1])
+        lat2, lng2 = math.radians(point2[0]), math.radians(point2[1])
+
+        sin_lat1, cos_lat1 = math.sin(lat1), math.cos(lat1)
+        sin_lat2, cos_lat2 = math.sin(lat2), math.cos(lat2)
+
+        delta_lng = lng2 - lng1
+        cos_delta_lng, sin_delta_lng = math.cos(delta_lng), math.sin(delta_lng)
+
+        d = math.atan2(math.sqrt((cos_lat2 * sin_delta_lng) ** 2 +
+                        (cos_lat1 * sin_lat2 -
+                        sin_lat1 * cos_lat2 * cos_delta_lng) ** 2),
+                    sin_lat1 * sin_lat2 + cos_lat1 * cos_lat2 * cos_delta_lng)
+
+        return round((EARTH_RADIUS * d), 6)
+
     def convertDecimal(self,tude):
     # converter only work for N,E and not in string # FIXED: S, W is negative
         a = tude.split('.',3)
@@ -1251,6 +1239,16 @@ class MyTableWidget(QWidget):
         return dd
 
 
+
+
+    def selectFolder(self):
+        folder_path = QFileDialog.getExistingDirectory(self, "Select Folder")
+        if folder_path:
+            os.chdir(folder_path)
+        #    print(folder_path)
+#            self.textbox0.clear()
+            self.textbox0.setText(folder_path)
+    #        return folder_path        
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

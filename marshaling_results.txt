@@ -1,4 +1,4 @@
-File generated on 2018-04-21 05:58:30.
+File generated on 2018-04-21 20:07:03.
 There are 2 Marshal Point(s).
 Out of range set to 80 meters.
 
@@ -60,7 +60,7 @@ Passed Marshal 1 on 2017-12-14 09:16:48 at distance of 19 meters and speed of 70
 Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 101 meters and speed of 72.22 kph. OUT OF RANGE
 
 7_with_waypoints contain 1 track(s) and 7 waypoint(s)
-WARNING!, file 7_with_waypoints.gpx contain 6 waypoints, results may be corrupted!
+WARNING!, file 7_with_waypoints.gpx contain 7 waypoint(s), results may be corrupted!
 
 
 Checking file: 7_with_waypoints
