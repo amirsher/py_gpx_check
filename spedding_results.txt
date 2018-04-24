@@ -1,4 +1,4 @@
-File generated on 2018-04-21 20:31:49.
+File generated on 2018-04-24 06:57:13.
 There are 2 restricted Zone(s).
 
 start zone 1: 30.195176,35.04978
@@ -431,23 +431,3 @@ Closest to start: Point 359 at 34.82 meters, Closest to finish: Point 393 at 113
 
 SPEEDING!!! at point 365, location: (30.193725,35.049746), speed: 40.18 kph.
 SPEEDING!!! at point 371, location: (30.190065,35.051975), speed: 40.7 kph.
-SPEEDING!!! at point 372, location: (30.189187,35.052636), speed: 40.93 kph.
-SPEEDING!!! at point 373, location: (30.188254,35.053306), speed: 40.53 kph.
-SPEEDING!!! at point 374, location: (30.187217,35.054078), speed: 40.17 kph.
-SPEEDING!!! at point 390, location: (30.173321,35.063843), speed: 57.84 kph.
-SPEEDING!!! at point 391, location: (30.173829,35.064455), speed: 79.72 kph.
-SPEEDING!!! at point 392, location: (30.173975,35.064634), speed: 84.29 kph.
-
-7
-Restricted 70.0 kph Zone 2:
-Closest to start: Point 1328 at 74.73 meters, Closest to finish: Point 1405 at 106.9 meters.
-
-SPEEDING!!! at point 1342, location: (30.030465,34.939689), speed: 70.3 kph.
-SPEEDING!!! at point 1343, location: (30.030084,34.940109), speed: 70.35 kph.
-SPEEDING!!! at point 1344, location: (30.029828,34.940387), speed: 70.5 kph.
-SPEEDING!!! at point 1345, location: (30.029442,34.940807), speed: 71.31 kph.
-SPEEDING!!! at point 1346, location: (30.029313,34.940951), speed: 72.09 kph.
-SPEEDING!!! at point 1347, location: (30.028924,34.941386), speed: 71.37 kph.
-SPEEDING!!! at point 1350, location: (30.026004,34.944561), speed: 70.54 kph.
-SPEEDING!!! at point 1351, location: (30.025446,34.945065), speed: 70.15 kph.
-a.ok
