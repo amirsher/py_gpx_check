@@ -1,4 +1,4 @@
-File generated on 2018-04-25 11:09:30.
+File generated on 2018-04-25 17:10:16.
 
 There are 2 Marshal Point(s).
 Out of range set to 80 meters.
@@ -149,4 +149,9 @@ Passed Marshal 2 on 2017-12-14 09:21:28 at distance of 113 meters and speed of 7
 
 
 a.ok
+
+
+saved graphic results to /home/amir/py_gpx_check/TrackingMap.html
+
+saved text results to /home/amir/py_gpx_check/marshaling_results.txt
 

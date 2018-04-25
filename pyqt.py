@@ -4,9 +4,10 @@ import webbrowser, os, sys
 import logging
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QCheckBox, QLabel, QSizePolicy, QHBoxLayout, QVBoxLayout, QComboBox, QPlainTextEdit, QFileDialog, QTabWidget
 from PyQt5.QtGui import QIcon, QTextCursor
-from PyQt5.QtCore import pyqtSlot, Qt
+from PyQt5.QtCore import pyqtSlot, Qt, QUrl
 from subprocess import Popen, PIPE
-            
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+
 import gpxpy
 import gpxpy.gpx
 import math
@@ -18,6 +19,7 @@ import folium
 from folium.plugins import FloatImage
 
 script_folder = os.getcwd()
+scriptDir = os.path.dirname(os.path.realpath(__file__))
 
 class App(QMainWindow):
  
@@ -30,7 +32,6 @@ class App(QMainWindow):
    #     self.height = 200
         self.setWindowTitle(self.title)
   #      self.setGeometry(self.left, self.top, self.width, self.height)
-        scriptDir = os.path.dirname(os.path.realpath(__file__))
         self.setWindowIcon(QIcon(scriptDir + os.path.sep + 'logo-512x512.png')) 
 
         self.table_widget = MyTableWidget(self)
@@ -45,6 +46,8 @@ class MyTableWidget(QWidget):
         super(QWidget, self).__init__(parent)
  #       self.layout = QVBoxLayout(self)
         self.layout = QVBoxLayout()
+        self.web = QWebEngineView()
+        self.web.setWindowIcon(QIcon(scriptDir + os.path.sep + 'logo-512x512.png')) 
 
         # Initialize tab screen
         self.tabs = QTabWidget()
@@ -80,7 +83,7 @@ class MyTableWidget(QWidget):
 #        self.textbox5.setFixedHeight(600)
         self.textbox5.setMinimumHeight(400)        
         self.textbox5.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.textbox5.insertPlainText("output\n\n")
+        self.textbox5.insertPlainText("results\n\n")
         self.textbox5.setReadOnly(True)
         self.textbox5.setStyleSheet("QPlainTextEdit {margin:20px;}")
 
@@ -300,9 +303,10 @@ class MyTableWidget(QWidget):
     def spedding(self):
         now = datetime.datetime.now() 
         cwd = os.getcwd()
+        logFile = "spedding_results.txt"
         for handler in logging.root.handlers[:]:
             logging.root.removeHandler(handler)
-        logging.basicConfig(filename='spedding_results.txt', filemode='w', format='%(message)s', level=logging.INFO)
+        logging.basicConfig(filename=logFile, filemode='w', format='%(message)s', level=logging.INFO)
 #        logging.basicConfig(filename='spedding_results_{0}.txt'.format(now.strftime("%Y%m%d_%H%M%S")), filemode='w', format='%(message)s', level=logging.INFO)
         
         self.textbox5.setStyleSheet("QPlainTextEdit {background-color:white; color:black; margin:20px;}")
@@ -450,8 +454,8 @@ class MyTableWidget(QWidget):
                     logging.info(output)
 
                 if segment_no > 1 :
-                    output=("\nWARNING!, file {0} contain {1} segments, should not have more then 1 segment, results may be corrupted!\n".format(file,segment_no+1))
-      #              print(output1)
+                    output = ("\nWARNING!, file {0} contain {1} segments, should not have more then 1 segment, results may be corrupted!\n".format(file,segment_no+1))
+      #              print(output)
        #             speddingfile.write(output)
                     warning = 1
                     self.textbox5.insertPlainText(output)
@@ -496,7 +500,7 @@ class MyTableWidget(QWidget):
                     feature_group.add_to(my_map)
 
                     if i == restrictedZones :
-                        output = "\n{0} Top Speed: {1} kph on point {2}\n".format(cleanFile,zone[3],zone[4])
+                        output = ("\n{0} Top Speed: {1} kph on point {2}\n".format(cleanFile,zone[3],zone[4]))
                 #           print(output)
                  #       speddingfile.write(output)
                         self.textbox5.insertPlainText(output)
@@ -530,9 +534,19 @@ class MyTableWidget(QWidget):
             logging.info("a.ok\n")
 
             filename = "SpeedingMap.html"
-            buttonReply = QMessageBox.question(self, 'finished message', "saved results to {0}\n\nShow results in web browser?".format(os.path.realpath(filename)), QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-            if buttonReply == QMessageBox.Yes:
-                webbrowser.open('file://' + os.path.realpath(filename))
+     #       buttonReply = QMessageBox.question(self, 'finished message', "saved results to {0}\n\nShow results in web browser?".format(os.path.realpath(filename)), QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+      #      if buttonReply == QMessageBox.Yes:
+     #           webbrowser.open('file://' + os.path.realpath(filename))
+
+            output = ("\nsaved graphic results to {0}\n\nsaved text results to {1}\n".format(os.path.realpath(filename),os.path.realpath(logFile)))
+            self.textbox5.insertPlainText(output)
+            self.textbox5.moveCursor(QTextCursor.End)
+            QApplication.processEvents() # update gui
+            logging.info(output)
+
+            self.web.setWindowTitle("Speeding Results")
+            self.web.load(QUrl('file://' + os.path.realpath(filename)))
+            self.web.show()
 
         else:
     #           print('\nworong arguments, please use:\n\npython rally_speeding_folder.py start_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n')
@@ -646,8 +660,8 @@ class MyTableWidget(QWidget):
             if waypoint_no != None :
                 is_waypoints = "yes"
         if  is_waypoints == "yes" :          
-            output=("\nWARNING!, file {0} contain {1} waypoints, results may be corrupted!\n".format(file,waypoint_no))
-     #       print(output1)
+            output = ("\nWARNING!, file {0} contain {1} waypoints, results may be corrupted!\n".format(file,waypoint_no))
+     #       print(output)
       #      speddingfile.write(output)
             warning = 1
             self.textbox5.insertPlainText(output)
@@ -700,7 +714,7 @@ class MyTableWidget(QWidget):
             logging.info(output)
             return App()
 
-        output = ('\nRestricted Zone {4} ({5} kph):\nClosest to start: Point {0} at {1} meters, Closest to finish: Point {2} at {3} meters.\n\n'.format(closest_to_start, closest_to_start_meters, closest_to_finish, closest_to_finish_meters,i+1,restricted_speed))
+        output = ("\nRestricted Zone {4} ({5} kph):\nClosest to start: Point {0} at {1} meters, Closest to finish: Point {2} at {3} meters.\n\n".format(closest_to_start, closest_to_start_meters, closest_to_finish, closest_to_finish_meters,i+1,restricted_speed))
    #     print(output)
      #   speddingfile.write(output)
         self.textbox5.insertPlainText(output)
@@ -765,9 +779,10 @@ class MyTableWidget(QWidget):
     def marshal(self):
         cwd = os.getcwd()
         now = datetime.datetime.now() 
+        logFile = "marshaling_results.txt"
         for handler in logging.root.handlers[:]:
             logging.root.removeHandler(handler)
-        logging.basicConfig(filename='marshaling_results.txt', filemode='w', format='%(message)s', level=logging.INFO)
+        logging.basicConfig(filename=logFile, filemode='w', format='%(message)s', level=logging.INFO)
 #        logging.basicConfig(filename='marshaling_results_{0}.txt'.format(now.strftime("%Y%m%d_%H%M%S")), filemode='w', format='%(message)s', level=logging.INFO)
 
         self.textbox5.setStyleSheet("QPlainTextEdit {border: 2px solid gray; background-color:white; color:black; margin:20px;}")
@@ -870,7 +885,7 @@ class MyTableWidget(QWidget):
         self.textbox5.moveCursor(QTextCursor.End)
         QApplication.processEvents() # update gui
         logging.info(output)
-#           print(output)
+#        print(output)
 
 #           if isinstance(MarshalPoints, int) :
         if (checkArguments == 0):
@@ -914,7 +929,7 @@ class MyTableWidget(QWidget):
                         warning = 1
                 #        continue
                     else:
-                        output = "\n{0} contain {1} track(s) and {2} waypoint(s) and {3} route(s) and {4} segment(s).\n".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints),len(gpxCheckTrack.routes),segment_no)
+                        output = ("\n{0} contain {1} track(s) and {2} waypoint(s) and {3} route(s) and {4} segment(s).\n".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints),len(gpxCheckTrack.routes),segment_no))
     #                 print(output)
                     self.textbox5.insertPlainText(output)
                     self.textbox5.moveCursor(QTextCursor.End)
@@ -924,7 +939,7 @@ class MyTableWidget(QWidget):
 
                 if segment_no > 1 :
                     output = ("\nWARNING!, file {0} contain {1} segments, should not have more then 1 segment, results may be corrupted!\n\n".format(file,segment_no+1))
-         #           print(output1)
+         #           print(output)
                     warning = 1
           #          marshalfile.write(output)
                     self.textbox5.insertPlainText(output)
@@ -988,9 +1003,19 @@ class MyTableWidget(QWidget):
             logging.info(output)
 
             filename = "TrackingMap.html"
-            buttonReply = QMessageBox.question(self, 'finished message', "saved results to {0}\n\nShow results in web browser?".format(os.path.realpath(filename)), QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-            if buttonReply == QMessageBox.Yes:
-                webbrowser.open('file://' + os.path.realpath(filename))
+#            buttonReply = QMessageBox.question(self, 'finished message', "saved results to {0}\n\nShow results in web browser?".format(os.path.realpath(filename)), QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+#            if buttonReply == QMessageBox.Yes:
+#                webbrowser.open('file://' + os.path.realpath(filename))
+
+            output = ("\nsaved graphic results to {0}\n\nsaved text results to {1}\n".format(os.path.realpath(filename),os.path.realpath(logFile)))
+            self.textbox5.insertPlainText(output)
+            self.textbox5.moveCursor(QTextCursor.End)
+            QApplication.processEvents() # update gui
+            logging.info(output)
+
+            self.web.setWindowTitle("Marshaling Results")
+            self.web.load(QUrl('file://' + os.path.realpath(filename)))
+            self.web.show()
 
         else:
             output = ("\nworong arguments, please use:\n\n marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n")
@@ -1123,7 +1148,7 @@ class MyTableWidget(QWidget):
         if  is_waypoints == "yes" :          
             output = ("\nWARNING!, file {0} contain {1} waypoint(s), results may be corrupted!\n\n".format(file,waypoint_no+1))
             warning = 1
-       #     print(output1)
+       #     print(output)
        #     marshalfile.write(output)
             self.textbox5.insertPlainText(output)
             self.textbox5.moveCursor(QTextCursor.End)
