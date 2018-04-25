@@ -301,9 +301,9 @@ class MyTableWidget(QWidget):
     def spedding(self):
         now = datetime.datetime.now() 
         cwd = os.getcwd()
-        with open('spedding_results.txt', 'w'):
-            pass
-        logging.basicConfig(filename='spedding_results.txt', format='%(message)s', level=logging.INFO)
+        for handler in logging.root.handlers[:]:
+            logging.root.removeHandler(handler)
+        logging.basicConfig(filename='spedding_results.txt', filemode='w', format='%(message)s', level=logging.INFO)
 #        logging.basicConfig(filename='spedding_results_{0}.txt'.format(now.strftime("%Y%m%d_%H%M%S")), format='%(message)s', level=logging.INFO)
         
         self.textbox5.setStyleSheet("QPlainTextEdit {background-color:white; color:black; margin:20px;}")
@@ -368,7 +368,7 @@ class MyTableWidget(QWidget):
         if int(restrictedZones) < 1: # check if we have at least 1 zone
             checkArguments = 1
             
-        output = ("File generated on {1}.\nThere are {0} restricted Zone(s).\n".format(restrictedZones,now.strftime("%Y-%m-%d %H:%M:%S")))
+        output = ("File generated on {1}.\n\nThere are {0} restricted Zone(s).\n".format(restrictedZones,now.strftime("%Y-%m-%d %H:%M:%S")))
     #       print("\n{}".format(output))
      #   speddingfile.write("{}\n\n".format(output))
         self.textbox5.insertPlainText("{}\n\n".format(output))
@@ -432,13 +432,17 @@ class MyTableWidget(QWidget):
 
                 with open("{0}".format(file), "r") as gpx_file: # check if file contain track, if not passing on it
                     gpxCheckTrack = gpxpy.parse(gpx_file)
+
+                    for Check_track in gpxCheckTrack.tracks:
+                        segment_no = len(Check_track.segments)
+
                     if len(gpxCheckTrack.tracks) == 0 : 
-                        output = "\nwarning! {0} contain {1} tracks! and {2} waypoint(s) and {3} route(s)\n".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints),len(gpxCheckTrack.routes))
+                        output = "\nwarning! {0} contain {1} tracks! and {2} waypoint(s) and {3} route(s) and {4} segment(s).\n".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints),len(gpxCheckTrack.routes),segment_no)
                         self.textbox5.setStyleSheet("QPlainTextEdit {border: 5px solid red;}")
                         warning = 1
                         continue
                     else:
-                        output = "\n{0} contain {1} track(s) and {2} waypoint(s) and {3} route(s)\n".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints),len(gpxCheckTrack.routes))
+                        output = "\n{0} contain {1} track(s) and {2} waypoint(s) and {3} route(s) and {4} segment(s).\n".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints),len(gpxCheckTrack.routes),segment_no)
     #                 print(output)
                     self.textbox5.insertPlainText(output)
                     self.textbox5.moveCursor(QTextCursor.End)
@@ -446,6 +450,16 @@ class MyTableWidget(QWidget):
              #       speddingfile.write(output)
                     logging.info(output)
 
+                if segment_no > 1 :
+                    output=("\nWARNING!, file {0} contain {1} segments, should not have more then 1 segment, results may be corrupted!\n".format(file,segment_no+1))
+      #              print(output1)
+       #             speddingfile.write(output)
+                    warning = 1
+                    self.textbox5.insertPlainText(output)
+                    self.textbox5.setStyleSheet("QPlainTextEdit {border: 5px solid red;}")
+                    self.textbox5.moveCursor(QTextCursor.End)
+                    QApplication.processEvents() # update gui
+                    logging.info(output)
 
                 feature_group = folium.FeatureGroup(name=cleanFile)
                 my_map=self.SConvertAndSpeed(file,my_map,color[c],line_points,cwd,merge_segments,cleanFile,feature_group)
@@ -621,17 +635,6 @@ class MyTableWidget(QWidget):
                         
                         point_no_csv = point_no_csv + 1
 
-                if segment_no > 0 :
-                    output=("\nWARNING!, file {0} contain {1} segments, should not have more then 1 segment, results may be corrupted!\n".format(file,segment_no+1))
-      #              print(output1)
-       #             speddingfile.write(output)
-                    global warning
-                    warning = 1
-                    self.textbox5.insertPlainText(output)
-                    self.textbox5.setStyleSheet("QPlainTextEdit {border: 5px solid red;}")
-                    self.textbox5.moveCursor(QTextCursor.End)
-                    QApplication.processEvents() # update gui
-                    logging.info(output)
 
         if line_points == "line" :
             folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(cleanFile), weight=3, opacity=1).add_to(feature_group)
@@ -698,7 +701,7 @@ class MyTableWidget(QWidget):
             logging.info(output)
             return App()
 
-        output = ('\nRestricted {5} kph Zone {4}:\nClosest to start: Point {0} at {1} meters, Closest to finish: Point {2} at {3} meters.\n'.format(closest_to_start, closest_to_start_meters, closest_to_finish, closest_to_finish_meters,i+1,restricted_speed))
+        output = ('\nRestricted Zone {4} ({5} kph):\nClosest to start: Point {0} at {1} meters, Closest to finish: Point {2} at {3} meters.\n\n'.format(closest_to_start, closest_to_start_meters, closest_to_finish, closest_to_finish_meters,i+1,restricted_speed))
    #     print(output)
      #   speddingfile.write(output)
         self.textbox5.insertPlainText(output)
@@ -765,9 +768,9 @@ class MyTableWidget(QWidget):
    #     print(self.comboBox.currentText())
         cwd = os.getcwd()
         now = datetime.datetime.now() 
-        with open('marshaling_results.txt', 'w'):
-            pass
-        logging.basicConfig(filename='marshaling_results.txt', format='%(message)s', level=logging.INFO)
+        for handler in logging.root.handlers[:]:
+            logging.root.removeHandler(handler)
+        logging.basicConfig(filename='marshaling_results.txt', filemode='w', format='%(message)s', level=logging.INFO)
 #        logging.basicConfig(filename='marshaling_results_{0}.txt'.format(now.strftime("%Y%m%d_%H%M%S")), format='%(message)s', level=logging.INFO)
 
         self.textbox5.setStyleSheet("QPlainTextEdit {border: 2px solid gray; background-color:white; color:black; margin:20px;}")
@@ -899,7 +902,7 @@ class MyTableWidget(QWidget):
                         
                 cleanFile = os.path.splitext(file)[0]                
                         
-                output = ("\nChecking file: {}\n".format(cleanFile))
+                output = ("\n\nChecking file: {}".format(cleanFile))
       #          marshalfile.write(output)
                 self.textbox5.insertPlainText(output)
                 self.textbox5.moveCursor(QTextCursor.End)
@@ -908,13 +911,17 @@ class MyTableWidget(QWidget):
 
                 with open("{0}".format(file), "r") as gpx_file: # check if file contain track, if not passing on it
                     gpxCheckTrack = gpxpy.parse(gpx_file)
+
+                    for Check_track in gpxCheckTrack.tracks:
+                        segment_no = len(Check_track.segments)
+
                     if len(gpxCheckTrack.tracks) == 0 : 
-                        output = "\nwarning! {0} contain {1} tracks! and {2} waypoint(s) and {3} route(s)\n".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints),len(gpxCheckTrack.routes))
+                        output = "\nwarning! {0} contain {1} tracks! and {2} waypoint(s) and {3} route(s) and {4} segment(s).\n".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints),len(gpxCheckTrack.routes),segment_no)
                         self.textbox5.setStyleSheet("QPlainTextEdit {border: 5px solid red;}")
                         warning = 1
                 #        continue
                     else:
-                        output = "\n{0} contain {1} track(s) and {2} waypoint(s) and {3} route(s)\n".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints),len(gpxCheckTrack.routes))
+                        output = "\n{0} contain {1} track(s) and {2} waypoint(s) and {3} route(s) and {4} segment(s).\n".format(cleanFile,len(gpxCheckTrack.tracks),len(gpxCheckTrack.waypoints),len(gpxCheckTrack.routes),segment_no)
     #                 print(output)
                     self.textbox5.insertPlainText(output)
                     self.textbox5.moveCursor(QTextCursor.End)
@@ -922,6 +929,16 @@ class MyTableWidget(QWidget):
        #             marshalfile.write(output)
                     logging.info(output)
 
+                if segment_no > 1 :
+                    output = ("\nWARNING!, file {0} contain {1} segments, should not have more then 1 segment, results may be corrupted!\n\n".format(file,segment_no+1))
+         #           print(output1)
+                    warning = 1
+          #          marshalfile.write(output)
+                    self.textbox5.insertPlainText(output)
+                    self.textbox5.setStyleSheet("QPlainTextEdit {border: 5px solid red;}")
+                    self.textbox5.moveCursor(QTextCursor.End)
+                    QApplication.processEvents() # update gui
+                    logging.info(output)
 
 
         #          print(cleanFile)
@@ -1091,18 +1108,6 @@ class MyTableWidget(QWidget):
 
                         point_no_csv = point_no_csv + 1
 
-                if segment_no > 0 :
-                    output = ("\nWARNING!, file {0} contain {1} segments, should not have more then 1 segment, results may be corrupted!\n\n".format(file,segment_no+1))
-         #           print(output1)
-                    global warning
-                    warning = 1
-          #          marshalfile.write(output)
-                    self.textbox5.insertPlainText(output)
-                    self.textbox5.setStyleSheet("QPlainTextEdit {border: 5px solid red;}")
-                    self.textbox5.moveCursor(QTextCursor.End)
-                    QApplication.processEvents() # update gui
-                    logging.info(output)
-
         if line_points == "line" :
 
             folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(cleanFile), weight=3, opacity=1).add_to(feature_group)
@@ -1173,7 +1178,7 @@ class MyTableWidget(QWidget):
         for row in reader:
                 if (int(row[0]) == int(closest_to_marshal_point)) :
                     if int(closest_to_marshal_point_meters) > int(out_of_range) :
-                        output = ("Passed Marshal {0} on {1} at distance of {2} meters and speed of {3} kph. OUT OF RANGE".format(x, row[4],int(closest_to_marshal_point_meters), row[3]))
+                        output = ("Passed Marshal {0} on {1} at distance of {2} meters and speed of {3} kph. OUT OF RANGE\n".format(x, row[4],int(closest_to_marshal_point_meters), row[3]))
                     else :
                         output = ("Passed Marshal {0} on {1} at distance of {2} meters and speed of {3} kph.\n".format(x, row[4],int(closest_to_marshal_point_meters), row[3]))
           #          print(output)
