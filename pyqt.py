@@ -14,7 +14,6 @@ import sys
 import csv
 import glob, os
 import datetime
-#import matplotlib.pyplot as plt
 import folium
 from folium.plugins import FloatImage
 
@@ -304,7 +303,7 @@ class MyTableWidget(QWidget):
         for handler in logging.root.handlers[:]:
             logging.root.removeHandler(handler)
         logging.basicConfig(filename='spedding_results.txt', filemode='w', format='%(message)s', level=logging.INFO)
-#        logging.basicConfig(filename='spedding_results_{0}.txt'.format(now.strftime("%Y%m%d_%H%M%S")), format='%(message)s', level=logging.INFO)
+#        logging.basicConfig(filename='spedding_results_{0}.txt'.format(now.strftime("%Y%m%d_%H%M%S")), filemode='w', format='%(message)s', level=logging.INFO)
         
         self.textbox5.setStyleSheet("QPlainTextEdit {background-color:white; color:black; margin:20px;}")
         self.textbox5.clear()
@@ -764,14 +763,12 @@ class MyTableWidget(QWidget):
 
     @pyqtSlot()
     def marshal(self):
-    #    print('PyQt5 button click')
-   #     print(self.comboBox.currentText())
         cwd = os.getcwd()
         now = datetime.datetime.now() 
         for handler in logging.root.handlers[:]:
             logging.root.removeHandler(handler)
         logging.basicConfig(filename='marshaling_results.txt', filemode='w', format='%(message)s', level=logging.INFO)
-#        logging.basicConfig(filename='marshaling_results_{0}.txt'.format(now.strftime("%Y%m%d_%H%M%S")), format='%(message)s', level=logging.INFO)
+#        logging.basicConfig(filename='marshaling_results_{0}.txt'.format(now.strftime("%Y%m%d_%H%M%S")), filemode='w', format='%(message)s', level=logging.INFO)
 
         self.textbox5.setStyleSheet("QPlainTextEdit {border: 2px solid gray; background-color:white; color:black; margin:20px;}")
         self.textbox5.clear()
@@ -849,10 +846,6 @@ class MyTableWidget(QWidget):
         QApplication.processEvents() # update gui
         logging.info(output)
 
-        # loging the points
-#            arguments = len(sys.argv) - 1
-        # output argument-wise
-        #position = 2  
 
         for x in range(0, MarshalPoints):
             output = ("Marshal point {0}: {1}\n".format((x+1), (pointsCheck)[x]))
@@ -1111,16 +1104,7 @@ class MyTableWidget(QWidget):
         if line_points == "line" :
 
             folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(cleanFile), weight=3, opacity=1).add_to(feature_group)
-        '''
-        if len(longitude) > 0:
-        #       plt.axis('equal')
-            plt.plot(longitude,latitude,label=cleanFile,) #
-        if len(wptlongitude) > 0:
-        #       plt.axis('equal')
-            plt.plot(wptlongitude,wptlatitude,label="waypoints",) #
-        plt.legend()
-        plt.show(block=False)
-        '''
+
         is_waypoints = "no"
         for waypoint_no, waypoint in enumerate(gpx.waypoints):
             if waypoint_no != None :
