@@ -301,10 +301,10 @@ class MyTableWidget(QWidget):
     def spedding(self):
         now = datetime.datetime.now() 
         cwd = os.getcwd()
-        with open('spedding_results.log', 'w'):
+        with open('spedding_results.txt', 'w'):
             pass
-        logging.basicConfig(filename='spedding_results.log', format='%(message)s', level=logging.INFO)
-#        logging.basicConfig(filename='spedding_results_{0}.log'.format(now.strftime("%Y%m%d_%H%M%S")), format='%(message)s', level=logging.INFO)
+        logging.basicConfig(filename='spedding_results.txt', format='%(message)s', level=logging.INFO)
+#        logging.basicConfig(filename='spedding_results_{0}.txt'.format(now.strftime("%Y%m%d_%H%M%S")), format='%(message)s', level=logging.INFO)
         
         self.textbox5.setStyleSheet("QPlainTextEdit {background-color:white; color:black; margin:20px;}")
         self.textbox5.clear()
@@ -394,12 +394,13 @@ class MyTableWidget(QWidget):
 
         #   print("checkArguments "+str(checkArguments))
         
-    #    speddingfile.write("\nchecking folder: {0}\n".format(cwd))
-#        print("\nchecking folder: {0}\n".format(cwd))
-        self.textbox5.insertPlainText("\nchecking folder: {0}\n".format(cwd))
+        output = ("\nchecking folder: {0}\n".format(cwd))
+    #    speddingfile.write(output)
+#        print(output)
+        self.textbox5.insertPlainText(output)
         self.textbox5.moveCursor(QTextCursor.End)
         QApplication.processEvents() # update gui
-        logging.info("\nchecking folder: {0}\n".format(cwd))
+        logging.info(output)
 
         if (((len(pointsCheck))%3 == 0) and (checkArguments == 0)): # check in number of arguments are devided by 3 using modulo and it structured right
             if (glob.glob("*.gpx")) :
@@ -407,13 +408,14 @@ class MyTableWidget(QWidget):
                 speeding_feature_group = folium.FeatureGroup(name="speeding zone")
 
             else:
-                print("\n\nNo gpx files!\n")
-          #      speddingfile.write("\n\nNo gpx files!\n")
-                self.textbox5.insertPlainText("\n\nNo gpx files!\n")
+                output = ("\n\nNo gpx files!\n")
+        #        print(output)
+          #      speddingfile.write(output)
+                self.textbox5.insertPlainText(output)
                 self.textbox5.moveCursor(QTextCursor.End)
                 self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
                 QApplication.processEvents() # update gui
-                logging.info("\n\nNo gpx files!\n")
+                logging.info(output)
                 return App()
 
             #os.chdir("/mydir")
@@ -421,11 +423,12 @@ class MyTableWidget(QWidget):
 
                 cleanFile = os.path.splitext(file)[0]                
 
-           #     speddingfile.write("\nChecking file: {0}\n".format(cleanFile))
-                self.textbox5.insertPlainText("\nChecking file: {0}\n".format(cleanFile))
+                output = ("\nChecking file: {0}\n".format(cleanFile))
+           #     speddingfile.write(output)
+                self.textbox5.insertPlainText(output)
                 self.textbox5.moveCursor(QTextCursor.End)
                 QApplication.processEvents() # update gui
-                logging.info("\nChecking file: {0}\n".format(cleanFile))
+                logging.info(output)
 
                 with open("{0}".format(file), "r") as gpx_file: # check if file contain track, if not passing on it
                     gpxCheckTrack = gpxpy.parse(gpx_file)
@@ -762,10 +765,10 @@ class MyTableWidget(QWidget):
    #     print(self.comboBox.currentText())
         cwd = os.getcwd()
         now = datetime.datetime.now() 
-        with open('marshaling_results.log', 'w'):
+        with open('marshaling_results.txt', 'w'):
             pass
-        logging.basicConfig(filename='marshaling_results.log', format='%(message)s', level=logging.INFO)
-#        logging.basicConfig(filename='marshaling_results_{0}.log'.format(now.strftime("%Y%m%d_%H%M%S")), format='%(message)s', level=logging.INFO)
+        logging.basicConfig(filename='marshaling_results.txt', format='%(message)s', level=logging.INFO)
+#        logging.basicConfig(filename='marshaling_results_{0}.txt'.format(now.strftime("%Y%m%d_%H%M%S")), format='%(message)s', level=logging.INFO)
 
         self.textbox5.setStyleSheet("QPlainTextEdit {border: 2px solid gray; background-color:white; color:black; margin:20px;}")
         self.textbox5.clear()
