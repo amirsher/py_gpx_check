@@ -559,7 +559,7 @@ class MyTableWidget(QWidget):
             self.progressBar.setValue( 100 )
 
             self.web.setWindowTitle("Speeding Results")
-            self.web.load(QUrl('file://' + os.path.realpath(filename)))
+            self.web.load(QUrl("file://" + os.path.realpath(filename)))
             self.web.show()
 
         else:
