@@ -312,7 +312,7 @@ class MyTableWidget(QWidget):
         logFile = "spedding_results.txt"
         for handler in logging.root.handlers[:]:
             logging.root.removeHandler(handler)
-        logging.basicConfig(filename=logFile, filemode='w', format='%(message)s', level=logging.INFO)
+        logging.basicConfig(filename=os.path.realpath(logFile), filemode='w', format='%(message)s', level=logging.INFO)
 #        logging.basicConfig(filename='spedding_results_{0}.txt'.format(now.strftime("%Y%m%d_%H%M%S")), filemode='w', format='%(message)s', level=logging.INFO)
         
         self.textbox5.setStyleSheet("QPlainTextEdit {background-color:white; color:black; margin:20px;}")
@@ -797,7 +797,7 @@ class MyTableWidget(QWidget):
         logFile = "marshaling_results.txt"
         for handler in logging.root.handlers[:]:
             logging.root.removeHandler(handler)
-        logging.basicConfig(filename=logFile, filemode='w', format='%(message)s', level=logging.INFO)
+        logging.basicConfig(filename=os.path.realpath(logFile), filemode='w', format='%(message)s', level=logging.INFO)
 #        logging.basicConfig(filename='marshaling_results_{0}.txt'.format(now.strftime("%Y%m%d_%H%M%S")), filemode='w', format='%(message)s', level=logging.INFO)
 
         self.textbox5.setStyleSheet("QPlainTextEdit {border: 2px solid gray; background-color:white; color:black; margin:20px;}")
