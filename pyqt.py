@@ -2,7 +2,7 @@
 
 import webbrowser, os, sys
 import logging
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QCheckBox, QLabel, QSizePolicy, QHBoxLayout, QVBoxLayout, QComboBox, QPlainTextEdit, QFileDialog, QTabWidget
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QCheckBox, QLabel, QSizePolicy, QHBoxLayout, QVBoxLayout, QComboBox, QPlainTextEdit, QFileDialog, QTabWidget, QProgressBar
 from PyQt5.QtGui import QIcon, QTextCursor
 from PyQt5.QtCore import pyqtSlot, Qt, QUrl
 from subprocess import Popen, PIPE
@@ -87,7 +87,11 @@ class MyTableWidget(QWidget):
         self.textbox5.setReadOnly(True)
         self.textbox5.setStyleSheet("QPlainTextEdit {margin:20px;}")
 
-
+        # Creating a progress bar and setting the value limits
+        self.progressBar = QProgressBar(self)
+        self.progressBar.setMaximum(100)
+        self.progressBar.setMinimum(0)
+        self.progressBar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 #########################################
 ########        speeding     ############
 #########################################
@@ -228,7 +232,8 @@ class MyTableWidget(QWidget):
         h_box3.addWidget(self.comboBox)
         h_box3.addStretch()
 
-        h_box4 = QHBoxLayout()
+        h_box4 = QVBoxLayout()
+        h_box4.addWidget(self.progressBar)
         h_box4.addWidget(self.textbox5)
 
         h_box5 = QHBoxLayout()
@@ -301,6 +306,7 @@ class MyTableWidget(QWidget):
 
     @pyqtSlot()
     def spedding(self):
+        self.progressBar.setValue( 0 )
         now = datetime.datetime.now() 
         cwd = os.getcwd()
         logFile = "spedding_results.txt"
@@ -411,7 +417,7 @@ class MyTableWidget(QWidget):
                 speeding_feature_group = folium.FeatureGroup(name="speeding zone")
 
             else:
-                output = ("\n\nNo gpx files!\n")
+                output = ("\n\nNo gpx file(s)!\n")
         #        print(output)
           #      speddingfile.write(output)
                 self.textbox5.insertPlainText(output)
@@ -421,8 +427,15 @@ class MyTableWidget(QWidget):
                 logging.info(output)
                 return App()
 
-            #os.chdir("/mydir")
+            # for progressBar
+            n = len(glob.glob("*.gpx"))
+            n = 100/n
+            v = n
+
             for file in glob.glob("*.gpx"):
+                
+                self.progressBar.setValue(int(v))
+                v =  n + v
 
                 cleanFile = os.path.splitext(file)[0]                
 
@@ -454,7 +467,7 @@ class MyTableWidget(QWidget):
                     logging.info(output)
 
                 if segment_no > 1 :
-                    output = ("\nWARNING!, file {0} contain {1} segments, should not have more then 1 segment, results may be corrupted!\n".format(file,segment_no+1))
+                    output = ("\nWARNING!, file {0} contain {1} segments, should not have more then 1 segment, results may be corrupted!\n".format(file,segment_no))
       #              print(output)
        #             speddingfile.write(output)
                     warning = 1
@@ -543,6 +556,7 @@ class MyTableWidget(QWidget):
             self.textbox5.moveCursor(QTextCursor.End)
             QApplication.processEvents() # update gui
             logging.info(output)
+            self.progressBar.setValue( 100 )
 
             self.web.setWindowTitle("Speeding Results")
             self.web.load(QUrl('file://' + os.path.realpath(filename)))
@@ -777,6 +791,7 @@ class MyTableWidget(QWidget):
 
     @pyqtSlot()
     def marshal(self):
+        self.progressBar.setValue( 0 )
         cwd = os.getcwd()
         now = datetime.datetime.now() 
         logFile = "marshaling_results.txt"
@@ -895,7 +910,7 @@ class MyTableWidget(QWidget):
                 marshals_feature_group = folium.FeatureGroup(name="Marshal(s)")
 
             else:
-                output = ("\n\nNo gpx files!\n")
+                output = ("\n\nNo gpx file(s)!\n")
      #           marshalfile.write(output)
         #           print(output)
                 self.textbox5.insertPlainText(output)
@@ -905,9 +920,16 @@ class MyTableWidget(QWidget):
                 logging.info(output)
                 return App()
 
+            # for progressBar
+            n = len(glob.glob("*.gpx"))
+            n = 100/n
+            v = n
 
             for file in glob.glob("*.gpx"):
                         
+                self.progressBar.setValue(int(v))
+                v =  n + v
+
                 cleanFile = os.path.splitext(file)[0]                
                         
                 output = ("\n\nChecking file: {}".format(cleanFile))
@@ -938,7 +960,7 @@ class MyTableWidget(QWidget):
                     logging.info(output)
 
                 if segment_no > 1 :
-                    output = ("\nWARNING!, file {0} contain {1} segments, should not have more then 1 segment, results may be corrupted!\n\n".format(file,segment_no+1))
+                    output = ("\nWARNING!, file {0} contain {1} segments, should not have more then 1 segment, results may be corrupted!\n\n".format(file,segment_no))
          #           print(output)
                     warning = 1
           #          marshalfile.write(output)
@@ -1012,6 +1034,7 @@ class MyTableWidget(QWidget):
             self.textbox5.moveCursor(QTextCursor.End)
             QApplication.processEvents() # update gui
             logging.info(output)
+            self.progressBar.setValue( 100 )
 
             self.web.setWindowTitle("Marshaling Results")
             self.web.load(QUrl('file://' + os.path.realpath(filename)))
