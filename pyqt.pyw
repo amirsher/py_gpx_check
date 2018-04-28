@@ -1,19 +1,20 @@
 #!/usr/bin/python
 
-import webbrowser, os, sys
+#import webbrowser
+#import datetime
+import os, sys
 import logging
 import gpxpy
 import gpxpy.gpx
 import math
 import csv
 import glob
-import datetime
 import folium
 from folium.plugins import FloatImage
 
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QCheckBox, QLabel, QSizePolicy, QHBoxLayout, QVBoxLayout, QComboBox, QPlainTextEdit, QFileDialog, QTabWidget, QProgressBar
 from PyQt5.QtGui import QIcon, QTextCursor
-from PyQt5.QtCore import pyqtSlot, Qt, QUrl
+from PyQt5.QtCore import pyqtSlot, Qt, QUrl, QDateTime
 from subprocess import Popen, PIPE
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
@@ -315,7 +316,7 @@ class MyTableWidget(QWidget):
     @pyqtSlot()
     def spedding(self):
         self.progressBar.setValue( 0 )
-        now = datetime.datetime.now() 
+  #      now = datetime.datetime.now() 
         cwd = os.getcwd()
         logFile = "spedding_results.txt"
         for handler in logging.root.handlers[:]:
@@ -325,7 +326,7 @@ class MyTableWidget(QWidget):
         
         self.textbox5.setStyleSheet("QPlainTextEdit {background-color:white; color:black; margin:20px;}")
         self.textbox5.clear()
-        self.textbox5.insertPlainText("checking...\n\n")
+   #     self.textbox5.insertPlainText("checking...\n\n")
         QApplication.processEvents() # update gui
         global warning
         warning = 0
@@ -385,7 +386,7 @@ class MyTableWidget(QWidget):
         if int(restrictedZones) < 1: # check if we have at least 1 zone
             checkArguments = 1
             
-        output = ("File generated on {1}.\n\nThere are {0} restricted Zone(s).\n".format(restrictedZones,now.strftime("%Y-%m-%d %H:%M:%S")))
+        output = ("File generated on {1}.\n\nThere are {0} restricted Zone(s).\n".format(restrictedZones,QDateTime.currentDateTime().toString(Qt.ISODate)))
     #       print("\n{}".format(output))
      #   speddingfile.write("{}\n\n".format(output))
         self.textbox5.insertPlainText("{}\n\n".format(output))
@@ -438,7 +439,7 @@ class MyTableWidget(QWidget):
             # for progressBar
             n = len(glob.glob("*.gpx"))
             n = 100/n
-            v = n
+            v = 0
 
             for file in glob.glob("*.gpx"):
                 
@@ -566,10 +567,10 @@ class MyTableWidget(QWidget):
             logging.info(output)
             self.progressBar.setValue( 100 )
 
-            self.web.setWindowTitle("Speeding Results")
+      #      self.web.setWindowTitle("Speeding Results")
             self.web.load(QUrl().fromLocalFile(os.path.realpath(filename)))
-            self.web.show()
             self.tabs.setCurrentIndex(2) # jump to Results tab
+            self.web.show()
         else:
     #           print('\nworong arguments, please use:\n\npython rally_speeding_folder.py start_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n')
             output = ("\nworong arguments, please use:\n\nstart_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n")
@@ -801,7 +802,7 @@ class MyTableWidget(QWidget):
     def marshal(self):
         self.progressBar.setValue( 0 )
         cwd = os.getcwd()
-        now = datetime.datetime.now() 
+     #   now = datetime.datetime.now() 
         logFile = "marshaling_results.txt"
         for handler in logging.root.handlers[:]:
             logging.root.removeHandler(handler)
@@ -810,7 +811,7 @@ class MyTableWidget(QWidget):
 
         self.textbox5.setStyleSheet("QPlainTextEdit {border: 2px solid gray; background-color:white; color:black; margin:20px;}")
         self.textbox5.clear()
-        self.textbox5.insertPlainText("checking...\n\n")
+    #    self.textbox5.insertPlainText("checking...\n\n")
         QApplication.processEvents() # update gui
         global warning
         warning = 0
@@ -876,7 +877,7 @@ class MyTableWidget(QWidget):
 
 #            MarshalPoints= int(len(sys.argv)-2)
 
-        output = ("File generated on {2}.\n\nThere are {0} Marshal Point(s).\nOut of range set to {1} meters.\n\n".format(MarshalPoints,distance_to_marshal_allowed,now.strftime("%Y-%m-%d %H:%M:%S")))
+        output = ("File generated on {2}.\n\nThere are {0} Marshal Point(s).\nOut of range set to {1} meters.\n\n".format(MarshalPoints,distance_to_marshal_allowed,QDateTime.currentDateTime().toString(Qt.ISODate)))
 #         print("\n{}".format(output))
  #       marshalfile.write(output)
         self.textbox5.insertPlainText(output)
@@ -931,7 +932,7 @@ class MyTableWidget(QWidget):
             # for progressBar
             n = len(glob.glob("*.gpx"))
             n = 100/n
-            v = n
+            v = 0
 
             for file in glob.glob("*.gpx"):
                         
@@ -1044,10 +1045,10 @@ class MyTableWidget(QWidget):
             logging.info(output)
             self.progressBar.setValue( 100 )
 
-            self.web.setWindowTitle("Marshaling Results")
+     #       self.web.setWindowTitle("Marshaling Results")
             self.web.load(QUrl().fromLocalFile(os.path.realpath(filename)))
-            self.web.show()
             self.tabs.setCurrentIndex(2) # jump to Results tab
+            self.web.show()
 
         else:
             output = ("\nworong arguments, please use:\n\n marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n")
