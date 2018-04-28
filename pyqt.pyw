@@ -2,28 +2,28 @@
 
 import webbrowser, os, sys
 import logging
+import gpxpy
+import gpxpy.gpx
+import math
+import csv
+import glob
+import datetime
+import folium
+from folium.plugins import FloatImage
+
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QCheckBox, QLabel, QSizePolicy, QHBoxLayout, QVBoxLayout, QComboBox, QPlainTextEdit, QFileDialog, QTabWidget, QProgressBar
 from PyQt5.QtGui import QIcon, QTextCursor
 from PyQt5.QtCore import pyqtSlot, Qt, QUrl
 from subprocess import Popen, PIPE
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
-import gpxpy
-import gpxpy.gpx
-import math
-import sys
-import csv
-import glob, os
-import datetime
-import folium
-from folium.plugins import FloatImage
 
 #from pathlib import Path
 #print(str(Path.home()))
 
-os.chdir(os.path.expanduser("~/Desktop"))
 #script_folder = os.getcwd()
 scriptDir = os.path.dirname(os.path.realpath(__file__))
+os.chdir(os.path.expanduser("~/Desktop"))
 
 class App(QMainWindow):
  
@@ -51,13 +51,14 @@ class MyTableWidget(QWidget):
  #       self.layout = QVBoxLayout(self)
         self.layout = QVBoxLayout()
         self.web = QWebEngineView()
-        self.web.setWindowIcon(QIcon(scriptDir + os.path.sep + 'logo-512x512.png')) 
+ #       self.web.setWindowIcon(QIcon(scriptDir + os.path.sep + 'logo-512x512.png')) 
 
         # Initialize tab screen
         self.tabs = QTabWidget()
  #       self.tab1 = QWidget()	
         self.tab2 = QWidget()
         self.tab3 = QWidget()
+        self.tab4 = QWidget()
 #        self.tabs.resize(300,200) 
         self.tabs.setStyleSheet("QTabBar{font: bold;}")
 
@@ -65,6 +66,7 @@ class MyTableWidget(QWidget):
   #      self.tabs.addTab(self.tab1,"Folder")
         self.tabs.addTab(self.tab2,"Speeding")
         self.tabs.addTab(self.tab3,"Marshaling")
+        self.tabs.addTab(self.web,"Results")
          
         # Create textbox
         self.textbox0 = QLabel(self)
@@ -95,7 +97,7 @@ class MyTableWidget(QWidget):
         self.progressBar = QProgressBar(self)
         self.progressBar.setMaximum(100)
         self.progressBar.setMinimum(0)
-        self.progressBar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+   #     self.progressBar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 #########################################
 ########        speeding     ############
 #########################################
@@ -292,6 +294,8 @@ class MyTableWidget(QWidget):
 #        self.tab3.layout.addLayout(h_box4)
         self.tab3.setLayout(self.tab3.layout)
 
+        self.tab4.layout = QVBoxLayout(self)
+        self.tab4.setLayout(self.tab4.layout)
 
         layout2 = QVBoxLayout()
         layout2.addLayout(h_box0)
@@ -565,7 +569,7 @@ class MyTableWidget(QWidget):
             self.web.setWindowTitle("Speeding Results")
             self.web.load(QUrl().fromLocalFile(os.path.realpath(filename)))
             self.web.show()
-
+            self.tabs.setCurrentIndex(2) # jump to Results tab
         else:
     #           print('\nworong arguments, please use:\n\npython rally_speeding_folder.py start_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n')
             output = ("\nworong arguments, please use:\n\nstart_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n")
@@ -1043,6 +1047,7 @@ class MyTableWidget(QWidget):
             self.web.setWindowTitle("Marshaling Results")
             self.web.load(QUrl().fromLocalFile(os.path.realpath(filename)))
             self.web.show()
+            self.tabs.setCurrentIndex(2) # jump to Results tab
 
         else:
             output = ("\nworong arguments, please use:\n\n marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n")
