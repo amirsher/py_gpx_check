@@ -92,13 +92,16 @@ class MyTableWidget(QWidget):
         self.textbox5.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.textbox5.insertPlainText("results\n\n")
         self.textbox5.setReadOnly(True)
-        self.textbox5.setStyleSheet("QPlainTextEdit {margin:20px;}")
+        self.textbox5.setStyleSheet("QPlainTextEdit {margin:10px;}")
 
         # Creating a progress bar and setting the value limits
         self.progressBar = QProgressBar(self)
         self.progressBar.setMaximum(100)
         self.progressBar.setMinimum(0)
-   #     self.progressBar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.progressBar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.progressBar.setTextVisible(0)
+
+
 #########################################
 ########        speeding     ############
 #########################################
