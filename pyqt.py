@@ -18,7 +18,11 @@ import datetime
 import folium
 from folium.plugins import FloatImage
 
-script_folder = os.getcwd()
+#from pathlib import Path
+#print(str(Path.home()))
+
+os.chdir(os.path.expanduser("~/Desktop"))
+#script_folder = os.getcwd()
 scriptDir = os.path.dirname(os.path.realpath(__file__))
 
 class App(QMainWindow):
@@ -65,7 +69,7 @@ class MyTableWidget(QWidget):
         # Create textbox
         self.textbox0 = QLabel(self)
         self.textbox0.setText("plaese select folder!")
-        self.textbox0.setToolTip('Please select the folder where all the GPX files are. All the results files will be saved to the this folder as well')
+        self.textbox0.setToolTip("Please select the folder where all the GPX files are.\nAll the results files will be saved to the this folder as well.\nIf no folder is selected, Desktop will be used.")
         self.textbox0.setStyleSheet("QLabel {font-size:36px; background-color:#eff0f1; color:black; border:none;}")
 #        self.textbox0.setReadOnly(True)
 #        self.textbox0.setMinimumWidth(400)        
@@ -559,7 +563,7 @@ class MyTableWidget(QWidget):
             self.progressBar.setValue( 100 )
 
             self.web.setWindowTitle("Speeding Results")
-            self.web.load(QUrl("file://" + os.path.realpath(filename)))
+            self.web.load(QUrl().fromLocalFile(os.path.realpath(filename)))
             self.web.show()
 
         else:
@@ -1037,7 +1041,7 @@ class MyTableWidget(QWidget):
             self.progressBar.setValue( 100 )
 
             self.web.setWindowTitle("Marshaling Results")
-            self.web.load(QUrl('file://' + os.path.realpath(filename)))
+            self.web.load(QUrl().fromLocalFile(os.path.realpath(filename)))
             self.web.show()
 
         else:
