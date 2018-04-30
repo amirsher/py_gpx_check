@@ -14,7 +14,7 @@ from folium.plugins import FloatImage
 
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QCheckBox, QLabel, QSizePolicy, QHBoxLayout, QVBoxLayout, QComboBox, QPlainTextEdit, QFileDialog, QTabWidget, QProgressBar, QStatusBar
 from PyQt5.QtGui import QIcon, QTextCursor
-from PyQt5.QtCore import pyqtSlot, Qt, QUrl, QDateTime
+from PyQt5.QtCore import pyqtSlot, Qt, QUrl, QDateTime, QThread, pyqtSignal
 from subprocess import Popen, PIPE
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
@@ -46,9 +46,19 @@ class App(QMainWindow):
  
 
 class MyTableWidget(QWidget):        
- 
+    signal_start_background_job = pyqtSignal()
+    signal_start_background_job1 = pyqtSignal()
+
     def __init__(self, parent):   
         super(QWidget, self).__init__(parent)
+
+        self.thread = QThread()
+        self.thread.finished.connect(lambda: self.s_button.setEnabled(True))
+
+        self.signal_start_background_job.connect(self.spedding)
+        self.signal_start_background_job1.connect(self.marshal)
+
+
  #       self.layout = QVBoxLayout(self)
         self.layout = QVBoxLayout()
         self.web = QWebEngineView()
@@ -136,7 +146,8 @@ class MyTableWidget(QWidget):
         self.s_button.setToolTip('check speeding zones')
         self.s_button.setStyleSheet("QPushButton {font-size:48px; background-color:lightgray; color:black; margin:30px;}")
         # connect button to function spedding
-        self.s_button.clicked.connect(self.spedding)
+        self.s_button.clicked.connect(self.start_background_job)
+   #     self.button.clicked.connect(self.spedding)
  
         self.s_label3 = QLabel("show track as (points is very slow): ")
         self.s_comboBox = QComboBox(self)
@@ -182,8 +193,9 @@ class MyTableWidget(QWidget):
         self.button.setToolTip('check marshaling points')
         self.button.setStyleSheet("QPushButton {font-size:48px; background-color:lightgray; color:black; margin:30px;}")
         # connect button to function marshal
-        self.button.clicked.connect(self.marshal)
- 
+        self.button.clicked.connect(self.start_background_job1)
+        #self.button.clicked.connect(self.marshal)
+
         self.label3 = QLabel("show track as (points is very slow): ")
         self.comboBox = QComboBox(self)
         self.comboBox.addItem("line")
@@ -312,11 +324,20 @@ class MyTableWidget(QWidget):
 
         self.setLayout(self.layout)
  
+    def start_background_job(self):
+        # No harm in calling thread.start() after the thread is already started.
+        self.thread.start()
+        self.signal_start_background_job.emit()
 
+    def start_background_job1(self):
+        # No harm in calling thread.start() after the thread is already started.
+        self.thread.start()
+        self.signal_start_background_job1.emit()
 
 
     @pyqtSlot()
     def spedding(self):
+        self.thread.started.connect(lambda: self.s_button.setEnabled(False))
         self.progressBar.setValue( 0 )
   #      now = datetime.datetime.now() 
         cwd = os.getcwd()
@@ -573,6 +594,7 @@ class MyTableWidget(QWidget):
             self.web.load(QUrl().fromLocalFile(os.path.realpath(filename)))
             self.tabs.setCurrentIndex(2) # jump to Results tab
             self.web.show()
+            self.thread.terminate()
         else:
     #           print('\nworong arguments, please use:\n\npython rally_speeding_folder.py start_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n')
             output = ("\nworong arguments, please use:\n\nstart_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n")
