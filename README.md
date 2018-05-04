@@ -9,7 +9,7 @@ on windows install for all users and add to path.
 
 open cmd as admin:
 
-`python -m install gpxpy`
+`pip install gpxpy` or `python -m install gpxpy`
 
 `python -m install folium`
 
@@ -19,9 +19,10 @@ copy the .py files to the python scripts folder (C:\Program Files\Python36\Scrip
 
 ### GUI ###
 
-[pyqt_tabed.py](https://github.com/amirsher/py_gpx_check/blob/master/pyqt_tabed.py) is a GUI built on [pyqt5](https://pypi.python.org/pypi/PyQt5).
+[pyqt.pyw](https://github.com/amirsher/py_gpx_check/blob/master/pyqt.pyw) is a GUI built on [pyqt5](https://pypi.python.org/pypi/PyQt5).
 ![pyqt5 GUI](https://github.com/amirsher/py_gpx_check/blob/master/pyqt5_gui.png)
 
+![pyqt5 GUI results](https://github.com/amirsher/py_gpx_check/blob/master/pyqt5_gui_results.png)
 ### info ###
 
 Accept lat/long in decimal (30.1749997,35.0642141) or min/sec (29.58.42.516,34.56.03.523) without N S E W
@@ -51,12 +52,13 @@ accepts waypoints gpx file.
 run: python marshaling.py 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625
 
 see [marshaling_results.txt](https://github.com/amirsher/py_gpx_check/blob/master/marshaling_results.txt) for sample report.
+<!--
 
 ### Track Ploting and Web Map  (deprecated)###
 
 Added ploting of the tracks using [matplotlib](https://matplotlib.org/), and displaying on a web page
 
-
+-->
 for sample reports see:
 
 "line"
@@ -69,8 +71,8 @@ for sample reports see:
 "marshaling"
 ![marshal point](https://github.com/amirsher/py_gpx_check/blob/master/marshal.png)
 [TrackingMap.html](https://github.com/amirsher/py_gpx_check/blob/master/TrackingMap.html)
-
+<!--
 plot (deprecated)
 ![marshal point](https://github.com/amirsher/py_gpx_check/blob/master/tracking.png)
-
+-->
 
