@@ -11,11 +11,11 @@ open cmd as admin:
 
 `pip install gpxpy` or `python -m install gpxpy`
 
-`python -m install folium`
+`pip install folium` or `python -m install folium`
 
-`python -m install PyQt5` (for GUI)
+`pip install PyQt5` or `python -m install PyQt5` (for GUI)
 
-copy the .py files to the python scripts folder (C:\Program Files\Python36\Scripts).
+copy the .py, .pyw, .png files to the python scripts folder (C:\Program Files\Python36\Scripts).
 
 ### GUI ###
 

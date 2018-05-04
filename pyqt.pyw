@@ -539,7 +539,7 @@ class MyTableWidget(QWidget):
                     c = 0
 
             speeding_feature_group.add_to(my_map)
-            url = ('http://tnuatiming.com/android-chrome-36x36.png')
+            url = ('https://tnuatiming.com/android-chrome-36x36.png')
             FloatImage(url, bottom=2, left=96).add_to(my_map)
             # my_map.add_child(MeasureControl())
             # folium.LatLngPopup().add_to(my_map)
@@ -1015,7 +1015,7 @@ class MyTableWidget(QWidget):
                     c = 0
                         
             marshals_feature_group.add_to(my_map)
-            url = ('http://tnuatiming.com/android-chrome-36x36.png')
+            url = ('https://tnuatiming.com/android-chrome-36x36.png')
             FloatImage(url, bottom=2, left=96).add_to(my_map)
             # my_map.add_child(MeasureControl())
             # folium.LatLngPopup().add_to(my_map)
