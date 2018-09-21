@@ -662,7 +662,7 @@ class MyTableWidget(QWidget):
                             point_no_csv = point_no
                             
                         if line_points == "points" :
-                            folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}<br>point no. {5}".format(cleanFile,speed,point.latitude,point.longitude,point.time,point_no_csv+1),fill_opacity=0.8).add_to(feature_group)
+                            folium.vector_layers.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), tooltip="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}<br>point no. {5}".format(cleanFile,speed,point.latitude,point.longitude,point.time,point_no_csv+1),fill_opacity=0.8).add_to(feature_group)
                                 
                         gpxfile.write('{0},{1},{2},{3},{4}\n'.format(point_no_csv, point.latitude, point.longitude, speed, point.time))
                     
@@ -675,7 +675,7 @@ class MyTableWidget(QWidget):
 
 
         if line_points == "line" :
-            folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(cleanFile), weight=3, opacity=1).add_to(feature_group)
+            folium.vector_layers.PolyLine(foliumpoints, color="{}".format(color),tooltip="{}".format(cleanFile), weight=3, opacity=1).add_to(feature_group)
         '''
         for waypoint in gpx.waypoints:
             folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='blue', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,waypoint.latitude,waypoint.longitude)).add_to(feature_group)
@@ -747,14 +747,14 @@ class MyTableWidget(QWidget):
         QApplication.processEvents() # update gui
         logging.info(output)
             
-        folium.Marker(location=(restricted_start[0],restricted_start[1]),icon=folium.Icon(color='red', icon='exclamation', prefix='fa'), popup="restricted zone {0} start<br>speed limit <b>{1} kph</b><br>{2} , {3}".format(i+1,restricted_speed,round(restricted_start[0],6),round(restricted_start[1],6))).add_to(speeding_feature_group)
-        folium.Marker(location=(restricted_finish[0],restricted_finish[1]),icon=folium.Icon(color='green', icon='check', prefix='fa'), popup="restricted zone {0} end<br>speed limit <b>{1} kph</b><br>{2} , {3}".format(i+1,restricted_speed,round(restricted_finish[0],6),round(restricted_finish[1],6))).add_to(speeding_feature_group)
+        folium.Marker(location=(restricted_start[0],restricted_start[1]),icon=folium.Icon(color='red', icon='exclamation', prefix='fa'), tooltip="restricted zone {0} start<br>speed limit <b>{1} kph</b><br>{2} , {3}".format(i+1,restricted_speed,round(restricted_start[0],6),round(restricted_start[1],6))).add_to(speeding_feature_group)
+        folium.Marker(location=(restricted_finish[0],restricted_finish[1]),icon=folium.Icon(color='green', icon='check', prefix='fa'), tooltip="restricted zone {0} end<br>speed limit <b>{1} kph</b><br>{2} , {3}".format(i+1,restricted_speed,round(restricted_finish[0],6),round(restricted_finish[1],6))).add_to(speeding_feature_group)
 
-        folium.features.Circle(location=(restricted_start[0],restricted_start[1]),radius=distance_from_point_allowed, weight=1,color="gray", popup="allowed {0} meters from point".format(distance_from_point_allowed),opacity=0.2).add_to(speeding_feature_group)
-        folium.features.Circle(location=(restricted_finish[0],restricted_finish[1]),radius=distance_from_point_allowed, weight=1,color="gray", popup="allowed {0} meters from point".format(distance_from_point_allowed),opacity=0.2).add_to(speeding_feature_group)
+        folium.vector_layers.Circle(location=(restricted_start[0],restricted_start[1]),radius=distance_from_point_allowed, weight=1,color="gray", tooltip="allowed {0} meters from point".format(distance_from_point_allowed),opacity=0.2).add_to(speeding_feature_group)
+        folium.vector_layers.Circle(location=(restricted_finish[0],restricted_finish[1]),radius=distance_from_point_allowed, weight=1,color="gray", tooltip="allowed {0} meters from point".format(distance_from_point_allowed),opacity=0.2).add_to(speeding_feature_group)
         # grace zone marking
-        folium.features.Circle(location=(restricted_start[0],restricted_start[1]),radius=graceZone, weight=1,color="lightgray", popup="grace zone: {0}  meters".format(graceZone),opacity=0.2).add_to(speeding_feature_group)
-        folium.features.Circle(location=(restricted_finish[0],restricted_finish[1]),radius=graceZone, weight=1,color="lightgray", popup="grace zone: {0}  meters".format(graceZone),opacity=0.2).add_to(speeding_feature_group)
+        folium.vector_layers.Circle(location=(restricted_start[0],restricted_start[1]),radius=graceZone, weight=1,color="lightgray", tooltip="grace zone: {0}  meters".format(graceZone),opacity=0.2).add_to(speeding_feature_group)
+        folium.vector_layers.Circle(location=(restricted_finish[0],restricted_finish[1]),radius=graceZone, weight=1,color="lightgray", tooltip="grace zone: {0}  meters".format(graceZone),opacity=0.2).add_to(speeding_feature_group)
 
         return (closest_to_start,closest_to_finish,restricted_speed,topspeed,topspeed_point)
         
@@ -779,14 +779,14 @@ class MyTableWidget(QWidget):
                     QApplication.processEvents() # update gui
                     logging.info(output)
 
-                    folium.Marker(location=(row[1],row[2]),icon=folium.Icon(color='black', icon='camera', prefix='fa'), popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4])).add_to(feature_group)
+                    folium.Marker(location=(row[1],row[2]),icon=folium.Icon(color='black', icon='camera', prefix='fa'), tooltip="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4])).add_to(feature_group)
                 elif ((showAllRestrictedPoints == 1) and (line_points == "line")):
-                    folium.features.Circle(location=(row[1],row[2]),radius=3,stroke=False,fill="true",color="#000000", popup="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4]),fill_opacity=1).add_to(feature_group)
+                    folium.vector_layers.Circle(location=(row[1],row[2]),radius=3,stroke=False,fill="true",color="#000000", tooltip="{0}<br>speed: <b>{1} kph</b><br>{4}<br>{2} , {3}".format(cleanFile,row[3],row[1],row[2],row[4]),fill_opacity=1).add_to(feature_group)
 
                     
             # marking the track restricted zone start/finish points for speeding calculation
             if ((sz == 0) and (int(row[0]) >= int(closest_to_start)) and (distToStart > graceZone)) :
-                folium.features.Circle(location=(row[1],row[2]),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0} entering restitricted zone<br>speed: <b>{1} kph</b><br>distance: {2} meters".format(cleanFile,row[3],distToStart),fill_opacity=1).add_to(feature_group)
+                folium.vector_layers.Circle(location=(row[1],row[2]),radius=5,stroke=False,fill="true",color="black",fill_color="black", tooltip="{0} entering restitricted zone<br>speed: <b>{1} kph</b><br>distance: {2} meters".format(cleanFile,row[3],distToStart),fill_opacity=1).add_to(feature_group)
                 sz = 1
 
             if ((int(row[0]) <= int(closest_to_finish)) and (distToFinish > graceZone)) :
@@ -794,7 +794,7 @@ class MyTableWidget(QWidget):
                 fzlon = row[2]
                 fzspeed = row[3]
                 fzdist = distToFinish
-        folium.features.Circle(location=(fzlat,fzlon),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0} exiting restitricted zone<br>speed: <b>{1} kph</b><br>distance: {2} meters".format(cleanFile,fzspeed,fzdist),fill_opacity=1).add_to(feature_group)
+        folium.vector_layers.Circle(location=(fzlat,fzlon),radius=5,stroke=False,fill="true",color="black",fill_color="black", tooltip="{0} exiting restitricted zone<br>speed: <b>{1} kph</b><br>distance: {2} meters".format(cleanFile,fzspeed,fzdist),fill_opacity=1).add_to(feature_group)
 
 
 
@@ -1001,9 +1001,9 @@ class MyTableWidget(QWidget):
                     marshal = self.FindClosestSingle([marshal_lat,marshal_long],cwd,file)
 
                     # add marshal marker to web map
-                    folium.Marker(location=(marshal_lat,marshal_long),icon=folium.Icon(color='blue', icon='male', prefix="fa"), popup="Marshal {0}<br>{1} , {2}".format(x+1,round(marshal_lat,6),round(marshal_long,6))).add_to(marshals_feature_group)
+                    folium.Marker(location=(marshal_lat,marshal_long),icon=folium.Icon(color='blue', icon='male', prefix="fa"), tooltip="Marshal {0}<br>{1} , {2}".format(x+1,round(marshal_lat,6),round(marshal_long,6))).add_to(marshals_feature_group)
                     
-                    folium.features.Circle(location=(marshal_lat,marshal_long),radius=distance_to_marshal_allowed, weight=1,color="gray", popup="allowed {0} meters from marshal {1}".format(distance_to_marshal_allowed,x+1),opacity=0.2).add_to(marshals_feature_group)
+                    folium.vector_layers.Circle(location=(marshal_lat,marshal_long),radius=distance_to_marshal_allowed, weight=1,color="gray", tooltip="allowed {0} meters from marshal {1}".format(distance_to_marshal_allowed,x+1),opacity=0.2).add_to(marshals_feature_group)
 
                     self.OutputMarshal(x+1,marshal[0],marshal[1],distance_to_marshal_allowed,cwd,file,cleanFile,feature_group)
                     feature_group.add_to(my_map)
@@ -1150,7 +1150,7 @@ class MyTableWidget(QWidget):
                             point_no_csv = point_no
 
                         if line_points == "points" :
-                            folium.features.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), popup="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}<br>point no. {5}".format(cleanFile,speed,point.latitude,point.longitude,point.time,point_no_csv+1),fill_opacity=0.8).add_to(feature_group)
+                            folium.vector_layers.Circle(location=(point.latitude,point.longitude),radius=5,stroke=False,fill="true",color="{}".format(color),fill_color="{}".format(color), tooltip="{0}<br>speed: {1} kph<br>{4}<br>{2} , {3}<br>point no. {5}".format(cleanFile,speed,point.latitude,point.longitude,point.time,point_no_csv+1),fill_opacity=0.8).add_to(feature_group)
                                 
                         gpxfile.write('{0},{1},{2},{3},{4}\n'.format(point_no_csv, point.latitude, point.longitude, speed, point.time))
                         '''
@@ -1163,7 +1163,7 @@ class MyTableWidget(QWidget):
 
         if line_points == "line" :
 
-            folium.features.PolyLine(foliumpoints, color="{}".format(color),popup="{}".format(cleanFile), weight=3, opacity=1).add_to(feature_group)
+            folium.vector_layers.PolyLine(foliumpoints, color="{}".format(color),tooltip="{}".format(cleanFile), weight=3, opacity=1).add_to(feature_group)
 
         is_waypoints = "no"
         for waypoint_no, waypoint in enumerate(gpx.waypoints):
@@ -1172,14 +1172,14 @@ class MyTableWidget(QWidget):
             if showWaypoints == 1 :
                 if waypoint.name == None :
                     waypoint.name = waypoint_no + 1
-                folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='lightgray', icon='check', prefix='fa'), popup="waypoint {0}<br>{1} , {2}".format(waypoint.name,round(waypoint.latitude,6),round(waypoint.longitude,6))).add_to(feature_group)
-                folium.features.Circle(location=(waypoint.latitude,waypoint.longitude),radius=distance_to_waypoint_allowed, weight=1,color="gray", popup="allowed {0} meters from waypoint".format(distance_to_waypoint_allowed),opacity=0.2).add_to(feature_group)
+                folium.Marker(location=(waypoint.latitude,waypoint.longitude),icon=folium.Icon(color='lightgray', icon='check', prefix='fa'), tooltip="waypoint {0}<br>{1} , {2}".format(waypoint.name,round(waypoint.latitude,6),round(waypoint.longitude,6))).add_to(feature_group)
+                folium.vector_layers.Circle(location=(waypoint.latitude,waypoint.longitude),radius=distance_to_waypoint_allowed, weight=1,color="gray", tooltip="allowed {0} meters from waypoint".format(distance_to_waypoint_allowed),opacity=0.2).add_to(feature_group)
 
                 if showWaypointsLine == 1 :
                     foliumWPTpoints.append(tuple([waypoint.latitude, waypoint.longitude]))
         
         if showWaypointsLine == 1 :
-            folium.features.PolyLine(foliumWPTpoints, color="lightgray",popup="waypoint track", weight=3, opacity=1).add_to(feature_group)
+            folium.vector_layers.PolyLine(foliumWPTpoints, color="lightgray",tooltip="waypoint track", weight=3, opacity=1).add_to(feature_group)
         if  is_waypoints == "yes" :          
             output = ("\nWARNING!, file {0} contain {1} waypoint(s), results may be corrupted!\n\n".format(file,waypoint_no+1))
             warning = 1
@@ -1233,9 +1233,9 @@ class MyTableWidget(QWidget):
                     logging.info(output)
 
                     if int(closest_to_marshal_point_meters) < int(out_of_range) :
-                        folium.features.Circle(location=(float(row[1]),float(row[2])),radius=5,stroke=False,fill="true",color="black",fill_color="black", popup="{0}<br>passed {1} meters from marshal {2}".format(cleanFile,closest_to_marshal_point_meters,x),fill_opacity=1).add_to(feature_group)
+                        folium.vector_layers.Circle(location=(float(row[1]),float(row[2])),radius=5,stroke=False,fill="true",color="black",fill_color="black", tooltip="{0}<br>passed {1} meters from marshal {2}".format(cleanFile,closest_to_marshal_point_meters,x),fill_opacity=1).add_to(feature_group)
                     else :                
-                        folium.Marker(location=(float(row[1]),float(row[2])),icon=folium.Icon(color='red', icon='info', prefix="fa"), popup="{0}<br>passed {1} meters from marshal {2}<br>OUT OF RANGE!".format(cleanFile,closest_to_marshal_point_meters,x)).add_to(feature_group)
+                        folium.Marker(location=(float(row[1]),float(row[2])),icon=folium.Icon(color='red', icon='info', prefix="fa"), tooltip="{0}<br>passed {1} meters from marshal {2}<br>OUT OF RANGE!".format(cleanFile,closest_to_marshal_point_meters,x)).add_to(feature_group)
 
 
 
