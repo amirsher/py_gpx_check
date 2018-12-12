@@ -574,8 +574,8 @@ class MyTableWidget(QWidget):
             self.tabs.setCurrentIndex(2) # jump to Results tab
             self.web.show()
         else:
-    #           print('\nworong arguments, please use:\n\npython rally_speeding_folder.py start_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: python rally_speeding_folder.py 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n')
-            output = ("\nworong arguments, please use:\n\nstart_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: 45.49222,5.90380 45.49885,5.90372 70 45.49222,5.90380 45.49885,5.90372 65\n")
+    #           print('\nworong arguments, please use:\n\npython rally_speeding_folder.py start_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: python rally_speeding_folder.py 30.195176,35.04978 30.1749997,35.0642141 40 30.0310113,34.933191 29.978476,34.934311 70\n')
+            output = ("\nworong arguments, please use:\n\nstart_lat,start_long finish_lat,finish_long restricted_speed\n\nEx: 30.195176,35.04978 30.1749997,35.0642141 40 30.0310113,34.933191 29.978476,34.934311 70\n")
             self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
             self.textbox5.insertPlainText(output)
             QApplication.processEvents() # update gui
@@ -1053,7 +1053,7 @@ class MyTableWidget(QWidget):
             self.web.show()
 
         else:
-            output = ("\nworong arguments, please use:\n\n marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: 45.48612,5.909551 45.49593,5.90369 45.50341,5.90479 45.51386,5.90625\n")
+            output = ("\nworong arguments, please use:\n\n marshal1_lat,marshal1_long marshal2_lat,marshal2_long \n\nEx: 30.195176,35.04978 30.1749997,35.0642141 30.0310113,34.933191 29.978476,34.934311\n")
         #      print(output)
       #      marshalfile.write(output)
             self.textbox5.setStyleSheet("QPlainTextEdit {background-color:red; color:white; margin:20px;}")
