@@ -13,7 +13,7 @@ open cmd as admin:
 
 `pip install folium` or `python -m install folium`
 
-`pip install PyQt5` or `python -m install PyQt5` (for GUI)
+`pip install PySide2` or `python -m install PySide2` (for GUI) or (OLD - `pip install PyQt5` or `python -m install PyQt5` (for GUI))
 
 copy the .py, .pyw, .png files to the python scripts folder (C:\Program Files\Python36\Scripts).
 

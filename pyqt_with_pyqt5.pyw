@@ -12,11 +12,11 @@ import glob
 import folium
 from folium.plugins import FloatImage
 
-from PySide2.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QCheckBox, QLabel, QSizePolicy, QHBoxLayout, QVBoxLayout, QComboBox, QPlainTextEdit, QFileDialog, QTabWidget, QProgressBar, QStatusBar
-from PySide2.QtGui import QIcon, QTextCursor
-from PySide2.QtCore import Slot, Qt, QUrl, QDateTime
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QCheckBox, QLabel, QSizePolicy, QHBoxLayout, QVBoxLayout, QComboBox, QPlainTextEdit, QFileDialog, QTabWidget, QProgressBar, QStatusBar
+from PyQt5.QtGui import QIcon, QTextCursor
+from PyQt5.QtCore import pyqtSlot, Qt, QUrl, QDateTime
 from subprocess import Popen, PIPE
-from PySide2.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 
 #from pathlib import Path
@@ -29,7 +29,7 @@ os.chdir(os.path.expanduser("~/Desktop"))
 class App(QMainWindow):
  
     def __init__(self):
-        super(App, self).__init__()
+        super().__init__()
         self.title = 'GPX Check'
 #        self.left = 0
  #       self.top = 0
@@ -48,7 +48,7 @@ class App(QMainWindow):
 class MyTableWidget(QWidget):        
  
     def __init__(self, parent):   
-        super(MyTableWidget, self).__init__(parent)
+        super(QWidget, self).__init__(parent)
  #       self.layout = QVBoxLayout(self)
         self.layout = QVBoxLayout()
         self.web = QWebEngineView()
@@ -315,7 +315,7 @@ class MyTableWidget(QWidget):
 
 
 
-    @Slot()
+    @pyqtSlot()
     def spedding(self):
         self.progressBar.setValue( 0 )
   #      now = datetime.datetime.now() 
@@ -800,7 +800,7 @@ class MyTableWidget(QWidget):
 
 
 
-    @Slot()
+    @pyqtSlot()
     def marshal(self):
         self.progressBar.setValue( 0 )
         cwd = os.getcwd()
